@@ -13,16 +13,21 @@ const CONTRIBUTION_COLOR: Record<string, string> = {
   HIGH: "#f87171", MEDIUM: "#fbbf24", LOW: "#34d399", NEUTRAL: "#8b93ab",
 };
 
-export default function EvidenceMatrix({ evidenceList, stageSummaries }: {
-  evidenceList: Evidence[]; stageSummaries: Record<string, string>;
+export default function EvidenceMatrix({ evidenceList, stageSummaries, metadataAnomaly }: {
+  evidenceList: Evidence[]; stageSummaries: Record<string, string>; metadataAnomaly?: boolean;
 }) {
   const rows = LAYERS.map((layer) => {
+    // Metadata anomalies never get a bbox/score, so they never land in evidenceList
+    // (see app/services/evidence.py) -- checked separately here so a real anomaly
+    // doesn't silently show as "Consistent"/"Unavailable" in this table.
+    if (layer.key === "metadata") {
+      const result = metadataAnomaly ? "Suspicious"
+        : stageSummaries.metadata?.toLowerCase().includes("unavailable") ? "Unavailable" : "Consistent";
+      return { ...layer, result, contribution: metadataAnomaly ? "HIGH" : "NEUTRAL", count: metadataAnomaly ? 1 : 0 };
+    }
     const items = evidenceList.filter((e) => e.stage === layer.key && !e.informational);
     const maxScore = items.length ? Math.max(...items.map((e) => e.score ?? 0)) : 0;
-    const result = items.length === 0
-      ? (layer.key === "metadata" && stageSummaries.metadata?.toLowerCase().includes("unavailable")
-          ? "Unavailable" : "Consistent")
-      : "Suspicious";
+    const result = items.length === 0 ? "Consistent" : "Suspicious";
     const contribution = items.length === 0 ? "NEUTRAL" : maxScore >= 0.6 ? "HIGH" : maxScore >= 0.35 ? "MEDIUM" : "LOW";
     return { ...layer, result, contribution, count: items.length };
   });

@@ -42,8 +42,8 @@ export default function InvestigationsPage() {
           {RISK_FILTERS.map((r) => (
             <button
               key={r} onClick={() => setRiskFilter(r)}
-              className={`px-3 py-2 rounded-lg text-xs font-medium transition ${
-                riskFilter === r ? "bg-accent text-white" : "glass text-white/50 hover:text-white"
+              className={`chip px-3.5 py-2 rounded-lg text-xs font-medium border ${
+                riskFilter === r ? "chip-active" : "chip-inactive"
               }`}
             >
               {r}

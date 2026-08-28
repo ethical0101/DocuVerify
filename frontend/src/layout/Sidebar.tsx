@@ -83,8 +83,10 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                   to={item.to}
                   onClick={onNavigate}
                   className={({ isActive }) =>
-                    `flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition ${
-                      isActive ? "bg-accent/15 text-accent" : "text-white/60 hover:text-white hover:bg-white/5"
+                    `flex items-center gap-2.5 pl-3.5 pr-3 py-2 rounded-lg text-sm font-medium border-l-2 transition-all ${
+                      isActive
+                        ? "bg-accent/15 text-white border-accent"
+                        : "text-white/55 border-transparent hover:text-white hover:bg-white/5"
                     }`
                   }
                 >
@@ -102,8 +104,10 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           to="/settings"
           onClick={onNavigate}
           className={({ isActive }) =>
-            `flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition ${
-              isActive ? "bg-accent/15 text-accent" : "text-white/60 hover:text-white hover:bg-white/5"
+            `flex items-center gap-2.5 pl-3.5 pr-3 py-2 rounded-lg text-sm font-medium border-l-2 transition-all ${
+              isActive
+                ? "bg-accent/15 text-white border-accent"
+                : "text-white/55 border-transparent hover:text-white hover:bg-white/5"
             }`
           }
         >

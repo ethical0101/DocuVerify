@@ -107,7 +107,8 @@ export default function ReportPage() {
 
       {/* 4. Evidence matrix */}
       <section>
-        <EvidenceMatrix evidenceList={results.evidence_list} stageSummaries={results.stage_summaries} />
+        <EvidenceMatrix evidenceList={results.evidence_list} stageSummaries={results.stage_summaries}
+                        metadataAnomaly={results.evidence?.metadata?.anomaly} />
       </section>
 
       {/* 5. Explanation + recommended human checks */}

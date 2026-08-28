@@ -170,14 +170,24 @@ function StagePanel({ stage, results, documentId, stageEvidence, selectedIndex, 
         <div className="glass rounded-xl p-5">
           <div className="text-xs uppercase tracking-wide text-white/40 mb-3">File Metadata</div>
           {results.evidence.metadata?.available ? (
-            <div className="space-y-1.5 text-sm font-mono">
-              {Object.entries(results.evidence.metadata.fields || {}).map(([k, v]) => (
-                <div key={k} className="flex justify-between gap-4">
-                  <span className="text-white/40">{k}</span>
-                  <span className="text-white/80 truncate">{String(v)}</span>
+            <>
+              {results.evidence.metadata.anomaly && (
+                <div className="flex items-center gap-2 text-sm text-risk-high bg-risk-high/10 border border-risk-high/25 rounded-lg px-3 py-2 mb-3">
+                  <span className="text-xs bg-risk-high/20 rounded-full px-2 py-0.5 font-semibold">ANOMALY</span>
+                  {results.evidence.metadata.note}
                 </div>
-              ))}
-            </div>
+              )}
+              <div className="space-y-1.5 text-sm font-mono">
+                {Object.entries(results.evidence.metadata.fields || {}).map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-4">
+                    <span className="text-white/40">{k}</span>
+                    <span className={`truncate ${k === "Software" && results.evidence.metadata.anomaly ? "text-risk-high font-semibold" : "text-white/80"}`}>
+                      {String(v)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </>
           ) : (
             <div className="flex items-center gap-2 text-sm text-white/50">
               <span className="text-xs bg-white/10 rounded-full px-2 py-0.5">INFO</span>

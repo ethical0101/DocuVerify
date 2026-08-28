@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCcw, ImageOff } from "lucide-react";
 import type { Evidence } from "../api/client";
 import EvidenceDrawer from "./EvidenceDrawer";
+import { useAuthedImage } from "../hooks/useAuthedImage";
 
 function severityColor(severity?: string): string {
   switch (severity) {
@@ -25,6 +26,7 @@ export default function DocumentViewer({
   const setSelectedIdx = controlled ? (onSelectIndex as (i: number | null) => void) : setInternalIdx;
   const [naturalSize, setNaturalSize] = useState<[number, number] | null>(null);
   const [zoom, setZoom] = useState(1);
+  const blobUrl = useAuthedImage(imageUrl);
 
   const [pw, ph] = naturalSize ?? pageSize;
   const boxable = evidenceList.filter((e) => e.bbox);
@@ -52,16 +54,23 @@ export default function DocumentViewer({
 
       <div className="relative max-h-[640px] overflow-auto scrollbar-thin bg-black/20">
         <div className="relative" style={{ width: `${zoom * 100}%`, minWidth: "100%" }}>
-          <img
-            src={imageUrl}
-            alt="document"
-            className="w-full h-auto block select-none"
-            draggable={false}
-            onLoad={(e) => {
-              const img = e.currentTarget;
-              setNaturalSize([img.naturalWidth, img.naturalHeight]);
-            }}
-          />
+          {blobUrl ? (
+            <img
+              src={blobUrl}
+              alt="document"
+              className="w-full h-auto block select-none"
+              draggable={false}
+              onLoad={(e) => {
+                const img = e.currentTarget;
+                setNaturalSize([img.naturalWidth, img.naturalHeight]);
+              }}
+            />
+          ) : (
+            <div className="w-full aspect-[4/3] flex flex-col items-center justify-center gap-2 text-white/30">
+              <ImageOff className="w-6 h-6" />
+              <span className="text-xs">Loading document...</span>
+            </div>
+          )}
           <svg
             viewBox={`0 0 ${pw || 1} ${ph || 1}`}
             className="absolute inset-0 w-full h-full"
@@ -73,11 +82,19 @@ export default function DocumentViewer({
               const isSelected = selectedIdx === i;
               return (
                 <g key={e.id}>
+                  {isSelected && (
+                    <rect
+                      x={x - 4} y={y - 4} width={w + 8} height={h + 8}
+                      fill="none" stroke="white" strokeOpacity={0.55} strokeWidth={1.5} strokeDasharray="4 3"
+                      rx={4} vectorEffect="non-scaling-stroke"
+                    />
+                  )}
                   <rect
                     x={x} y={y} width={w} height={h}
-                    fill={isSelected ? `${color}40` : `${color}1a`}
+                    fill={isSelected ? `${color}4d` : `${color}12`}
                     stroke={color}
-                    strokeWidth={isSelected ? 3 : 1.5}
+                    strokeWidth={isSelected ? 3.5 : 1.25}
+                    strokeOpacity={isSelected ? 1 : 0.7}
                     className="cursor-pointer transition-all"
                     onClick={() => setSelectedIdx(i)}
                     vectorEffect="non-scaling-stroke"

@@ -115,8 +115,8 @@ function FilterGroup({ label, options, value, onChange }: {
       {options.map((opt) => (
         <button
           key={opt} onClick={() => onChange(opt)}
-          className={`px-2.5 py-1 rounded-full text-xs transition capitalize ${
-            value === opt ? "bg-accent text-white" : "glass text-white/50 hover:text-white"
+          className={`chip px-3 py-1.5 rounded-full text-xs font-medium capitalize border ${
+            value === opt ? "chip-active" : "chip-inactive"
           }`}
         >
           {opt.replaceAll("_", " ")}

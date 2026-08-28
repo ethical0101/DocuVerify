@@ -29,8 +29,8 @@ export default function UploadZone({ onFile }: { onFile: (file: File) => void })
           if (f) accept(f);
         }}
         onClick={() => inputRef.current?.click()}
-        className={`glass rounded-2xl border-2 border-dashed p-14 text-center cursor-pointer transition ${
-          dragOver ? "border-accent bg-accent/5" : "border-white/10 hover:border-white/20"
+        className={`glass rounded-2xl border-2 border-dashed p-14 text-center cursor-pointer transition-all ${
+          dragOver ? "border-accent bg-accent/10 shadow-lg shadow-accent/20 scale-[1.01]" : "border-white/10 hover:border-white/25"
         }`}
       >
         <input

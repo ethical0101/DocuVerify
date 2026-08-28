@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Zap, Microscope, ArrowLeft } from "lucide-react";
+import { Zap, Microscope, ArrowLeft, Check } from "lucide-react";
 import UploadZone from "../components/UploadZone";
 import { uploadDocument } from "../api/client";
 
@@ -28,7 +28,7 @@ export default function NewInvestigationPage() {
     }
   }
 
-  async function handleSample(kind: "identity_genuine" | "identity_forged" | "certificate_forged") {
+  async function handleSample(kind: "identity_genuine" | "identity_forged" | "certificate_forged" | "showcase_all_signals") {
     setUploading(true);
     setError(null);
     try {
@@ -71,10 +71,13 @@ export default function NewInvestigationPage() {
       ) : (
         <>
           <UploadZone onFile={handleFile} />
-          <div className="flex gap-3 text-xs text-white/40">
+          <div className="flex flex-wrap justify-center gap-3 text-xs text-white/40">
             <button className="underline hover:text-white/70" onClick={() => handleSample("identity_genuine")}>Sample: genuine ID</button>
             <button className="underline hover:text-white/70" onClick={() => handleSample("identity_forged")}>Sample: forged ID</button>
             <button className="underline hover:text-white/70" onClick={() => handleSample("certificate_forged")}>Sample: forged certificate</button>
+            <button className="underline text-accent hover:text-accent-bright font-medium" onClick={() => handleSample("showcase_all_signals")}>
+              Sample: all signals triggered (demo)
+            </button>
           </div>
         </>
       )}
@@ -88,12 +91,21 @@ function ModeCard({ icon: Icon, title, description, active, onClick }: {
   return (
     <button
       onClick={onClick}
-      className={`text-left glass rounded-xl p-5 transition border-2 ${
-        active ? "border-accent bg-accent/5" : "border-transparent hover:border-white/15"
+      className={`relative text-left rounded-xl p-5 transition-all ${
+        active
+          ? "bg-accent/10 ring-2 ring-accent shadow-lg shadow-accent/20"
+          : "glass hover:border-white/25 hover:bg-white/[0.03]"
       }`}
     >
-      <Icon className={`w-5 h-5 mb-3 ${active ? "text-accent" : "text-white/50"}`} />
-      <div className="font-medium mb-1">{title}</div>
+      {active && (
+        <span className="absolute top-3 right-3 w-5 h-5 rounded-full bg-accent flex items-center justify-center">
+          <Check className="w-3 h-3 text-white" strokeWidth={3} />
+        </span>
+      )}
+      <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${active ? "bg-accent text-white" : "bg-white/5 text-white/50"}`}>
+        <Icon className="w-4.5 h-4.5" />
+      </div>
+      <div className={`font-semibold mb-1 ${active ? "text-white" : "text-white/85"}`}>{title}</div>
       <div className="text-xs text-white/50 leading-relaxed">{description}</div>
     </button>
   );

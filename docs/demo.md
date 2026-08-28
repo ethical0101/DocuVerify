@@ -5,6 +5,15 @@ Sample documents live in `demo/identity/` and `demo/certificate/` (also served t
 fictional — see `DATASETS.md`. Run `python scripts/setup_demo.py` before this script to have the demo
 organization, accounts, dataset, and an activated model ready in one step (see `README.md` §53–54).
 
+**For a one-click "everything lights up" walkthrough** (e.g. showing a professor/judge the full pipeline
+in a single pass): New Investigation → **Sample: all signals triggered (demo)**. This one document
+(`demo/identity/showcase_all_signals.png`, built by `scripts/generate_showcase_demo.py`) genuinely
+triggers all five non-OCR forensic signals at once — visual, typography, structure, metadata, and
+consistency all show real findings, and the Evidence Matrix shows every non-OCR row as "Suspicious." It
+combines a text-replaced name field, a mismatched-font-size re-render, an implausible issue-date gap
+against the expiry date, and an embedded Photoshop EXIF signature — each independently verified against
+the live pipeline by the generator script, not hand-set.
+
 ## Part A — Enterprise Setup (Admin)
 
 ### 1. Admin login (~15s)

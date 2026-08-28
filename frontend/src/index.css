@@ -7,9 +7,10 @@
   --color-ink-700: #171d34;
   --color-ink-600: #232b48;
   --color-panel: #0d1220;
-  --color-border: #1f2740;
-  --color-accent: #4f8cff;
-  --color-accent-soft: #4f8cff33;
+  --color-border: #232c48;
+  --color-accent: #5b8fff;
+  --color-accent-bright: #7aa6ff;
+  --color-accent-soft: #5b8fff33;
   --color-risk-low: #34d399;
   --color-risk-medium: #fbbf24;
   --color-risk-high: #f87171;
@@ -22,9 +23,12 @@ html, body, #root {
 }
 
 body {
-  background: radial-gradient(circle at 20% -10%, #14203f 0%, #05070d 55%), #05070d;
-  color: #e7ebf7;
+  background: radial-gradient(ellipse 900px 600px at 15% -10%, #1a2a52 0%, transparent 60%),
+              radial-gradient(ellipse 700px 500px at 100% 0%, #16203f 0%, transparent 55%),
+              #05070d;
+  color: #eef1fa;
   font-family: var(--font-sans);
+  letter-spacing: -0.01em;
 }
 
 ::selection {
@@ -32,9 +36,10 @@ body {
 }
 
 .glass {
-  background: rgba(13, 18, 32, 0.72);
+  background: rgba(14, 19, 34, 0.78);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -50,6 +55,61 @@ body {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* --- Selection-state primitives: every selectable card/chip/tab in the app uses
+   one of these two classes so "selected" is never just a faint tint. --- */
+
+/* For chips/pills/filters/nav items: solid fill + real contrast when active. */
+.chip {
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.chip-active {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent), 0 4px 14px -4px var(--color-accent-soft);
+}
+.chip-inactive {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(238, 241, 250, 0.55);
+  border-color: var(--color-border);
+}
+.chip-inactive:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(238, 241, 250, 0.85);
+}
+
+/* For larger selectable cards (mode cards, list rows, findings): a bright left
+   accent bar + lifted background + ring, not just a tinted border. */
+.select-card {
+  position: relative;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  border: 1px solid transparent;
+}
+.select-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 3px 0 0 3px;
+  background: transparent;
+  transition: background-color 150ms ease;
+}
+.select-card-active {
+  background: rgba(91, 143, 255, 0.1);
+  border-color: rgba(91, 143, 255, 0.45);
+  box-shadow: 0 0 0 1px rgba(91, 143, 255, 0.25), 0 12px 28px -14px rgba(91, 143, 255, 0.4);
+}
+.select-card-active::before {
+  background: var(--color-accent);
+}
+.select-card-inactive {
+  border-color: var(--color-border);
+}
+.select-card-inactive:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 @media (prefers-reduced-motion: reduce) {
