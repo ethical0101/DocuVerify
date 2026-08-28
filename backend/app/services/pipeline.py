@@ -29,17 +29,24 @@ def _safe(fn, default, *args, **kwargs):
         return default, traceback.format_exc(limit=2)
 
 
+def load_primary_page(path: Path) -> tuple:
+    """Loads + deskews a document's primary page exactly as analyze_document() does.
+    Any endpoint that displays the document (e.g. the /file route the frontend renders
+    region overlays on top of) MUST use this instead of calling load_pages() directly --
+    otherwise region bounding boxes are computed against a different image (post-deskew)
+    than the one shown to the user, and overlays land in the wrong place."""
+    page = load_pages(path)[0]
+    (page, was_deskewed), _ = _safe(detect_and_deskew, (page, False), page)
+    return page, was_deskewed
+
+
 def analyze_document(path: Path) -> dict:
     timing = {}
     t0 = time.time()
 
-    pages = load_pages(path)
-    page = pages[0]  # primary-page analysis for the hackathon scope
-    timing["load_ms"] = round((time.time() - t0) * 1000, 1)
-
     t1 = time.time()
-    deskew_result, _ = _safe(detect_and_deskew, (page, False), page)
-    page, was_deskewed = deskew_result
+    page, was_deskewed = load_primary_page(path)
+    timing["load_ms"] = round((time.time() - t0) * 1000, 1)
     timing["deskew_ms"] = round((time.time() - t1) * 1000, 1)
 
     t2 = time.time()

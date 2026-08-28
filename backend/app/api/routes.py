@@ -143,10 +143,12 @@ def get_file(doc_id: str, db: Session = Depends(get_db)):
 
     from pathlib import Path
     import cv2
-    from app.services.preprocessing.loader import load_pages
+    from app.services.pipeline import load_primary_page
 
-    pages = load_pages(Path(doc.stored_path))
-    ok, buf = cv2.imencode(".png", pages[0])
+    # Must match analyze_document()'s preprocessing exactly (including deskew) --
+    # region bounding boxes from the analysis are only valid against this exact image.
+    page, _ = load_primary_page(Path(doc.stored_path))
+    ok, buf = cv2.imencode(".png", page)
     if not ok:
         raise HTTPException(500, "Failed to encode document preview")
     return StreamingResponse(io.BytesIO(buf.tobytes()), media_type="image/png")
