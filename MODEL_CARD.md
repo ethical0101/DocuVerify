@@ -29,11 +29,21 @@ one trained component (the optional Logistic Regression fusion model).
 Full numbers (never fabricated — regenerate anytime with `python scripts/evaluate.py`) live in
 `evaluation/results.json` and `evaluation/report.md`. Headline honest result from this build:
 
-- **ROC-AUC on the held-out synthetic test set was ~0.49** (i.e. close to chance) for the fixed
-  heuristic weighted-fusion model. This is reported without spin: on this synthetic dataset, the
-  classical visual/noise signals do not yet reliably separate genuine from forged documents in
-  aggregate, even though they do fire correctly on individual demo cases (see `evaluation/results.json`
-  `per_item` for the exact per-document breakdown, and the Limitations section below for why).
+- **ROC-AUC on the held-out synthetic test set: 0.565** for the fixed heuristic weighted-fusion model
+  (mean authenticity score: genuine 69.1 vs. forged 68.5 — correct direction, weakly separated). This
+  started at ~0.49 (chance) with our first visual-forensics signal (a blind ELA/noise grid scan), which
+  we report honestly rather than hide: it revealed that our forgery generator's JPEG-recompression pass
+  on edited regions (real genuine docs stay lossless PNG) leaves an edge-sharpness/ringing fingerprint
+  the grid scan wasn't measuring. Adding `text_region_forensics.py` (OCR-word-localized ELA/noise vs.
+  the document's own robust baseline) and `sharpness_forensics.py` (column-clustered Laplacian-variance
+  z-scores, matched to that specific artifact) raised ROC-AUC to 0.565. This is still a **weak, honest
+  signal — not a strong classifier** — reported as such rather than oversold (see `evaluation/report.md`
+  for the exact numbers, including the diagnostic-only best-threshold accuracy of 75% at threshold=73,
+  which is not the number reported as "the" accuracy since it wasn't chosen a priori).
+- Two additional visual detectors were built and evaluated — `copy_move.py` (block-duplicate matching)
+  and `jpeg_blockiness.py` (DCT block-grid periodicity) — but are **not wired into the pipeline**: both
+  had too high a false-positive rate on text-heavy documents in the time available. They're left in the
+  tree as documented, unshipped future work rather than merged half-validated.
 - `scripts/train_fusion_model.py` trains a small Logistic Regression over the same 5 evidence signals
   on the train split and reports its own val AUC/accuracy against the heuristic baseline
   (`ml/models/fusion_lr_report.json`) — whichever performs better on validation is the honest choice to
@@ -57,12 +67,12 @@ Full numbers (never fabricated — regenerate anytime with `python scripts/evalu
   denying a person a service.
 
 ## Known limitations / failure modes
-- **Weak aggregate discrimination on the current dataset** (ROC-AUC ~0.49, see above). The individual
-  engines behave sensibly in isolation (e.g. the typography engine does flag a replaced name field in
-  spot checks — see the demo flow in `docs/demo.md`), but the fixed fusion weights were hand-picked, not
-  calibrated, and 24 hours was not enough to properly tune them without overfitting to the small test
-  set. This is the single most important thing to fix with more time (see Future Work in
-  `FINAL_REPORT.md`).
+- **Weak aggregate discrimination on the current dataset** (ROC-AUC 0.565, up from an initial 0.49 —
+  see above). The individual engines behave sensibly in isolation (e.g. the typography and
+  sharpness-forensics engines do flag a replaced name field in spot checks — see the demo flow in
+  `docs/demo.md`), but the fixed fusion weights were hand-picked, not calibrated, and 24 hours was not
+  enough to properly tune them without overfitting to the small test set. This is the single most
+  important thing to fix with more time (see Future Work in `FINAL_REPORT.md`).
 - **ELA/noise forensics are weak on clean, lossless synthetic renders.** Error Level Analysis assumes a
   JPEG-compression history; our genuine documents are pristine PNGs, so ELA differences between
   genuine/forged regions are much subtler than on a real re-photographed/re-scanned/re-saved document.

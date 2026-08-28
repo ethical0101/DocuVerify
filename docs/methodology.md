@@ -56,5 +56,6 @@ Regions come from three independent sources, all included in the final region li
 - No metric in this repository is fabricated. `evaluation/results.json` and `evaluation/report.md` are
   regenerated directly by `scripts/evaluate.py` against the current codebase and dataset; re-run it
   yourself to verify.
-- Where a result is weak (see the ROC-AUC ~0.49 heuristic baseline in `MODEL_CARD.md`), it is reported
-  as-is, with the reasoning for why, rather than adjusted post-hoc to look better.
+- Where a result is weak (see the ROC-AUC 0.565 heuristic baseline in `MODEL_CARD.md` — up from an
+  initial 0.49/chance, still a weak signal, not a strong classifier), it is reported as-is, with the
+  reasoning for why, rather than adjusted post-hoc to look better.

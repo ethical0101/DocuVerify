@@ -158,8 +158,9 @@ with zero configuration:
 - Evaluated only on this project's own synthetic dataset (see `DATASETS.md`) — not validated against
   real-world scanned/photographed documents.
 - Current heuristic evidence-fusion weights are hand-picked, not rigorously calibrated; measured
-  ROC-AUC on the held-out synthetic test set is close to chance (see `MODEL_CARD.md` for the honest
-  numbers and why). This is the top priority for further work.
+  ROC-AUC on the held-out synthetic test set is 0.565 — a real but weak signal, not a strong classifier
+  (see `MODEL_CARD.md` for the honest numbers, including how it started at chance and what fixed it).
+  Calibrating the fusion weights properly remains the top priority for further work.
 - No connection to any real government identity database — by design, not as a missing feature.
 - English-only OCR/text heuristics.
 
