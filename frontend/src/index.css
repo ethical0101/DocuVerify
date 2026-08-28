@@ -81,6 +81,31 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+/* `text-white/NN` opacity utilities are this app's entire secondary/muted
+   text scale (300+ usages across every screen) -- `text-white` itself is
+   already remapped to --text-primary above, but Tailwind's /NN opacity
+   modifiers mix that base color at NN% *transparency*, which reads as a
+   legible dim grey against the dark theme's near-black background and as a
+   barely-visible pale grey against the light theme's near-white background
+   (dark ink at low alpha over a light backdrop just doesn't carry enough
+   contrast). Overriding the compiled utility classes directly here -- the
+   only way to fix this everywhere at once without touching every one of
+   those 300+ call sites -- to fall back to the light theme's own
+   contrast-checked text tokens instead of raw opacity math. Dark mode is
+   untouched (not selected by `:root:not(.dark)`). */
+:root:not(.dark) {
+  .text-white\/80, .text-white\/85, .text-white\/90, .text-white\/95 {
+    color: var(--text-primary);
+  }
+  .text-white\/60, .text-white\/65, .text-white\/70, .text-white\/75 {
+    color: var(--text-secondary);
+  }
+  .text-white\/15, .text-white\/20, .text-white\/25, .text-white\/30, .text-white\/35,
+  .text-white\/40, .text-white\/45, .text-white\/50, .text-white\/55 {
+    color: var(--text-muted);
+  }
+}
+
 html, body, #root {
   height: 100%;
 }
