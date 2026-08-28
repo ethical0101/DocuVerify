@@ -57,3 +57,17 @@ Single-page state machine (`frontend/src/App.tsx`): landing → upload → analy
 document viewer (`DocumentViewer.tsx`) overlays region bounding boxes as an SVG layer scaled to the
 image's natural size (via `page_size` from the analysis, or the loaded `<img>`'s natural dimensions),
 so overlay coordinates stay correct regardless of how the image is displayed/resized.
+
+## Known operational constraints
+
+The Render free-tier instance the project is currently deployed to has 512MB RAM. EasyOCR's PyTorch
+CPU inference, combined with the CV forensics stages that run immediately after it, has been observed
+(via Render's own event log) to exceed that limit and trigger an OOM restart under load. This is an
+infrastructure/compute-plan constraint, not a bug in the forensic pipeline itself — the same code runs
+reliably locally and would run reliably on any instance with sufficient RAM (roughly 1-2GB is a safer
+floor for this workload). A container restart also resets any state that isn't in a persistent store:
+uploaded document files now survive this via the optional Cloudflare R2 backend
+(`backend/app/services/storage.py`), and the database survives it if `DATABASE_URL` points at a managed
+Postgres instance rather than the default local SQLite file — but the JWT signing secret does not
+persist across a restart unless `JWT_SECRET` is set to a fixed value in the environment, which
+invalidates any session issued before the restart.
