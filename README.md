@@ -20,9 +20,9 @@ identity/certificate sample documents in this repo are synthetic and fictional (
 Upload → Analyze → Localize → Diagnose → Explain → Compare → Verify
 ```
 
-Most forgery detectors output a single number. DocuVerify shows *where* the suspicious signal is
-(region-level bounding boxes on the actual document), *what kind* of manipulation is suspected (text
-replacement, typography inconsistency, copy-paste, metadata anomaly, semantic inconsistency), and *why*
+Most forgery detectors output a single number. DocuVerify shows _where_ the suspicious signal is
+(region-level bounding boxes on the actual document), _what kind_ of manipulation is suspected (text
+replacement, typography inconsistency, copy-paste, metadata anomaly, semantic inconsistency), and _why_
 (an explanation traced back to structured evidence — never invented by an LLM). The output is designed
 to support a human reviewer's decision, not replace it.
 
@@ -67,7 +67,7 @@ computed, the pipeline degrades gracefully and says so rather than crashing or f
 - **ML:** Classical CV forensics (ELA, noise residuals, copy-move block matching) + OCR-derived
   statistical heuristics + an optional lightweight Logistic Regression evidence-fusion model
 - **Explainability:** Deterministic template by default; optional Groq/Gemini free-tier LLM narration
-  of the *already-computed* evidence (the LLM never decides authenticity itself)
+  of the _already-computed_ evidence (the LLM never decides authenticity itself)
 
 ## Project structure
 
@@ -89,6 +89,7 @@ DocuVerify/
 ## Setup
 
 ### Backend
+
 ```bash
 cd backend
 python -m venv venv
@@ -97,17 +98,21 @@ pip install -r requirements.txt
 cp .env.example .env            # optional: only needed for LLM-narrated explanations
 uvicorn app.main:app --reload --port 8000
 ```
+
 The API is then live at `http://localhost:8000` (interactive docs at `/docs`).
 
 ### Frontend
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
 Open `http://localhost:5173`. The Vite dev server proxies `/api` and `/uploads` to `http://localhost:8000`.
 
 ### Dataset (primary, synthetic)
+
 ```bash
 python scripts/generate_synthetic_documents.py --count 40
 python scripts/generate_forgeries.py
@@ -115,6 +120,7 @@ python scripts/prepare_datasets.py
 ```
 
 ### Evaluation / optional trained fusion model
+
 ```bash
 python scripts/evaluate.py                # writes evaluation/results.json + report.md
 python scripts/train_fusion_model.py       # optional Logistic Regression fusion model, trained on train split, reported on val
@@ -125,24 +131,25 @@ python scripts/train_fusion_model.py       # optional Logistic Regression fusion
 See [`backend/.env.example`](backend/.env.example). All are optional — the product works fully offline
 with zero configuration:
 
-| Variable | Purpose |
-|---|---|
+| Variable       | Purpose                                                                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `LLM_PROVIDER` | `groq` or `gemini` — enables LLM-narrated explanations (free tiers). Leave blank for the built-in deterministic template. |
-| `LLM_API_KEY` | API key for the chosen provider. Never commit this. |
-| `LLM_MODEL` | Optional model override (defaults to a small/fast free-tier model per provider). |
+| `LLM_API_KEY`  | API key for the chosen provider. Never commit this.                                                                       |
+| `LLM_MODEL`    | Optional model override (defaults to a small/fast free-tier model per provider).                                          |
 
 ## API
 
-| Endpoint | Purpose |
-|---|---|
-| `POST /api/documents/upload` | Upload a PDF/PNG/JPG |
-| `POST /api/documents/{id}/analyze` | Run the full forensic pipeline |
-| `GET /api/documents/{id}` | Document metadata |
-| `GET /api/documents/{id}/results` | Full analysis result (score, evidence, regions, explanation) |
-| `GET /api/documents/{id}/regions` | Just the flagged regions |
-| `GET /api/documents/{id}/report` | Human-readable report + disclaimer |
-| `GET /api/documents/{id}/file` | The document's primary page as PNG (for the viewer) |
-| `GET /api/health` | Liveness + OCR-availability check |
+| Endpoint                             | Purpose                                                      |
+| ------------------------------------ | ------------------------------------------------------------ |
+| `POST /api/documents/upload`         | Upload a PDF/PNG/JPG                                         |
+| `POST /api/documents/{id}/analyze`   | Run the full forensic pipeline                               |
+| `GET /api/documents/{id}`            | Document metadata                                            |
+| `GET /api/documents/{id}/results`    | Full analysis result (score, evidence, regions, explanation) |
+| `GET /api/documents/{id}/regions`    | Just the flagged regions                                     |
+| `GET /api/documents/{id}/report`     | Human-readable report + disclaimer                           |
+| `GET /api/documents/{id}/provenance` | Verification fingerprint + tamper-evident ledger status      |
+| `GET /api/documents/{id}/file`       | The document's primary page as PNG (for the viewer)          |
+| `GET /api/health`                    | Liveness + OCR-availability check                            |
 
 ## Demo flow
 
