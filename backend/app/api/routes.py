@@ -80,24 +80,30 @@ def analyze(doc_id: str, db: Session = Depends(get_db)):
 
     doc.status = "complete"
     doc.category = result["category"]
+    if not doc.case_number:
+        doc.case_number = f"DV-{doc.created_at.strftime('%Y')}-{doc.id[:6].upper()}"
     analysis = Analysis(
         document_id=doc.id,
         authenticity_score=result["authenticity_score"],
+        forensic_risk=result["forensic_risk"],
         risk_level=result["risk_level"],
         confidence=result["confidence"],
         evidence=result["evidence"],
+        evidence_list=result["evidence_list"],
         regions=result["regions"],
         ocr_result=result["ocr_words"],
         forgery_types=result["forgery_types"],
         explanation=result["explanation"],
         timing_ms=result["timing_ms"],
+        stage_summaries=result["stage_summaries"],
         page_size=result["page_size"],
     )
     db.add(analysis)
     db.commit()
     db.refresh(analysis)
     return {"document_id": doc.id, "analysis_id": analysis.id, "authenticity_score": analysis.authenticity_score,
-            "risk_level": analysis.risk_level, "confidence": analysis.confidence}
+            "forensic_risk": analysis.forensic_risk, "risk_level": analysis.risk_level,
+            "confidence": analysis.confidence, "case_number": doc.case_number}
 
 
 @router.get("/documents/{doc_id}")
@@ -119,18 +125,31 @@ def get_results(doc_id: str, db: Session = Depends(get_db)):
         raise HTTPException(404, "No analysis found for this document yet")
     latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
     return {
-        "document": {"id": doc.id, "filename": doc.filename, "category": doc.category},
+        "document": {"id": doc.id, "filename": doc.filename, "category": doc.category,
+                      "case_number": doc.case_number},
         "authenticity_score": latest.authenticity_score,
+        "forensic_risk": latest.forensic_risk,
         "risk_level": latest.risk_level,
         "confidence": latest.confidence,
         "evidence": latest.evidence,
+        "evidence_list": latest.evidence_list,
         "regions": latest.regions,
         "forgery_types": latest.forgery_types,
         "explanation": latest.explanation,
         "timing_ms": latest.timing_ms,
+        "stage_summaries": latest.stage_summaries,
         "model_version": latest.model_version,
         "page_size": latest.page_size,
     }
+
+
+@router.get("/documents/{doc_id}/evidence")
+def get_evidence(doc_id: str, db: Session = Depends(get_db)):
+    doc = db.get(Document, doc_id)
+    if not doc or not doc.analyses:
+        raise HTTPException(404, "No analysis found")
+    latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
+    return {"evidence": latest.evidence_list}
 
 
 @router.get("/documents/{doc_id}/file")
@@ -163,6 +182,52 @@ def get_regions(doc_id: str, db: Session = Depends(get_db)):
     return {"regions": latest.regions}
 
 
+@router.get("/documents")
+def list_documents(db: Session = Depends(get_db), limit: int = 100):
+    """Investigation history: every document that has at least one analysis, newest first.
+    Never fabricated -- reads directly from the database, empty list if nothing analyzed yet."""
+    docs = db.query(Document).order_by(Document.created_at.desc()).limit(limit).all()
+    out = []
+    for doc in docs:
+        if not doc.analyses:
+            continue
+        latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
+        out.append({
+            "id": doc.id, "filename": doc.filename, "category": doc.category,
+            "case_number": doc.case_number, "status": doc.status, "created_at": doc.created_at,
+            "authenticity_score": latest.authenticity_score, "forensic_risk": latest.forensic_risk,
+            "risk_level": latest.risk_level, "confidence": latest.confidence,
+            "finding_count": len([e for e in (latest.evidence_list or []) if not e.get("informational")]),
+        })
+    return {"investigations": out}
+
+
+@router.get("/dashboard/stats")
+def dashboard_stats(db: Session = Depends(get_db)):
+    """Real counts from the database only -- no fabricated statistics. Returns zeros, not
+    placeholder numbers, when nothing has been analyzed yet."""
+    docs = db.query(Document).all()
+    analyzed = [d for d in docs if d.analyses]
+    by_risk = {"LOW": 0, "MEDIUM": 0, "HIGH": 0}
+    recent = []
+    for doc in analyzed:
+        latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
+        by_risk[latest.risk_level] = by_risk.get(latest.risk_level, 0) + 1
+        recent.append({
+            "id": doc.id, "filename": doc.filename, "category": doc.category,
+            "case_number": doc.case_number, "created_at": doc.created_at,
+            "authenticity_score": latest.authenticity_score, "risk_level": latest.risk_level,
+        })
+    recent.sort(key=lambda r: r["created_at"], reverse=True)
+    return {
+        "total_investigations": len(analyzed),
+        "high_risk": by_risk.get("HIGH", 0),
+        "medium_risk": by_risk.get("MEDIUM", 0),
+        "low_risk": by_risk.get("LOW", 0),
+        "recent_investigations": recent[:8],
+    }
+
+
 @router.get("/documents/{doc_id}/report")
 def get_report(doc_id: str, db: Session = Depends(get_db)):
     doc = db.get(Document, doc_id)
@@ -170,13 +235,16 @@ def get_report(doc_id: str, db: Session = Depends(get_db)):
         raise HTTPException(404, "No analysis found")
     latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
     return {
-        "document": {"id": doc.id, "filename": doc.filename, "sha256": doc.sha256, "category": doc.category},
+        "document": {"id": doc.id, "filename": doc.filename, "sha256": doc.sha256, "category": doc.category,
+                      "case_number": doc.case_number},
         "authenticity_score": latest.authenticity_score,
+        "forensic_risk": latest.forensic_risk,
         "risk_level": latest.risk_level,
         "confidence": latest.confidence,
         "forgery_types": latest.forgery_types,
         "explanation": latest.explanation,
         "evidence_summary": latest.evidence,
+        "evidence_list": latest.evidence_list,
         "generated_at": latest.created_at,
         "model_version": latest.model_version,
         "disclaimer": ("This is an automated forensic risk assessment from a hackathon research prototype. "

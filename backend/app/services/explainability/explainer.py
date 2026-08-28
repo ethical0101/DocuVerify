@@ -8,58 +8,71 @@ the product works fully offline."""
 from app.core.config import settings
 
 
-def build_explanation(fusion_result: dict, region_findings: list, forgery_types: list) -> dict:
+def build_explanation(fusion_result: dict, region_findings: list, forgery_types: list,
+                       evidence_list: list | None = None) -> dict:
+    evidence_list = evidence_list or []
     if settings.llm_api_key and settings.llm_provider:
         try:
             return _llm_explanation(fusion_result, region_findings, forgery_types)
         except Exception:
             pass  # fall back silently -- core product must keep working
-    return _template_explanation(fusion_result, region_findings, forgery_types)
+    return _template_explanation(fusion_result, region_findings, forgery_types, evidence_list)
 
 
-def _template_explanation(fusion_result: dict, region_findings: list, forgery_types: list) -> dict:
-    signals = fusion_result["signals"]
+def _template_explanation(fusion_result: dict, region_findings: list, forgery_types: list,
+                           evidence_list: list) -> dict:
+    """Builds a WHAT/WHERE/WHY-grounded summary from the actual evidence items rather than
+    a generic 'authenticity score of X% indicates Y risk' sentence -- the score is already
+    shown numerically elsewhere in the UI; the text here exists to say what was found and
+    why it matters, which a bare number can't."""
     risk = fusion_result["risk_level"]
-    score = fusion_result["authenticity_score"]
 
-    available = {k: v for k, v in signals.items() if v is not None}
-    if not available or all(v == 0 for v in available.values()):
+    real_findings = sorted(
+        (e for e in evidence_list if not e.get("informational") and (e.get("score") or 0) > 0),
+        key=lambda e: e.get("score") or 0, reverse=True,
+    )
+
+    if not real_findings:
         return {
-            "summary": "Insufficient evidence for a confident assessment.",
+            "summary": "No significant forensic anomalies were found across visual, typographic, "
+                       "structural, or textual evidence. This does not by itself guarantee "
+                       "authenticity -- only that this system's available signals found nothing "
+                       "notable to flag.",
             "strongest_evidence": [],
-            "recommended_checks": ["Manually inspect the original document", "Verify with the issuing authority"],
-            "limitations": "Automated forensic signals were unavailable or inconclusive for this document.",
+            "likely_manipulation_types": [],
+            "recommended_checks": ["Verify with the issuing authority as a standard precaution"],
+            "limitations": ("This is an automated forensic risk assessment from a hackathon prototype, "
+                             "not a definitive fraud determination. A human verifier should make the "
+                             "final call."),
         }
 
-    ranked = sorted(available.items(), key=lambda kv: kv[1], reverse=True)
-    top = [f"{name.replace('_', ' ')} ({value:.0%})" for name, value in ranked if value > 0][:4]
+    top = real_findings[0]
+    location = f' in the "{top["matched_text"]}" region' if top.get("matched_text") else ""
+    corroboration_note = ""
+    if top.get("corroborated"):
+        corroboration_note = " This was independently corroborated by more than one forensic engine."
 
     if risk == "LOW":
-        summary = (f"This document shows an authenticity score of {score}%, indicating LOW forensic risk. "
-                    "No strong manipulation signals were found across visual, typographic, structural, "
-                    "or textual evidence.")
-    elif risk == "MEDIUM":
-        summary = (f"This document shows an authenticity score of {score}%, indicating MEDIUM forensic risk. "
-                    f"The strongest contributing signal is {top[0] if top else 'unclear'}. "
-                    "Manual review is recommended before relying on this document.")
+        summary = (f"No strong manipulation signals were found. The most notable observation is "
+                    f"{top['title'].lower()}{location} (confidence {round((top['score'] or 0) * 100)}%), "
+                    f"but it does not reach the threshold for elevated risk.")
     else:
-        region_note = ""
-        if region_findings:
-            region_note = " Suspicious regions are concentrated where flagged evidence overlaps in the viewer."
-        summary = (f"This document shows an authenticity score of {score}%, indicating HIGH forensic risk. "
-                    f"The strongest evidence is {top[0] if top else 'unclear'}"
-                    + (f", combined with {top[1]}" if len(top) > 1 else "") + "."
-                    + region_note)
+        distinct_second = next((e for e in real_findings[1:] if e["title"] != top["title"]), None)
+        second = f' A second, independent finding -- {distinct_second["title"].lower()} -- adds ' \
+                 f'further evidence.' if distinct_second else ""
+        summary = (f"{top['title']} was detected{location}. {top['why_it_matters']}{corroboration_note}"
+                    f"{second}")
 
-    checks = ["Verify document with the issuing authority", "Manually inspect flagged regions at full resolution"]
-    if "typography_inconsistency" in forgery_types:
-        checks.append("Compare font rendering against a known-genuine reference document")
-    if "metadata_anomaly" in forgery_types:
-        checks.append("Review file metadata and edit history if available")
+    strongest = [f"{e['title']} ({round((e['score'] or 0) * 100)}%)"
+                 + (' -- corroborated by a second engine' if e.get("corroborated") else "")
+                 for e in real_findings[:4]]
+
+    checks = list(dict.fromkeys(e["recommended_check"] for e in real_findings[:3]))
+    checks.append("Verify document with the issuing authority")
 
     return {
         "summary": summary,
-        "strongest_evidence": top,
+        "strongest_evidence": strongest,
         "likely_manipulation_types": forgery_types,
         "recommended_checks": checks,
         "limitations": ("This is an automated forensic risk assessment from a hackathon prototype, not a "

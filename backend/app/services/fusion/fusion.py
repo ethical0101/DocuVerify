@@ -22,7 +22,12 @@ WEIGHTS = {
 }
 
 
-def fuse_evidence(signals: dict) -> dict:
+def fuse_evidence(signals: dict, corroboration_bonus: float = 0.0) -> dict:
+    """corroboration_bonus: a small additive bump (0-~0.1) applied when two or more
+    INDEPENDENT engines flagged overlapping regions of the page (see evidence.py's
+    build_evidence_list) -- two agreeing signals in the same spot is stronger evidence
+    than either alone, which a plain weighted average of per-engine scores can't express
+    on its own."""
     weighted_sum = 0.0
     total_weight = 0.0
     for key, weight in WEIGHTS.items():
@@ -33,7 +38,9 @@ def fuse_evidence(signals: dict) -> dict:
         total_weight += weight
 
     risk_score = (weighted_sum / total_weight) if total_weight > 0 else 0.0
+    risk_score = min(1.0, risk_score + corroboration_bonus)
     authenticity_score = round((1 - risk_score) * 100, 1)
+    forensic_risk = round(risk_score * 100, 1)
 
     if risk_score < 0.30:
         risk_level = "LOW"
@@ -42,16 +49,20 @@ def fuse_evidence(signals: dict) -> dict:
     else:
         risk_level = "HIGH"
 
-    # Confidence reflects how many independent signals actually contributed
+    # Assessment confidence reflects how MUCH of the total possible evidence weight
+    # actually contributed a signal -- e.g. a blurry/low-quality scan that starves OCR
+    # (and everything downstream of it) should lower confidence, not manufacture risk.
     confidence = round(min(1.0, total_weight / sum(WEIGHTS.values())) * 100, 1)
 
     return {
         "authenticity_score": authenticity_score,
+        "forensic_risk": forensic_risk,
         "risk_level": risk_level,
         "confidence": confidence,
         "risk_score": round(risk_score, 3),
         "signals": signals,
         "weights": WEIGHTS,
+        "corroboration_bonus": round(corroboration_bonus, 3),
     }
 
 

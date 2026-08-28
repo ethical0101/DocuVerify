@@ -23,6 +23,7 @@ class Document(Base):
     pages = Column(Integer, default=1)
     size_bytes = Column(Integer, default=0)
     status = Column(String, default="uploaded")  # uploaded | analyzing | complete | failed
+    case_number = Column(String, default="")
     created_at = Column(DateTime, default=dt.datetime.utcnow)
 
     analyses = relationship("Analysis", back_populates="document", cascade="all, delete-orphan")
@@ -34,15 +35,18 @@ class Analysis(Base):
     id = Column(String, primary_key=True, default=gen_id)
     document_id = Column(String, ForeignKey("documents.id"))
     authenticity_score = Column(Float, default=0.0)
+    forensic_risk = Column(Float, default=0.0)
     risk_level = Column(String, default="UNKNOWN")
     confidence = Column(Float, default=0.0)
     evidence = Column(JSON, default=dict)
+    evidence_list = Column(JSON, default=list)
     regions = Column(JSON, default=list)
     ocr_result = Column(JSON, default=list)
     forgery_types = Column(JSON, default=list)
     explanation = Column(JSON, default=dict)
     model_version = Column(String, default="docuverify-fusion-v0.1")
     timing_ms = Column(JSON, default=dict)
+    stage_summaries = Column(JSON, default=dict)
     page_size = Column(JSON, default=list)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
 
