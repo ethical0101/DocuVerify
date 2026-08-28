@@ -97,6 +97,13 @@ def _llm_explanation(fusion_result: dict, region_findings: list, forgery_types: 
     raise RuntimeError(f"Unsupported LLM provider: {settings.llm_provider}")
 
 
+# Cloudflare (fronting both api.groq.com and generativelanguage.googleapis.com)
+# blocks requests with no/default User-Agent as bot traffic (HTTP 403, Cloudflare
+# error 1010) -- urllib's default "Python-urllib/x.y" UA gets caught by this even
+# with a perfectly valid API key. A normal browser-style UA avoids it.
+_HTTP_HEADERS = {"User-Agent": "Mozilla/5.0"}
+
+
 def _call_groq(prompt: str) -> dict:
     import json
     import urllib.request
@@ -107,7 +114,8 @@ def _call_groq(prompt: str) -> dict:
     }).encode()
     req = urllib.request.Request(
         "https://api.groq.com/openai/v1/chat/completions", data=body,
-        headers={"Authorization": f"Bearer {settings.llm_api_key}", "Content-Type": "application/json"},
+        headers={**_HTTP_HEADERS, "Authorization": f"Bearer {settings.llm_api_key}",
+                 "Content-Type": "application/json"},
     )
     with urllib.request.urlopen(req, timeout=15) as resp:
         data = json.loads(resp.read())
@@ -121,7 +129,7 @@ def _call_gemini(prompt: str) -> dict:
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
            f"?key={settings.llm_api_key}")
     body = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode()
-    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    req = urllib.request.Request(url, data=body, headers={**_HTTP_HEADERS, "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=15) as resp:
         data = json.loads(resp.read())
     text = data["candidates"][0]["content"]["parts"][0]["text"]
