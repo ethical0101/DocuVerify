@@ -24,6 +24,13 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
 
+# Install CPU-only PyTorch first, from PyTorch's own CPU wheel index --
+# easyocr's default resolution otherwise pulls PyPI's CUDA-enabled torch
+# build (several GB of nvidia-*/cuda-toolkit/triton packages this instance
+# has no GPU to use). Satisfying the constraint here means pip won't touch
+# torch again when it installs requirements.txt below.
+RUN pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision
+
 COPY backend/requirements.txt backend/requirements.txt
 RUN pip install -r backend/requirements.txt
 
