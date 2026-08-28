@@ -10,7 +10,7 @@ ID_RE = re.compile(r"\b[A-Z]{1,3}\d{4,10}\b|\b\d{6,12}\b")
 
 def analyze_consistency(ocr_words: list) -> dict:
     if not ocr_words:
-        return {"score": 0.0, "findings": [], "note": "No OCR text available for consistency analysis"}
+        return {"score": None, "findings": [], "note": "No OCR text available for consistency analysis"}
 
     full_text_tokens = [w["text"] for w in ocr_words]
     findings = []

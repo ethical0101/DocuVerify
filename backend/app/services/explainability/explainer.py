@@ -22,7 +22,8 @@ def _template_explanation(fusion_result: dict, region_findings: list, forgery_ty
     risk = fusion_result["risk_level"]
     score = fusion_result["authenticity_score"]
 
-    if not signals or all(v == 0 for v in signals.values()):
+    available = {k: v for k, v in signals.items() if v is not None}
+    if not available or all(v == 0 for v in available.values()):
         return {
             "summary": "Insufficient evidence for a confident assessment.",
             "strongest_evidence": [],
@@ -30,7 +31,7 @@ def _template_explanation(fusion_result: dict, region_findings: list, forgery_ty
             "limitations": "Automated forensic signals were unavailable or inconclusive for this document.",
         }
 
-    ranked = sorted(signals.items(), key=lambda kv: kv[1], reverse=True)
+    ranked = sorted(available.items(), key=lambda kv: kv[1], reverse=True)
     top = [f"{name.replace('_', ' ')} ({value:.0%})" for name, value in ranked if value > 0][:4]
 
     if risk == "LOW":

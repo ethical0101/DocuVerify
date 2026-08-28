@@ -82,12 +82,15 @@ def analyze_document(path: Path) -> dict:
     if category == "identity":
         portrait_region, _ = _safe(detect_portrait_region, None, page)
 
+    # Signals stay None (not 0.0) when an engine had insufficient input -- absence of
+    # evidence is not evidence of authenticity; fuse_evidence lowers confidence accordingly
+    # rather than silently crediting the document as "clean".
     signals = {
         "visual_anomaly": round(visual_score, 3),
-        "typography_anomaly": typo_result.get("score", 0.0),
-        "layout_anomaly": layout_result.get("score", 0.0),
+        "typography_anomaly": typo_result.get("score"),
+        "layout_anomaly": layout_result.get("score"),
         "metadata_anomaly": 0.5 if meta_result.get("anomaly") else 0.0,
-        "semantic_anomaly": semantic_result.get("score", 0.0),
+        "semantic_anomaly": semantic_result.get("score"),
     }
     fusion_result = fuse_evidence(signals)
     forgery_types = diagnose_forgery_types(signals)

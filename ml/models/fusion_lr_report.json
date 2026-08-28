@@ -1,0 +1,23 @@
+{
+  "model": "LogisticRegression(class_weight=balanced)",
+  "features": [
+    "visual_anomaly",
+    "typography_anomaly",
+    "layout_anomaly",
+    "metadata_anomaly",
+    "semantic_anomaly"
+  ],
+  "train_size": 224,
+  "val_size": 48,
+  "val_auc": 0.6377,
+  "val_accuracy": 0.3958,
+  "heuristic_val_accuracy": 0.3542,
+  "coefficients": {
+    "visual_anomaly": -1.13,
+    "typography_anomaly": 0.571,
+    "layout_anomaly": -1.176,
+    "metadata_anomaly": 0.0,
+    "semantic_anomaly": 0.0
+  },
+  "chosen_for_production": true
+}
