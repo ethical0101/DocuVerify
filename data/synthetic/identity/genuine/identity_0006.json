@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0006",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "AHMED WEI",
+    "Date of Birth": "24/04/1994",
+    "ID Number": "ID85345555",
+    "Issued": "24/05/2022",
+    "Expiry": "24/05/2032",
+    "Nationality": "Federation Of Eastmoor"
+  },
+  "field_regions": {
+    "full_name": [
+      459,
+      144,
+      575,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      675,
+      369
+    ]
+  }
+}

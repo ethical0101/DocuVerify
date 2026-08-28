@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0015",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "AISHA GARCIA",
+    "Date of Birth": "18/11/1991",
+    "ID Number": "ID11980765",
+    "Issued": "06/04/2018",
+    "Expiry": "06/04/2028",
+    "Nationality": "Federation Of Eastmoor"
+  },
+  "field_regions": {
+    "full_name": [
+      459,
+      144,
+      602,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      675,
+      369
+    ]
+  }
+}

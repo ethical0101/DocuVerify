@@ -1,0 +1,17 @@
+{
+  "train": {
+    "total": 224,
+    "genuine": 56,
+    "forged": 168
+  },
+  "val": {
+    "total": 48,
+    "genuine": 12,
+    "forged": 36
+  },
+  "test": {
+    "total": 48,
+    "genuine": 12,
+    "forged": 36
+  }
+}

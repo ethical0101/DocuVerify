@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0035",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "ELENA DOE",
+    "Date of Birth": "13/07/1996",
+    "ID Number": "ID88393811",
+    "Issued": "28/01/2023",
+    "Expiry": "28/01/2033",
+    "Nationality": "Federation Of Eastmoor"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      573,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      675,
+      369
+    ]
+  }
+}

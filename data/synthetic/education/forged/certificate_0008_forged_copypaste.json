@@ -1,0 +1,21 @@
+{
+  "document_id": "certificate_0008_forged_copypaste",
+  "category": "education",
+  "label": "forged",
+  "forgery_types": [
+    "copy_paste"
+  ],
+  "regions": [
+    {
+      "bbox": [
+        425,
+        343,
+        229,
+        27
+      ],
+      "type": "copy_paste",
+      "severity": "medium"
+    }
+  ],
+  "source_document": "certificate_0008"
+}

@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0030",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "PRIYA WEI",
+    "degree": "Bachelor of Arts in Economics",
+    "registration_no": "REG945742",
+    "date_of_graduation": "01/03/2021",
+    "grade": "First Class",
+    "university": "Rivermont Institute of Technology"
+  },
+  "field_regions": {
+    "name": [
+      402.0,
+      256,
+      598.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "document_id": "certificate_0034_forged_date",
+  "category": "education",
+  "label": "forged",
+  "forgery_types": [
+    "typography_manipulation",
+    "text_replacement"
+  ],
+  "regions": [
+    {
+      "bbox": [
+        300,
+        489,
+        242,
+        15
+      ],
+      "type": "typography_manipulation",
+      "severity": "medium"
+    }
+  ],
+  "source_document": "certificate_0034"
+}

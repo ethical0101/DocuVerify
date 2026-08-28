@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0007",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "LARS SANTOS",
+    "degree": "Master of Science in Data Analytics",
+    "registration_no": "REG680099",
+    "date_of_graduation": "24/11/2020",
+    "grade": "First Class",
+    "university": "Summit Valley University"
+  },
+  "field_regions": {
+    "name": [
+      368.0,
+      256,
+      632.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

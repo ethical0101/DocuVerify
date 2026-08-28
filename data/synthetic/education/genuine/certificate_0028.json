@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0028",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "AHMED SHARMA",
+    "degree": "Bachelor of Technology in Mechanical Engineering",
+    "registration_no": "REG797229",
+    "date_of_graduation": "24/11/2023",
+    "grade": "First Class",
+    "university": "Eastgate Polytechnic Institute"
+  },
+  "field_regions": {
+    "name": [
+      345.0,
+      256,
+      655.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0034",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "CHEN SHARMA",
+    "Date of Birth": "11/06/1998",
+    "ID Number": "ID82498004",
+    "Issued": "05/03/2018",
+    "Expiry": "05/03/2028",
+    "Nationality": "Union Of Southvale"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      606,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      633,
+      369
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0034",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "ELENA KHAN",
+    "degree": "Bachelor of Arts in Economics",
+    "registration_no": "REG167348",
+    "date_of_graduation": "11/07/2023",
+    "grade": "Distinction",
+    "university": "Northfield State University"
+  },
+  "field_regions": {
+    "name": [
+      381.0,
+      256,
+      619.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

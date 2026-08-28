@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0019",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "JOHN SANTOS",
+    "degree": "Bachelor of Science in Computer Engineering",
+    "registration_no": "REG176819",
+    "date_of_graduation": "17/04/2024",
+    "grade": "Second Class Upper",
+    "university": "Rivermont Institute of Technology"
+  },
+  "field_regions": {
+    "name": [
+      366.0,
+      256,
+      635.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

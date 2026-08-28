@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0036",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "OLUWASEUN IVANOVA",
+    "degree": "Bachelor of Arts in Economics",
+    "registration_no": "REG981334",
+    "date_of_graduation": "20/03/2023",
+    "grade": "Distinction",
+    "university": "Summit Valley University"
+  },
+  "field_regions": {
+    "name": [
+      289.0,
+      256,
+      712.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

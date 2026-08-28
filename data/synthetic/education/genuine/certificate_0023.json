@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0023",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "OLUWASEUN SHARMA",
+    "degree": "Bachelor of Arts in Economics",
+    "registration_no": "REG799330",
+    "date_of_graduation": "25/06/2020",
+    "grade": "Distinction",
+    "university": "Rivermont Institute of Technology"
+  },
+  "field_regions": {
+    "name": [
+      293.0,
+      256,
+      709.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

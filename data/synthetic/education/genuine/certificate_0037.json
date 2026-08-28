@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0037",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "CHEN IVANOVA",
+    "degree": "Master of Science in Data Analytics",
+    "registration_no": "REG321941",
+    "date_of_graduation": "11/06/2023",
+    "grade": "Second Class Upper",
+    "university": "Rivermont Institute of Technology"
+  },
+  "field_regions": {
+    "name": [
+      358.0,
+      256,
+      644.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

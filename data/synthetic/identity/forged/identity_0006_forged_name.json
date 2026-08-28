@@ -1,0 +1,21 @@
+{
+  "document_id": "identity_0006_forged_name",
+  "category": "identity",
+  "label": "forged",
+  "forgery_types": [
+    "text_replacement"
+  ],
+  "regions": [
+    {
+      "bbox": [
+        459,
+        146,
+        53,
+        10
+      ],
+      "type": "text_replacement",
+      "severity": "high"
+    }
+  ],
+  "source_document": "identity_0006"
+}

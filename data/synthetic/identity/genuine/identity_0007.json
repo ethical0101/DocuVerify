@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0007",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "JOHN GARCIA",
+    "Date of Birth": "06/11/1994",
+    "ID Number": "ID66661351",
+    "Issued": "13/02/2022",
+    "Expiry": "13/02/2032",
+    "Nationality": "Republic Of Northland"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      597,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      656,
+      373
+    ]
+  }
+}

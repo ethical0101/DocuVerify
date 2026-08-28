@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0020",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "LARS BELLO",
+    "degree": "Bachelor of Science in Computer Engineering",
+    "registration_no": "REG800305",
+    "date_of_graduation": "22/05/2024",
+    "grade": "First Class",
+    "university": "Alderbridge College of Engineering"
+  },
+  "field_regions": {
+    "name": [
+      384.0,
+      256,
+      615.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

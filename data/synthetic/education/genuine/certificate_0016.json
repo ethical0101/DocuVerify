@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0016",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "PRIYA WEI",
+    "degree": "Bachelor of Arts in Economics",
+    "registration_no": "REG161324",
+    "date_of_graduation": "18/12/2024",
+    "grade": "First Class",
+    "university": "Northfield State University"
+  },
+  "field_regions": {
+    "name": [
+      402.0,
+      256,
+      598.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

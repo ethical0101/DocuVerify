@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0000",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "MARIA DOE",
+    "Date of Birth": "08/04/1998",
+    "ID Number": "ID28728463",
+    "Issued": "22/02/2023",
+    "Expiry": "22/02/2033",
+    "Nationality": "Union Of Southvale"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      572,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      633,
+      369
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0022",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "AISHA IVANOVA",
+    "degree": "Bachelor of Science in Computer Engineering",
+    "registration_no": "REG217308",
+    "date_of_graduation": "05/12/2020",
+    "grade": "Distinction",
+    "university": "Summit Valley University"
+  },
+  "field_regions": {
+    "name": [
+      353.0,
+      256,
+      647.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

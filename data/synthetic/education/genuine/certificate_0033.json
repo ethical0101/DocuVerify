@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0033",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "CHEN BELLO",
+    "degree": "Bachelor of Technology in Mechanical Engineering",
+    "registration_no": "REG757193",
+    "date_of_graduation": "15/05/2021",
+    "grade": "First Class",
+    "university": "Northfield State University"
+  },
+  "field_regions": {
+    "name": [
+      380.0,
+      256,
+      619.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

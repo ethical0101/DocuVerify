@@ -1,0 +1,21 @@
+{
+  "document_id": "identity_0036_forged_copypaste",
+  "category": "identity",
+  "label": "forged",
+  "forgery_types": [
+    "copy_paste"
+  ],
+  "regions": [
+    {
+      "bbox": [
+        499,
+        219,
+        150,
+        15
+      ],
+      "type": "copy_paste",
+      "severity": "medium"
+    }
+  ],
+  "source_document": "identity_0036"
+}

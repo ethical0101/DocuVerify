@@ -1,0 +1,22 @@
+{
+  "document_id": "identity_0036_forged_date",
+  "category": "identity",
+  "label": "forged",
+  "forgery_types": [
+    "typography_manipulation",
+    "text_replacement"
+  ],
+  "regions": [
+    {
+      "bbox": [
+        460,
+        266,
+        120,
+        19
+      ],
+      "type": "typography_manipulation",
+      "severity": "medium"
+    }
+  ],
+  "source_document": "identity_0036"
+}

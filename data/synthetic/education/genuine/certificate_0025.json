@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0025",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "ELENA ADEYEMI",
+    "degree": "Master of Science in Data Analytics",
+    "registration_no": "REG172792",
+    "date_of_graduation": "21/06/2022",
+    "grade": "Distinction",
+    "university": "Northfield State University"
+  },
+  "field_regions": {
+    "name": [
+      348.0,
+      256,
+      652.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0017",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "MARIA KHAN",
+    "degree": "Bachelor of Science in Computer Engineering",
+    "registration_no": "REG723939",
+    "date_of_graduation": "28/11/2020",
+    "grade": "First Class",
+    "university": "Eastgate Polytechnic Institute"
+  },
+  "field_regions": {
+    "name": [
+      383.0,
+      256,
+      618.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

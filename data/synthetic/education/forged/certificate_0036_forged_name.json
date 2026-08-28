@@ -1,0 +1,21 @@
+{
+  "document_id": "certificate_0036_forged_name",
+  "category": "education",
+  "label": "forged",
+  "forgery_types": [
+    "text_replacement"
+  ],
+  "regions": [
+    {
+      "bbox": [
+        289,
+        261,
+        197,
+        17
+      ],
+      "type": "text_replacement",
+      "severity": "high"
+    }
+  ],
+  "source_document": "certificate_0036"
+}

@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0011",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "PRIYA SHARMA",
+    "degree": "Bachelor of Science in Computer Engineering",
+    "registration_no": "REG454508",
+    "date_of_graduation": "18/10/2020",
+    "grade": "First Class",
+    "university": "Rivermont Institute of Technology"
+  },
+  "field_regions": {
+    "name": [
+      358.0,
+      256,
+      644.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0004",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "OLUWASEUN ADEYEMI",
+    "Date of Birth": "09/11/1996",
+    "ID Number": "ID96977837",
+    "Issued": "21/10/2018",
+    "Expiry": "21/10/2028",
+    "Nationality": "Republic Of Northland"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      682,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      656,
+      373
+    ]
+  }
+}

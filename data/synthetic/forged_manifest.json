@@ -1,0 +1,5122 @@
+[
+  {
+    "document_id": "identity_0000_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          66,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0000"
+  },
+  {
+    "document_id": "identity_0000_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0000"
+  },
+  {
+    "document_id": "identity_0000_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          112,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0000"
+  },
+  {
+    "document_id": "identity_0001_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          29,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0001"
+  },
+  {
+    "document_id": "identity_0001_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0001"
+  },
+  {
+    "document_id": "identity_0001_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          100,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0001"
+  },
+  {
+    "document_id": "identity_0002_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          35,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0002"
+  },
+  {
+    "document_id": "identity_0002_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0002"
+  },
+  {
+    "document_id": "identity_0002_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          210,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0002"
+  },
+  {
+    "document_id": "identity_0003_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0003"
+  },
+  {
+    "document_id": "identity_0003_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0003"
+  },
+  {
+    "document_id": "identity_0003_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          217,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0003"
+  },
+  {
+    "document_id": "identity_0004_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          46,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0004"
+  },
+  {
+    "document_id": "identity_0004_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0004"
+  },
+  {
+    "document_id": "identity_0004_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          222,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0004"
+  },
+  {
+    "document_id": "identity_0005_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0005"
+  },
+  {
+    "document_id": "identity_0005_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0005"
+  },
+  {
+    "document_id": "identity_0005_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          154,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0005"
+  },
+  {
+    "document_id": "identity_0006_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          459,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0006"
+  },
+  {
+    "document_id": "identity_0006_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0006"
+  },
+  {
+    "document_id": "identity_0006_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          499,
+          219,
+          116,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0006"
+  },
+  {
+    "document_id": "identity_0007_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0007"
+  },
+  {
+    "document_id": "identity_0007_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0007"
+  },
+  {
+    "document_id": "identity_0007_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          137,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0007"
+  },
+  {
+    "document_id": "identity_0008_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          459,
+          146,
+          66,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0008"
+  },
+  {
+    "document_id": "identity_0008_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0008"
+  },
+  {
+    "document_id": "identity_0008_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          499,
+          219,
+          104,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0008"
+  },
+  {
+    "document_id": "identity_0009_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          459,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0009"
+  },
+  {
+    "document_id": "identity_0009_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0009"
+  },
+  {
+    "document_id": "identity_0009_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          499,
+          219,
+          167,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0009"
+  },
+  {
+    "document_id": "identity_0010_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          35,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0010"
+  },
+  {
+    "document_id": "identity_0010_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0010"
+  },
+  {
+    "document_id": "identity_0010_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          146,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0010"
+  },
+  {
+    "document_id": "identity_0011_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0011"
+  },
+  {
+    "document_id": "identity_0011_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0011"
+  },
+  {
+    "document_id": "identity_0011_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          103,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0011"
+  },
+  {
+    "document_id": "identity_0012_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0012"
+  },
+  {
+    "document_id": "identity_0012_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0012"
+  },
+  {
+    "document_id": "identity_0012_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          108,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0012"
+  },
+  {
+    "document_id": "identity_0013_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0013"
+  },
+  {
+    "document_id": "identity_0013_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0013"
+  },
+  {
+    "document_id": "identity_0013_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          141,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0013"
+  },
+  {
+    "document_id": "identity_0014_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0014"
+  },
+  {
+    "document_id": "identity_0014_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0014"
+  },
+  {
+    "document_id": "identity_0014_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          112,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0014"
+  },
+  {
+    "document_id": "identity_0015_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          459,
+          146,
+          35,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0015"
+  },
+  {
+    "document_id": "identity_0015_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0015"
+  },
+  {
+    "document_id": "identity_0015_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          499,
+          219,
+          143,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0015"
+  },
+  {
+    "document_id": "identity_0016_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0016"
+  },
+  {
+    "document_id": "identity_0016_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0016"
+  },
+  {
+    "document_id": "identity_0016_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          142,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0016"
+  },
+  {
+    "document_id": "identity_0017_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0017"
+  },
+  {
+    "document_id": "identity_0017_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0017"
+  },
+  {
+    "document_id": "identity_0017_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          176,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0017"
+  },
+  {
+    "document_id": "identity_0018_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0018"
+  },
+  {
+    "document_id": "identity_0018_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0018"
+  },
+  {
+    "document_id": "identity_0018_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          153,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0018"
+  },
+  {
+    "document_id": "identity_0019_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0019"
+  },
+  {
+    "document_id": "identity_0019_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0019"
+  },
+  {
+    "document_id": "identity_0019_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          150,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0019"
+  },
+  {
+    "document_id": "identity_0020_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0020"
+  },
+  {
+    "document_id": "identity_0020_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0020"
+  },
+  {
+    "document_id": "identity_0020_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          210,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0020"
+  },
+  {
+    "document_id": "identity_0021_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0021"
+  },
+  {
+    "document_id": "identity_0021_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0021"
+  },
+  {
+    "document_id": "identity_0021_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          138,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0021"
+  },
+  {
+    "document_id": "identity_0022_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          46,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0022"
+  },
+  {
+    "document_id": "identity_0022_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0022"
+  },
+  {
+    "document_id": "identity_0022_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          108,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0022"
+  },
+  {
+    "document_id": "identity_0023_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          46,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0023"
+  },
+  {
+    "document_id": "identity_0023_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0023"
+  },
+  {
+    "document_id": "identity_0023_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          217,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0023"
+  },
+  {
+    "document_id": "identity_0024_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0024"
+  },
+  {
+    "document_id": "identity_0024_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0024"
+  },
+  {
+    "document_id": "identity_0024_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          111,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0024"
+  },
+  {
+    "document_id": "identity_0025_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0025"
+  },
+  {
+    "document_id": "identity_0025_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0025"
+  },
+  {
+    "document_id": "identity_0025_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          150,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0025"
+  },
+  {
+    "document_id": "identity_0026_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          459,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0026"
+  },
+  {
+    "document_id": "identity_0026_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0026"
+  },
+  {
+    "document_id": "identity_0026_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          499,
+          219,
+          155,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0026"
+  },
+  {
+    "document_id": "identity_0027_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0027"
+  },
+  {
+    "document_id": "identity_0027_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0027"
+  },
+  {
+    "document_id": "identity_0027_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          154,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0027"
+  },
+  {
+    "document_id": "identity_0028_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0028"
+  },
+  {
+    "document_id": "identity_0028_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0028"
+  },
+  {
+    "document_id": "identity_0028_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          107,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0028"
+  },
+  {
+    "document_id": "identity_0029_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          66,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0029"
+  },
+  {
+    "document_id": "identity_0029_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0029"
+  },
+  {
+    "document_id": "identity_0029_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          95,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0029"
+  },
+  {
+    "document_id": "identity_0030_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          35,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0030"
+  },
+  {
+    "document_id": "identity_0030_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0030"
+  },
+  {
+    "document_id": "identity_0030_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          141,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0030"
+  },
+  {
+    "document_id": "identity_0031_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0031"
+  },
+  {
+    "document_id": "identity_0031_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0031"
+  },
+  {
+    "document_id": "identity_0031_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          171,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0031"
+  },
+  {
+    "document_id": "identity_0032_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          35,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0032"
+  },
+  {
+    "document_id": "identity_0032_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0032"
+  },
+  {
+    "document_id": "identity_0032_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          119,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0032"
+  },
+  {
+    "document_id": "identity_0033_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0033"
+  },
+  {
+    "document_id": "identity_0033_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0033"
+  },
+  {
+    "document_id": "identity_0033_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          134,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0033"
+  },
+  {
+    "document_id": "identity_0034_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          53,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0034"
+  },
+  {
+    "document_id": "identity_0034_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0034"
+  },
+  {
+    "document_id": "identity_0034_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          146,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0034"
+  },
+  {
+    "document_id": "identity_0035_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0035"
+  },
+  {
+    "document_id": "identity_0035_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0035"
+  },
+  {
+    "document_id": "identity_0035_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          113,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0035"
+  },
+  {
+    "document_id": "identity_0036_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          459,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0036"
+  },
+  {
+    "document_id": "identity_0036_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0036"
+  },
+  {
+    "document_id": "identity_0036_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          499,
+          219,
+          150,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0036"
+  },
+  {
+    "document_id": "identity_0037_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          49,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0037"
+  },
+  {
+    "document_id": "identity_0037_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0037"
+  },
+  {
+    "document_id": "identity_0037_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          154,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0037"
+  },
+  {
+    "document_id": "identity_0038_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          36,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0038"
+  },
+  {
+    "document_id": "identity_0038_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0038"
+  },
+  {
+    "document_id": "identity_0038_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          108,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0038"
+  },
+  {
+    "document_id": "identity_0039_forged_name",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          146,
+          66,
+          10
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "identity_0039"
+  },
+  {
+    "document_id": "identity_0039_forged_date",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          460,
+          266,
+          120,
+          19
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0039"
+  },
+  {
+    "document_id": "identity_0039_forged_copypaste",
+    "category": "identity",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          500,
+          219,
+          164,
+          15
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "identity_0039"
+  },
+  {
+    "document_id": "certificate_0000_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          354,
+          261,
+          165,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0000"
+  },
+  {
+    "document_id": "certificate_0000_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0000"
+  },
+  {
+    "document_id": "certificate_0000_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          394,
+          343,
+          292,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0000"
+  },
+  {
+    "document_id": "certificate_0001_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          400,
+          261,
+          115,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0001"
+  },
+  {
+    "document_id": "certificate_0001_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0001"
+  },
+  {
+    "document_id": "certificate_0001_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          440,
+          343,
+          199,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0001"
+  },
+  {
+    "document_id": "certificate_0002_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          356,
+          261,
+          197,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0002"
+  },
+  {
+    "document_id": "certificate_0002_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0002"
+  },
+  {
+    "document_id": "certificate_0002_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          396,
+          343,
+          288,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0002"
+  },
+  {
+    "document_id": "certificate_0003_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          354,
+          261,
+          188,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0003"
+  },
+  {
+    "document_id": "certificate_0003_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0003"
+  },
+  {
+    "document_id": "certificate_0003_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          394,
+          343,
+          293,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0003"
+  },
+  {
+    "document_id": "certificate_0004_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          357,
+          261,
+          192,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0004"
+  },
+  {
+    "document_id": "certificate_0004_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0004"
+  },
+  {
+    "document_id": "certificate_0004_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          397,
+          343,
+          287,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0004"
+  },
+  {
+    "document_id": "certificate_0005_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          358,
+          261,
+          191,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0005"
+  },
+  {
+    "document_id": "certificate_0005_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0005"
+  },
+  {
+    "document_id": "certificate_0005_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          398,
+          343,
+          285,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0005"
+  },
+  {
+    "document_id": "certificate_0006_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          353,
+          261,
+          254,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0006"
+  },
+  {
+    "document_id": "certificate_0006_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0006"
+  },
+  {
+    "document_id": "certificate_0006_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          393,
+          343,
+          295,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0006"
+  },
+  {
+    "document_id": "certificate_0007_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          368,
+          261,
+          186,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0007"
+  },
+  {
+    "document_id": "certificate_0007_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0007"
+  },
+  {
+    "document_id": "certificate_0007_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          408,
+          343,
+          264,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0007"
+  },
+  {
+    "document_id": "certificate_0008_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          385,
+          261,
+          155,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0008"
+  },
+  {
+    "document_id": "certificate_0008_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0008"
+  },
+  {
+    "document_id": "certificate_0008_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          425,
+          343,
+          229,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0008"
+  },
+  {
+    "document_id": "certificate_0009_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          370,
+          261,
+          178,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0009"
+  },
+  {
+    "document_id": "certificate_0009_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0009"
+  },
+  {
+    "document_id": "certificate_0009_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          410,
+          343,
+          260,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0009"
+  },
+  {
+    "document_id": "certificate_0010_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          385,
+          261,
+          218,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0010"
+  },
+  {
+    "document_id": "certificate_0010_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0010"
+  },
+  {
+    "document_id": "certificate_0010_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          425,
+          343,
+          229,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0010"
+  },
+  {
+    "document_id": "certificate_0011_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          358,
+          261,
+          156,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0011"
+  },
+  {
+    "document_id": "certificate_0011_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0011"
+  },
+  {
+    "document_id": "certificate_0011_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          398,
+          343,
+          286,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0011"
+  },
+  {
+    "document_id": "certificate_0012_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          374,
+          261,
+          140,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0012"
+  },
+  {
+    "document_id": "certificate_0012_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0012"
+  },
+  {
+    "document_id": "certificate_0012_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          414,
+          343,
+          253,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0012"
+  },
+  {
+    "document_id": "certificate_0013_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          348,
+          261,
+          193,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0013"
+  },
+  {
+    "document_id": "certificate_0013_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0013"
+  },
+  {
+    "document_id": "certificate_0013_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          388,
+          343,
+          304,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0013"
+  },
+  {
+    "document_id": "certificate_0014_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          365,
+          261,
+          129,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0014"
+  },
+  {
+    "document_id": "certificate_0014_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0014"
+  },
+  {
+    "document_id": "certificate_0014_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          405,
+          343,
+          270,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0014"
+  },
+  {
+    "document_id": "certificate_0015_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          340,
+          261,
+          186,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0015"
+  },
+  {
+    "document_id": "certificate_0015_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0015"
+  },
+  {
+    "document_id": "certificate_0015_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          380,
+          343,
+          321,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0015"
+  },
+  {
+    "document_id": "certificate_0016_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          402,
+          261,
+          198,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0016"
+  },
+  {
+    "document_id": "certificate_0016_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0016"
+  },
+  {
+    "document_id": "certificate_0016_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          442,
+          343,
+          196,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0016"
+  },
+  {
+    "document_id": "certificate_0017_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          383,
+          261,
+          119,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0017"
+  },
+  {
+    "document_id": "certificate_0017_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0017"
+  },
+  {
+    "document_id": "certificate_0017_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          423,
+          343,
+          235,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0017"
+  },
+  {
+    "document_id": "certificate_0018_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          384,
+          261,
+          229,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0018"
+  },
+  {
+    "document_id": "certificate_0018_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0018"
+  },
+  {
+    "document_id": "certificate_0018_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          424,
+          343,
+          231,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0018"
+  },
+  {
+    "document_id": "certificate_0019_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          366,
+          261,
+          184,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0019"
+  },
+  {
+    "document_id": "certificate_0019_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0019"
+  },
+  {
+    "document_id": "certificate_0019_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          406,
+          343,
+          269,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0019"
+  },
+  {
+    "document_id": "certificate_0020_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          384,
+          261,
+          164,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0020"
+  },
+  {
+    "document_id": "certificate_0020_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0020"
+  },
+  {
+    "document_id": "certificate_0020_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          424,
+          343,
+          231,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0020"
+  },
+  {
+    "document_id": "certificate_0021_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          293,
+          261,
+          190,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0021"
+  },
+  {
+    "document_id": "certificate_0021_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0021"
+  },
+  {
+    "document_id": "certificate_0021_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          333,
+          343,
+          416,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0021"
+  },
+  {
+    "document_id": "certificate_0022_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          353,
+          261,
+          161,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0022"
+  },
+  {
+    "document_id": "certificate_0022_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0022"
+  },
+  {
+    "document_id": "certificate_0022_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          393,
+          343,
+          294,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0022"
+  },
+  {
+    "document_id": "certificate_0023_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          293,
+          261,
+          255,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0023"
+  },
+  {
+    "document_id": "certificate_0023_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0023"
+  },
+  {
+    "document_id": "certificate_0023_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          333,
+          343,
+          416,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0023"
+  },
+  {
+    "document_id": "certificate_0024_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          353,
+          261,
+          188,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0024"
+  },
+  {
+    "document_id": "certificate_0024_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0024"
+  },
+  {
+    "document_id": "certificate_0024_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          393,
+          343,
+          296,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0024"
+  },
+  {
+    "document_id": "certificate_0025_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          348,
+          261,
+          195,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0025"
+  },
+  {
+    "document_id": "certificate_0025_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0025"
+  },
+  {
+    "document_id": "certificate_0025_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          388,
+          343,
+          304,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0025"
+  },
+  {
+    "document_id": "certificate_0026_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          362,
+          261,
+          173,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0026"
+  },
+  {
+    "document_id": "certificate_0026_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0026"
+  },
+  {
+    "document_id": "certificate_0026_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          402,
+          343,
+          278,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0026"
+  },
+  {
+    "document_id": "certificate_0027_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          353,
+          261,
+          173,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0027"
+  },
+  {
+    "document_id": "certificate_0027_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0027"
+  },
+  {
+    "document_id": "certificate_0027_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          393,
+          343,
+          294,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0027"
+  },
+  {
+    "document_id": "certificate_0028_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          345,
+          261,
+          190,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0028"
+  },
+  {
+    "document_id": "certificate_0028_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0028"
+  },
+  {
+    "document_id": "certificate_0028_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          385,
+          343,
+          310,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0028"
+  },
+  {
+    "document_id": "certificate_0029_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          365,
+          261,
+          165,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0029"
+  },
+  {
+    "document_id": "certificate_0029_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0029"
+  },
+  {
+    "document_id": "certificate_0029_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          405,
+          343,
+          270,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0029"
+  },
+  {
+    "document_id": "certificate_0030_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          402,
+          261,
+          99,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0030"
+  },
+  {
+    "document_id": "certificate_0030_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0030"
+  },
+  {
+    "document_id": "certificate_0030_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          442,
+          343,
+          196,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0030"
+  },
+  {
+    "document_id": "certificate_0031_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          333,
+          261,
+          171,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0031"
+  },
+  {
+    "document_id": "certificate_0031_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0031"
+  },
+  {
+    "document_id": "certificate_0031_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          373,
+          343,
+          335,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0031"
+  },
+  {
+    "document_id": "certificate_0032_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          376,
+          261,
+          164,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0032"
+  },
+  {
+    "document_id": "certificate_0032_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0032"
+  },
+  {
+    "document_id": "certificate_0032_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          416,
+          343,
+          247,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0032"
+  },
+  {
+    "document_id": "certificate_0033_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          380,
+          261,
+          164,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0033"
+  },
+  {
+    "document_id": "certificate_0033_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0033"
+  },
+  {
+    "document_id": "certificate_0033_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          420,
+          343,
+          239,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0033"
+  },
+  {
+    "document_id": "certificate_0034_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          381,
+          261,
+          129,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0034"
+  },
+  {
+    "document_id": "certificate_0034_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0034"
+  },
+  {
+    "document_id": "certificate_0034_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          421,
+          343,
+          238,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0034"
+  },
+  {
+    "document_id": "certificate_0035_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          356,
+          261,
+          186,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0035"
+  },
+  {
+    "document_id": "certificate_0035_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0035"
+  },
+  {
+    "document_id": "certificate_0035_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          396,
+          343,
+          289,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0035"
+  },
+  {
+    "document_id": "certificate_0036_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          289,
+          261,
+          197,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0036"
+  },
+  {
+    "document_id": "certificate_0036_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0036"
+  },
+  {
+    "document_id": "certificate_0036_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          329,
+          343,
+          423,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0036"
+  },
+  {
+    "document_id": "certificate_0037_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          358,
+          261,
+          260,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0037"
+  },
+  {
+    "document_id": "certificate_0037_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0037"
+  },
+  {
+    "document_id": "certificate_0037_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          398,
+          343,
+          286,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0037"
+  },
+  {
+    "document_id": "certificate_0038_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          402,
+          261,
+          148,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0038"
+  },
+  {
+    "document_id": "certificate_0038_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0038"
+  },
+  {
+    "document_id": "certificate_0038_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          442,
+          343,
+          196,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0038"
+  },
+  {
+    "document_id": "certificate_0039_forged_name",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          383,
+          261,
+          119,
+          17
+        ],
+        "type": "text_replacement",
+        "severity": "high"
+      }
+    ],
+    "source_document": "certificate_0039"
+  },
+  {
+    "document_id": "certificate_0039_forged_date",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "typography_manipulation",
+      "text_replacement"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          300,
+          489,
+          242,
+          15
+        ],
+        "type": "typography_manipulation",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0039"
+  },
+  {
+    "document_id": "certificate_0039_forged_copypaste",
+    "category": "education",
+    "label": "forged",
+    "forgery_types": [
+      "copy_paste"
+    ],
+    "regions": [
+      {
+        "bbox": [
+          423,
+          343,
+          235,
+          27
+        ],
+        "type": "copy_paste",
+        "severity": "medium"
+      }
+    ],
+    "source_document": "certificate_0039"
+  }
+]

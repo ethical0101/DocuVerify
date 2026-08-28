@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0031",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "CARLOS IVANOVA",
+    "degree": "Bachelor of Arts in Economics",
+    "registration_no": "REG254739",
+    "date_of_graduation": "01/12/2025",
+    "grade": "First Class",
+    "university": "Summit Valley University"
+  },
+  "field_regions": {
+    "name": [
+      333.0,
+      256,
+      668.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

@@ -1,0 +1,1688 @@
+{
+  "train": [
+    {
+      "path": "identity/genuine/identity_0000.png",
+      "document_id": "identity_0000",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0000_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0000_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0000_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0000.png",
+      "document_id": "certificate_0000",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0000_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0000_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0000_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0001.png",
+      "document_id": "identity_0001",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0001_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0001_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0001_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0005.png",
+      "document_id": "identity_0005",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0005_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0005_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0005_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0006.png",
+      "document_id": "certificate_0006",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0006_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0006_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0006_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0007.png",
+      "document_id": "identity_0007",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0007_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0007_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0007_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0007.png",
+      "document_id": "certificate_0007",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0007_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0007_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0007_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0008.png",
+      "document_id": "identity_0008",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0008_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0008_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0008_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0008.png",
+      "document_id": "certificate_0008",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0008_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0008_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0008_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0009.png",
+      "document_id": "identity_0009",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0009_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0009_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0009_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0010.png",
+      "document_id": "identity_0010",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0010_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0010_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0010_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0010.png",
+      "document_id": "certificate_0010",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0010_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0010_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0010_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0011.png",
+      "document_id": "identity_0011",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0011_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0011_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0011_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0011.png",
+      "document_id": "certificate_0011",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0011_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0011_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0011_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0012.png",
+      "document_id": "identity_0012",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0012_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0012_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0012_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0012.png",
+      "document_id": "certificate_0012",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0012_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0012_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0012_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0013.png",
+      "document_id": "identity_0013",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0013_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0013_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0013_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0014.png",
+      "document_id": "identity_0014",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0014_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0014_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0014_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0014.png",
+      "document_id": "certificate_0014",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0014_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0014_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0014_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0015.png",
+      "document_id": "certificate_0015",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0015_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0015_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0015_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0016.png",
+      "document_id": "identity_0016",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0016_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0016_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0016_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0016.png",
+      "document_id": "certificate_0016",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0016_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0016_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0016_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0017.png",
+      "document_id": "identity_0017",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0017_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0017_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0017_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0018.png",
+      "document_id": "certificate_0018",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0018_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0018_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0018_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0019.png",
+      "document_id": "identity_0019",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0019_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0019_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0019_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0019.png",
+      "document_id": "certificate_0019",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0019_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0019_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0019_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0020.png",
+      "document_id": "identity_0020",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0020_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0020_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0020_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0021.png",
+      "document_id": "identity_0021",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0021_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0021_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0021_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0021.png",
+      "document_id": "certificate_0021",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0021_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0021_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0021_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0022.png",
+      "document_id": "identity_0022",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0022_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0022_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0022_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0022.png",
+      "document_id": "certificate_0022",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0022_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0022_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0022_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0023.png",
+      "document_id": "certificate_0023",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0023_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0023_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0023_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0024.png",
+      "document_id": "identity_0024",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0024_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0024_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0024_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0024.png",
+      "document_id": "certificate_0024",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0024_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0024_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0024_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0025.png",
+      "document_id": "certificate_0025",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0025_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0025_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0025_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0027.png",
+      "document_id": "identity_0027",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0027_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0027_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0027_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0028.png",
+      "document_id": "identity_0028",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0028_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0028_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0028_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0028.png",
+      "document_id": "certificate_0028",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0028_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0028_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0028_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0029.png",
+      "document_id": "identity_0029",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0029_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0029_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0029_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0029.png",
+      "document_id": "certificate_0029",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0029_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0029_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0029_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0030.png",
+      "document_id": "identity_0030",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0030_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0030_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0030_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0030.png",
+      "document_id": "certificate_0030",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0030_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0030_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0030_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0031.png",
+      "document_id": "identity_0031",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0031_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0031_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0031_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0031.png",
+      "document_id": "certificate_0031",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0031_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0031_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0031_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0032.png",
+      "document_id": "certificate_0032",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0032_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0032_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0032_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0033.png",
+      "document_id": "identity_0033",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0033_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0033_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0033_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0033.png",
+      "document_id": "certificate_0033",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0033_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0033_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0033_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0035.png",
+      "document_id": "identity_0035",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0035_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0035_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0035_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0036.png",
+      "document_id": "identity_0036",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0036_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0036_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0036_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0036.png",
+      "document_id": "certificate_0036",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0036_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0036_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0036_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0037.png",
+      "document_id": "identity_0037",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0037_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0037_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0037_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0037.png",
+      "document_id": "certificate_0037",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0037_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0037_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0037_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0038.png",
+      "document_id": "identity_0038",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0038_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0038_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0038_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0038.png",
+      "document_id": "certificate_0038",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0038_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0038_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0038_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0039.png",
+      "document_id": "identity_0039",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0039_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0039_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0039_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0039.png",
+      "document_id": "certificate_0039",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0039_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0039_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0039_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    }
+  ],
+  "val": [
+    {
+      "path": "education/genuine/certificate_0001.png",
+      "document_id": "certificate_0001",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0001_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0001_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0001_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0002.png",
+      "document_id": "certificate_0002",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0002_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0002_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0002_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0004.png",
+      "document_id": "identity_0004",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0004_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0004_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0004_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0005.png",
+      "document_id": "certificate_0005",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0005_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0005_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0005_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0015.png",
+      "document_id": "identity_0015",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0015_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0015_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0015_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0017.png",
+      "document_id": "certificate_0017",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0017_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0017_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0017_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0018.png",
+      "document_id": "identity_0018",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0018_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0018_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0018_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0026.png",
+      "document_id": "identity_0026",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0026_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0026_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0026_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0026.png",
+      "document_id": "certificate_0026",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0026_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0026_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0026_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0027.png",
+      "document_id": "certificate_0027",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0027_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0027_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0027_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0034.png",
+      "document_id": "certificate_0034",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0034_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0034_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0034_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0035.png",
+      "document_id": "certificate_0035",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0035_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0035_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0035_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    }
+  ],
+  "test": [
+    {
+      "path": "identity/genuine/identity_0002.png",
+      "document_id": "identity_0002",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0002_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0002_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0002_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0003.png",
+      "document_id": "identity_0003",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0003_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0003_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0003_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0003.png",
+      "document_id": "certificate_0003",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0003_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0003_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0003_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0004.png",
+      "document_id": "certificate_0004",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0004_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0004_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0004_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0006.png",
+      "document_id": "identity_0006",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0006_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0006_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0006_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0009.png",
+      "document_id": "certificate_0009",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0009_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0009_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0009_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0013.png",
+      "document_id": "certificate_0013",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0013_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0013_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0013_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "education/genuine/certificate_0020.png",
+      "document_id": "certificate_0020",
+      "category": "education",
+      "label": "genuine"
+    },
+    {
+      "document_id": "certificate_0020_forged_name",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0020_forged_date",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "document_id": "certificate_0020_forged_copypaste",
+      "category": "education",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0023.png",
+      "document_id": "identity_0023",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0023_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0023_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0023_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0025.png",
+      "document_id": "identity_0025",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0025_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0025_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0025_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0032.png",
+      "document_id": "identity_0032",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0032_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0032_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0032_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "path": "identity/genuine/identity_0034.png",
+      "document_id": "identity_0034",
+      "category": "identity",
+      "label": "genuine"
+    },
+    {
+      "document_id": "identity_0034_forged_name",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0034_forged_date",
+      "category": "identity",
+      "label": "forged"
+    },
+    {
+      "document_id": "identity_0034_forged_copypaste",
+      "category": "identity",
+      "label": "forged"
+    }
+  ]
+}

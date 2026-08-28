@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0027",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "ELENA NIELSEN",
+    "Date of Birth": "02/05/1996",
+    "ID Number": "ID68526649",
+    "Issued": "26/09/2018",
+    "Expiry": "26/09/2028",
+    "Nationality": "Republic Of Northland"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      614,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      656,
+      373
+    ]
+  }
+}

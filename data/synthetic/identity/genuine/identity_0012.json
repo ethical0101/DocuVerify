@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0012",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "PRIYA DOE",
+    "Date of Birth": "21/12/1992",
+    "ID Number": "ID17901903",
+    "Issued": "02/02/2019",
+    "Expiry": "02/02/2029",
+    "Nationality": "Union Of Southvale"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      568,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      633,
+      369
+    ]
+  }
+}

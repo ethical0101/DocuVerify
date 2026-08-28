@@ -1,0 +1,35 @@
+{
+  "document_id": "certificate_0009",
+  "category": "education",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "name": "JOHN GARCIA",
+    "degree": "Master of Science in Data Analytics",
+    "registration_no": "REG972064",
+    "date_of_graduation": "02/04/2022",
+    "grade": "First Class",
+    "university": "Summit Valley University"
+  },
+  "field_regions": {
+    "name": [
+      370.0,
+      256,
+      630.0,
+      283
+    ],
+    "registration_no": [
+      300,
+      463,
+      512,
+      478
+    ],
+    "date_of_graduation": [
+      300,
+      493,
+      522,
+      505
+    ]
+  }
+}

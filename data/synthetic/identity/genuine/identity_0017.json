@@ -1,0 +1,53 @@
+{
+  "document_id": "identity_0017",
+  "category": "identity",
+  "label": "genuine",
+  "forgery_types": [],
+  "regions": [],
+  "field_values": {
+    "Full Name": "OLUWASEUN DOE",
+    "Date of Birth": "16/10/1991",
+    "ID Number": "ID77491435",
+    "Issued": "02/03/2022",
+    "Expiry": "02/03/2032",
+    "Nationality": "Union Of Southvale"
+  },
+  "field_regions": {
+    "full_name": [
+      460,
+      144,
+      636,
+      159
+    ],
+    "date_of_birth": [
+      460,
+      186,
+      560,
+      201
+    ],
+    "id_number": [
+      460,
+      228,
+      568,
+      243
+    ],
+    "issued": [
+      460,
+      270,
+      560,
+      285
+    ],
+    "expiry": [
+      460,
+      312,
+      560,
+      327
+    ],
+    "nationality": [
+      460,
+      354,
+      633,
+      369
+    ]
+  }
+}

@@ -1,0 +1,482 @@
+[
+  {
+    "path": "identity/genuine/identity_0000.png",
+    "document_id": "identity_0000",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0000.png",
+    "document_id": "certificate_0000",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0001.png",
+    "document_id": "identity_0001",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0001.png",
+    "document_id": "certificate_0001",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0002.png",
+    "document_id": "identity_0002",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0002.png",
+    "document_id": "certificate_0002",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0003.png",
+    "document_id": "identity_0003",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0003.png",
+    "document_id": "certificate_0003",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0004.png",
+    "document_id": "identity_0004",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0004.png",
+    "document_id": "certificate_0004",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0005.png",
+    "document_id": "identity_0005",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0005.png",
+    "document_id": "certificate_0005",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0006.png",
+    "document_id": "identity_0006",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0006.png",
+    "document_id": "certificate_0006",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0007.png",
+    "document_id": "identity_0007",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0007.png",
+    "document_id": "certificate_0007",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0008.png",
+    "document_id": "identity_0008",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0008.png",
+    "document_id": "certificate_0008",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0009.png",
+    "document_id": "identity_0009",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0009.png",
+    "document_id": "certificate_0009",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0010.png",
+    "document_id": "identity_0010",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0010.png",
+    "document_id": "certificate_0010",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0011.png",
+    "document_id": "identity_0011",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0011.png",
+    "document_id": "certificate_0011",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0012.png",
+    "document_id": "identity_0012",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0012.png",
+    "document_id": "certificate_0012",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0013.png",
+    "document_id": "identity_0013",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0013.png",
+    "document_id": "certificate_0013",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0014.png",
+    "document_id": "identity_0014",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0014.png",
+    "document_id": "certificate_0014",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0015.png",
+    "document_id": "identity_0015",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0015.png",
+    "document_id": "certificate_0015",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0016.png",
+    "document_id": "identity_0016",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0016.png",
+    "document_id": "certificate_0016",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0017.png",
+    "document_id": "identity_0017",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0017.png",
+    "document_id": "certificate_0017",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0018.png",
+    "document_id": "identity_0018",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0018.png",
+    "document_id": "certificate_0018",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0019.png",
+    "document_id": "identity_0019",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0019.png",
+    "document_id": "certificate_0019",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0020.png",
+    "document_id": "identity_0020",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0020.png",
+    "document_id": "certificate_0020",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0021.png",
+    "document_id": "identity_0021",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0021.png",
+    "document_id": "certificate_0021",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0022.png",
+    "document_id": "identity_0022",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0022.png",
+    "document_id": "certificate_0022",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0023.png",
+    "document_id": "identity_0023",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0023.png",
+    "document_id": "certificate_0023",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0024.png",
+    "document_id": "identity_0024",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0024.png",
+    "document_id": "certificate_0024",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0025.png",
+    "document_id": "identity_0025",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0025.png",
+    "document_id": "certificate_0025",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0026.png",
+    "document_id": "identity_0026",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0026.png",
+    "document_id": "certificate_0026",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0027.png",
+    "document_id": "identity_0027",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0027.png",
+    "document_id": "certificate_0027",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0028.png",
+    "document_id": "identity_0028",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0028.png",
+    "document_id": "certificate_0028",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0029.png",
+    "document_id": "identity_0029",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0029.png",
+    "document_id": "certificate_0029",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0030.png",
+    "document_id": "identity_0030",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0030.png",
+    "document_id": "certificate_0030",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0031.png",
+    "document_id": "identity_0031",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0031.png",
+    "document_id": "certificate_0031",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0032.png",
+    "document_id": "identity_0032",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0032.png",
+    "document_id": "certificate_0032",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0033.png",
+    "document_id": "identity_0033",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0033.png",
+    "document_id": "certificate_0033",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0034.png",
+    "document_id": "identity_0034",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0034.png",
+    "document_id": "certificate_0034",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0035.png",
+    "document_id": "identity_0035",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0035.png",
+    "document_id": "certificate_0035",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0036.png",
+    "document_id": "identity_0036",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0036.png",
+    "document_id": "certificate_0036",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0037.png",
+    "document_id": "identity_0037",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0037.png",
+    "document_id": "certificate_0037",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0038.png",
+    "document_id": "identity_0038",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0038.png",
+    "document_id": "certificate_0038",
+    "category": "education",
+    "label": "genuine"
+  },
+  {
+    "path": "identity/genuine/identity_0039.png",
+    "document_id": "identity_0039",
+    "category": "identity",
+    "label": "genuine"
+  },
+  {
+    "path": "education/genuine/certificate_0039.png",
+    "document_id": "certificate_0039",
+    "category": "education",
+    "label": "genuine"
+  }
+]
