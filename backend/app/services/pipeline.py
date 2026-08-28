@@ -18,7 +18,8 @@ from app.services.metadata.extractor import extract_metadata
 from app.services.semantic.consistency import analyze_consistency
 from app.services.identity.detector import detect_portrait_region
 from app.services.education.detector import classify_document_category
-from app.services.fusion.fusion import fuse_evidence, diagnose_forgery_types
+from app.services.fusion.fusion import fuse_evidence, fuse_with_ml, diagnose_forgery_types
+from app.services.fusion.ml_authenticity import ml_forged_probability
 from app.services.explainability.explainer import build_explanation
 
 
@@ -79,6 +80,13 @@ def analyze_document(path: Path) -> dict:
         visual_score = 0.0
     timing["visual_forensics_ms"] = round((time.time() - t3) * 1000, 1)
 
+    # Trained authenticity classifier (RandomForest over whole-image forensic features).
+    # This is the primary genuine/forged signal (test ROC-AUC ~0.87); the heuristic
+    # signals below remain as human-readable supporting evidence and region localization.
+    t_ml = time.time()
+    ml_prob, _ = _safe(ml_forged_probability, None, page)
+    timing["ml_score_ms"] = round((time.time() - t_ml) * 1000, 1)
+
     t4 = time.time()
     typo_result, _ = _safe(analyze_typography, {"score": 0.0, "regions": []}, page, ocr_words)
     timing["typography_ms"] = round((time.time() - t4) * 1000, 1)
@@ -109,8 +117,11 @@ def analyze_document(path: Path) -> dict:
         "metadata_anomaly": 0.5 if meta_result.get("anomaly") else 0.0,
         "semantic_anomaly": semantic_result.get("score"),
     }
-    fusion_result = fuse_evidence(signals)
-    forgery_types = diagnose_forgery_types(signals)
+    fusion_result = fuse_with_ml(signals, ml_prob)
+    # Only surface likely-manipulation-type labels when the overall assessment is not LOW.
+    # A document the classifier judges genuine (LOW risk) should not be tagged with a
+    # forgery type just because a heuristic region signal crossed its own threshold.
+    forgery_types = [] if fusion_result["risk_level"] == "LOW" else diagnose_forgery_types(signals)
 
     all_regions = list(visual_regions) + list(typo_result.get("regions", []))
     if portrait_region:
@@ -131,6 +142,8 @@ def analyze_document(path: Path) -> dict:
         "confidence": fusion_result["confidence"],
         "evidence": {
             **signals,
+            "ml_forged_probability": fusion_result.get("ml_forged_probability"),
+            "score_source": fusion_result.get("score_source"),
             "layout_findings": layout_result.get("findings", []),
             "semantic_findings": semantic_result.get("findings", []),
             "metadata": meta_result,

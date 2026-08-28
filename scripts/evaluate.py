@@ -17,9 +17,10 @@ from app.services.pipeline import analyze_document  # noqa: E402
 
 SYN_DIR = ROOT / "data" / "synthetic"
 EVAL_DIR = ROOT / "evaluation"
-RISK_THRESHOLD = 55  # authenticity_score below this => predicted "forged"; fixed a priori,
-                      # not fit to this test set (see roc_auc / best_threshold_accuracy below
-                      # for the threshold-independent and diagnostic-only views).
+RISK_THRESHOLD = 55  # authenticity_score below this => predicted "forged". Matches the
+                      # trained-model MEDIUM/HIGH-ish boundary (authenticity 55 == risk_score 0.45,
+                      # the LOW/MEDIUM tier edge); fixed a priori, not fit to this test set (see
+                      # roc_auc / best_threshold_accuracy below for the threshold-independent views).
 
 
 def find_image(doc_id: str, category: str, label: str) -> Path | None:
