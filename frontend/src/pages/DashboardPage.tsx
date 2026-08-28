@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ScanSearch, ShieldAlert, ShieldQuestion, ShieldCheck } from "lucide-react";
+import { ScanSearch, ShieldAlert, ShieldQuestion, ShieldCheck, Cpu } from "lucide-react";
 import { getDashboardStats, type DashboardStats } from "../api/client";
+import { useAuth } from "../auth/AuthContext";
 import InvestigationCard from "../components/InvestigationCard";
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,6 +32,25 @@ export default function DashboardPage() {
         <div className="text-white/40 text-sm">Loading...</div>
       ) : (
         <>
+          {user && (
+            <div className="glass rounded-xl p-5 mb-6 flex items-center gap-3">
+              <Cpu className="w-4 h-4 text-accent shrink-0" />
+              {stats.active_model ? (
+                <div className="text-sm">
+                  <span className="text-white/40">Active organization model: </span>
+                  <span className="font-medium">{stats.active_model.name} {stats.active_model.version}</span>
+                  {stats.active_model.metrics?.f1 !== undefined && (
+                    <span className="text-white/40"> &middot; F1 {(stats.active_model.metrics.f1 * 100).toFixed(1)}%</span>
+                  )}
+                </div>
+              ) : (
+                <div className="text-sm text-white/40">
+                  No organization model active -- analyses use the base forensic engine only.
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <StatCard icon={ScanSearch} label="Total Investigations" value={stats.total_investigations} color="#4f8cff" />
             <StatCard icon={ShieldAlert} label="High Risk" value={stats.high_risk} color="#f87171" />

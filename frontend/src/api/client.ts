@@ -99,6 +99,7 @@ export interface DashboardStats {
   medium_risk: number;
   low_risk: number;
   recent_investigations: InvestigationSummary[];
+  active_model: { id: string; name: string; version: string; metrics: Record<string, number> } | null;
 }
 
 export const STAGE_ORDER = ["intake", "ocr", "visual_forensics", "typography", "structure",

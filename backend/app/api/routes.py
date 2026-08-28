@@ -18,6 +18,20 @@ from app.api.deps import get_optional_user
 router = APIRouter()
 
 
+def _get_authorized_document(doc_id: str, db: Session, user: User | None) -> Document:
+    """Fetches a document, enforcing organization isolation: a document uploaded
+    within an organization is only readable by a member of that SAME organization
+    (404, not 403, so an unauthorized caller can't distinguish "wrong org" from
+    "doesn't exist"). A document uploaded anonymously (organization_id IS NULL) stays
+    readable by anyone, consistent with the core forensic demo working without login."""
+    doc = db.get(Document, doc_id)
+    if not doc:
+        raise HTTPException(404, "Document not found")
+    if doc.organization_id and (not user or user.organization_id != doc.organization_id):
+        raise HTTPException(404, "Document not found")
+    return doc
+
+
 @router.get("/health")
 def health():
     from app.services.ocr.engine import is_available
@@ -134,20 +148,16 @@ def analyze(doc_id: str, db: Session = Depends(get_db), user: User | None = Depe
 
 
 @router.get("/documents/{doc_id}")
-def get_document(doc_id: str, db: Session = Depends(get_db)):
-    doc = db.get(Document, doc_id)
-    if not doc:
-        raise HTTPException(404, "Document not found")
+def get_document(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
+    doc = _get_authorized_document(doc_id, db, user)
     return {"id": doc.id, "filename": doc.filename, "category": doc.category, "pages": doc.pages,
             "status": doc.status, "created_at": doc.created_at, "file_type": doc.file_type,
             "size_bytes": doc.size_bytes}
 
 
 @router.get("/documents/{doc_id}/results")
-def get_results(doc_id: str, db: Session = Depends(get_db)):
-    doc = db.get(Document, doc_id)
-    if not doc:
-        raise HTTPException(404, "Document not found")
+def get_results(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
+    doc = _get_authorized_document(doc_id, db, user)
     if not doc.analyses:
         raise HTTPException(404, "No analysis found for this document yet")
     latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
@@ -173,21 +183,19 @@ def get_results(doc_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/documents/{doc_id}/evidence")
-def get_evidence(doc_id: str, db: Session = Depends(get_db)):
-    doc = db.get(Document, doc_id)
-    if not doc or not doc.analyses:
+def get_evidence(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
+    doc = _get_authorized_document(doc_id, db, user)
+    if not doc.analyses:
         raise HTTPException(404, "No analysis found")
     latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
     return {"evidence": latest.evidence_list}
 
 
 @router.get("/documents/{doc_id}/file")
-def get_file(doc_id: str, db: Session = Depends(get_db)):
+def get_file(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
     """Returns the document's primary page as a PNG (renders PDFs to their first page)
     so the frontend always has a single displayable image, regardless of source format."""
-    doc = db.get(Document, doc_id)
-    if not doc:
-        raise HTTPException(404, "Document not found")
+    doc = _get_authorized_document(doc_id, db, user)
 
     from pathlib import Path
     import cv2
@@ -203,19 +211,26 @@ def get_file(doc_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/documents/{doc_id}/regions")
-def get_regions(doc_id: str, db: Session = Depends(get_db)):
-    doc = db.get(Document, doc_id)
-    if not doc or not doc.analyses:
+def get_regions(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
+    doc = _get_authorized_document(doc_id, db, user)
+    if not doc.analyses:
         raise HTTPException(404, "No analysis found")
     latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
     return {"regions": latest.regions}
 
 
 @router.get("/documents")
-def list_documents(db: Session = Depends(get_db), limit: int = 100):
+def list_documents(db: Session = Depends(get_db), limit: int = 100,
+                    user: User | None = Depends(get_optional_user)):
     """Investigation history: every document that has at least one analysis, newest first.
-    Never fabricated -- reads directly from the database, empty list if nothing analyzed yet."""
-    docs = db.query(Document).order_by(Document.created_at.desc()).limit(limit).all()
+    Never fabricated -- reads directly from the database, empty list if nothing analyzed yet.
+
+    Scoped to the caller's organization -- logged-in users must never see another
+    organization's investigations (see the enterprise isolation requirement in
+    SECURITY.md). An anonymous caller only sees documents that were themselves
+    uploaded anonymously (organization_id IS NULL), never any organization's data."""
+    query = db.query(Document).filter(Document.organization_id == (user.organization_id if user else None))
+    docs = query.order_by(Document.created_at.desc()).limit(limit).all()
     out = []
     for doc in docs:
         if not doc.analyses:
@@ -232,10 +247,11 @@ def list_documents(db: Session = Depends(get_db), limit: int = 100):
 
 
 @router.get("/dashboard/stats")
-def dashboard_stats(db: Session = Depends(get_db)):
+def dashboard_stats(db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
     """Real counts from the database only -- no fabricated statistics. Returns zeros, not
-    placeholder numbers, when nothing has been analyzed yet."""
-    docs = db.query(Document).all()
+    placeholder numbers, when nothing has been analyzed yet. Scoped to the caller's
+    organization, same isolation rule as list_documents() above."""
+    docs = db.query(Document).filter(Document.organization_id == (user.organization_id if user else None)).all()
     analyzed = [d for d in docs if d.analyses]
     by_risk = {"LOW": 0, "MEDIUM": 0, "HIGH": 0}
     recent = []
@@ -248,19 +264,29 @@ def dashboard_stats(db: Session = Depends(get_db)):
             "authenticity_score": latest.authenticity_score, "risk_level": latest.risk_level,
         })
     recent.sort(key=lambda r: r["created_at"], reverse=True)
+
+    active_model = None
+    if user:
+        from app.models.db_models import ModelVersion
+        m = db.query(ModelVersion).filter(
+            ModelVersion.organization_id == user.organization_id, ModelVersion.status == "active").first()
+        if m:
+            active_model = {"id": m.id, "name": m.name, "version": m.version, "metrics": m.metrics}
+
     return {
         "total_investigations": len(analyzed),
         "high_risk": by_risk.get("HIGH", 0),
         "medium_risk": by_risk.get("MEDIUM", 0),
         "low_risk": by_risk.get("LOW", 0),
         "recent_investigations": recent[:8],
+        "active_model": active_model,
     }
 
 
 @router.get("/documents/{doc_id}/report")
-def get_report(doc_id: str, db: Session = Depends(get_db)):
-    doc = db.get(Document, doc_id)
-    if not doc or not doc.analyses:
+def get_report(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
+    doc = _get_authorized_document(doc_id, db, user)
+    if not doc.analyses:
         raise HTTPException(404, "No analysis found")
     latest = sorted(doc.analyses, key=lambda a: a.created_at)[-1]
     return {
