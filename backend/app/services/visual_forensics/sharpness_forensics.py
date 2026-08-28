@@ -5,8 +5,13 @@ paste/inpaint/re-render tool leaves) shows measurably different edge energy
 HIGHER due to quantization ringing at hard vector-text edges, not lower/
 blurrier as naive intuition suggests. This compares each word's sharpness,
 normalized by its own ink density, against other words in the same
-column/field-role cluster (see typography/analyzer.py for why column
-clustering, not global comparison, is the right baseline for forms)."""
+glyph-height cluster (same approach as typography/analyzer.py) -- height
+correlates with "field role" (title/body/caption) on BOTH tabular forms
+(label vs. value) and paragraph documents like certificates, whereas
+clustering by x-position only works for tabular layouts: on a paragraph
+document almost every word has a unique x, so most clusters end up with
+1-2 members and get skipped entirely, silently losing coverage on exactly
+the free-text documents where this signal is needed most."""
 import cv2
 import numpy as np
 
@@ -35,8 +40,8 @@ def sharpness_anomalies(image: np.ndarray, ocr_words: list, z_thresh: float = 2.
     if len(stats) < 4:
         return []
 
-    xs = np.array([s["word"]["bbox"][0] for s in stats], dtype=np.float32)
-    cluster_ids = _cluster_1d(xs, bin_width=max(40.0, float(xs.std()) * 0.3))
+    heights = np.array([s["word"]["bbox"][3] for s in stats], dtype=np.float32)
+    cluster_ids = _cluster_1d(heights, bin_width=max(3.0, float(heights.std()) * 0.5))
 
     regions = []
     for cluster in set(cluster_ids):
@@ -53,7 +58,8 @@ def sharpness_anomalies(image: np.ndarray, ocr_words: list, z_thresh: float = 2.
                 regions.append({
                     "bbox": m["bbox"], "score": round(score, 3), "type": "compression_splice",
                     "text": m["word"]["text"],
-                    "reason": "Edge sharpness/ringing on this text differs sharply from other text in "
-                              "the same field column, consistent with a pasted-in or re-rendered edit",
+                    "reason": "Edge sharpness/ringing on this text differs sharply from other "
+                              "similarly-sized text on this document, consistent with a pasted-in or "
+                              "re-rendered edit",
                 })
     return regions

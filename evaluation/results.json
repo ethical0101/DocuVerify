@@ -2,12 +2,12 @@
   "summary": {
     "test_set_size": 48,
     "mean_authenticity_score": {
-      "genuine": 69.1,
-      "forged": 68.5
+      "genuine": 68.7,
+      "forged": 68.1
     },
-    "roc_auc": 0.5648,
+    "roc_auc": 0.5579,
     "best_threshold_accuracy": {
-      "threshold": 73,
+      "threshold": 71,
       "accuracy": 0.75
     },
     "confusion_matrix_at_fixed_threshold": {
@@ -20,9 +20,9 @@
     "precision": 0.0,
     "recall": 0.0,
     "f1": 0.0,
-    "localization_mean_iou": 0.0652,
+    "localization_mean_iou": 0.0342,
     "localization_sample_count": 36,
-    "avg_latency_sec": 6.898,
+    "avg_latency_sec": 1.962,
     "risk_threshold_used": 55,
     "note": "Metrics are computed on DocuVerify's own synthetic test split (held out by source document, no leakage). They characterize this prototype's classical-CV + OCR pipeline on synthetic renders, not performance on real-world scanned/photographed documents."
   },
@@ -30,56 +30,56 @@
     {
       "document_id": "identity_0002",
       "label": "genuine",
-      "authenticity_score": 69.4,
+      "authenticity_score": 69.5,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0002_forged_name",
       "label": "forged",
-      "authenticity_score": 69.4,
+      "authenticity_score": 66.5,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0002_forged_date",
       "label": "forged",
-      "authenticity_score": 68.6,
+      "authenticity_score": 69.1,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0002_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 64.0,
+      "authenticity_score": 64.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0003",
       "label": "genuine",
-      "authenticity_score": 68.8,
+      "authenticity_score": 69.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0003_forged_name",
       "label": "forged",
-      "authenticity_score": 65.3,
+      "authenticity_score": 63.0,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0003_forged_date",
       "label": "forged",
-      "authenticity_score": 67.5,
+      "authenticity_score": 69.2,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0003_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 64.0,
+      "authenticity_score": 64.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
@@ -107,7 +107,7 @@
     {
       "document_id": "certificate_0003_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 72.0,
+      "authenticity_score": 70.4,
       "risk_level": "LOW",
       "predicted_forged": false
     },
@@ -121,7 +121,7 @@
     {
       "document_id": "certificate_0004_forged_name",
       "label": "forged",
-      "authenticity_score": 72.6,
+      "authenticity_score": 70.8,
       "risk_level": "LOW",
       "predicted_forged": false
     },
@@ -135,35 +135,35 @@
     {
       "document_id": "certificate_0004_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 70.9,
-      "risk_level": "LOW",
+      "authenticity_score": 70.0,
+      "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0006",
       "label": "genuine",
-      "authenticity_score": 66.9,
+      "authenticity_score": 64.1,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0006_forged_name",
       "label": "forged",
-      "authenticity_score": 69.0,
+      "authenticity_score": 68.1,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0006_forged_date",
       "label": "forged",
-      "authenticity_score": 66.9,
+      "authenticity_score": 64.1,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0006_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 65.5,
+      "authenticity_score": 64.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
@@ -191,7 +191,7 @@
     {
       "document_id": "certificate_0009_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 70.2,
+      "authenticity_score": 72.2,
       "risk_level": "LOW",
       "predicted_forged": false
     },
@@ -219,14 +219,14 @@
     {
       "document_id": "certificate_0013_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 72.8,
+      "authenticity_score": 74.5,
       "risk_level": "LOW",
       "predicted_forged": false
     },
     {
       "document_id": "certificate_0020",
       "label": "genuine",
-      "authenticity_score": 70.3,
+      "authenticity_score": 72.2,
       "risk_level": "LOW",
       "predicted_forged": false
     },
@@ -240,105 +240,105 @@
     {
       "document_id": "certificate_0020_forged_date",
       "label": "forged",
-      "authenticity_score": 70.4,
+      "authenticity_score": 70.1,
       "risk_level": "LOW",
       "predicted_forged": false
     },
     {
       "document_id": "certificate_0020_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 70.4,
+      "authenticity_score": 70.2,
       "risk_level": "LOW",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0023",
       "label": "genuine",
-      "authenticity_score": 69.8,
+      "authenticity_score": 69.3,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0023_forged_name",
       "label": "forged",
-      "authenticity_score": 68.3,
+      "authenticity_score": 67.5,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0023_forged_date",
       "label": "forged",
-      "authenticity_score": 68.3,
+      "authenticity_score": 68.9,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0023_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 68.9,
+      "authenticity_score": 68.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0025",
       "label": "genuine",
-      "authenticity_score": 65.1,
+      "authenticity_score": 65.9,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0025_forged_name",
       "label": "forged",
-      "authenticity_score": 69.6,
+      "authenticity_score": 68.3,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0025_forged_date",
       "label": "forged",
-      "authenticity_score": 66.4,
+      "authenticity_score": 65.8,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0025_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 64.0,
+      "authenticity_score": 64.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0032",
       "label": "genuine",
-      "authenticity_score": 67.5,
+      "authenticity_score": 64.3,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0032_forged_name",
       "label": "forged",
-      "authenticity_score": 68.4,
+      "authenticity_score": 67.7,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0032_forged_date",
       "label": "forged",
-      "authenticity_score": 66.9,
+      "authenticity_score": 63.5,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0032_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 66.7,
+      "authenticity_score": 66.1,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0034",
       "label": "genuine",
-      "authenticity_score": 69.5,
+      "authenticity_score": 67.4,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
@@ -352,14 +352,14 @@
     {
       "document_id": "identity_0034_forged_date",
       "label": "forged",
-      "authenticity_score": 68.9,
+      "authenticity_score": 67.1,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     },
     {
       "document_id": "identity_0034_forged_copypaste",
       "label": "forged",
-      "authenticity_score": 64.0,
+      "authenticity_score": 64.6,
       "risk_level": "MEDIUM",
       "predicted_forged": false
     }

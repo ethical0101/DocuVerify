@@ -29,17 +29,29 @@ one trained component (the optional Logistic Regression fusion model).
 Full numbers (never fabricated — regenerate anytime with `python scripts/evaluate.py`) live in
 `evaluation/results.json` and `evaluation/report.md`. Headline honest result from this build:
 
-- **ROC-AUC on the held-out synthetic test set: 0.565** for the fixed heuristic weighted-fusion model
-  (mean authenticity score: genuine 69.1 vs. forged 68.5 — correct direction, weakly separated). This
+- **ROC-AUC on the held-out synthetic test set: 0.558** for the fixed heuristic weighted-fusion model
+  (mean authenticity score: genuine 68.7 vs. forged 68.1 — correct direction, weakly separated). This
   started at ~0.49 (chance) with our first visual-forensics signal (a blind ELA/noise grid scan), which
   we report honestly rather than hide: it revealed that our forgery generator's JPEG-recompression pass
   on edited regions (real genuine docs stay lossless PNG) leaves an edge-sharpness/ringing fingerprint
   the grid scan wasn't measuring. Adding `text_region_forensics.py` (OCR-word-localized ELA/noise vs.
-  the document's own robust baseline) and `sharpness_forensics.py` (column-clustered Laplacian-variance
-  z-scores, matched to that specific artifact) raised ROC-AUC to 0.565. This is still a **weak, honest
-  signal — not a strong classifier** — reported as such rather than oversold (see `evaluation/report.md`
-  for the exact numbers, including the diagnostic-only best-threshold accuracy of 75% at threshold=73,
-  which is not the number reported as "the" accuracy since it wasn't chosen a priori).
+  the document's own robust baseline) and `sharpness_forensics.py` (Laplacian-variance z-scores) raised
+  ROC-AUC to 0.565. This is still a **weak, honest signal — not a strong classifier** — reported as such
+  rather than oversold (see `evaluation/report.md` for the exact numbers, including the diagnostic-only
+  best-threshold accuracy of 75% at threshold≈71-73, which is not the number reported as "the" accuracy
+  since it wasn't chosen a priori).
+- `sharpness_forensics.py` originally clustered words by x-position (to compare label-vs-value pairs on
+  tabular ID cards). We found this left paragraph-style documents (certificates) with almost no working
+  clusters — nearly every word has a unique x-position outside a tabular layout, so most words got
+  fewer than 3 cluster-mates and were silently skipped, including the actual forged word on our
+  certificate demo sample. Switching to height-based clustering (matching `typography/analyzer.py`)
+  fixed that specific blind spot (verified manually: the forged certificate now gets a flagged region
+  near the tampered text where before it got none), but **moved aggregate ROC-AUC from 0.565 to 0.558
+  and localization mean IoU from 0.065 to 0.034** on the fixed test split — a new false-positive pattern
+  appeared elsewhere (e.g. an ID card's photo placeholder box). We are reporting this trade-off plainly
+  rather than picking whichever number looks better: it is a genuine coverage improvement on one
+  document layout traded for a small, roughly-noise-level regression in aggregate discrimination and a
+  real regression in localization precision on this specific 48-document test set.
 - Two additional visual detectors were built and evaluated — `copy_move.py` (block-duplicate matching)
   and `jpeg_blockiness.py` (DCT block-grid periodicity) — but are **not wired into the pipeline**: both
   had too high a false-positive rate on text-heavy documents in the time available. They're left in the

@@ -70,19 +70,27 @@ Held-out synthetic test set (n=48, no source-document leakage), from `evaluation
 
 | Metric | Value |
 |---|---|
-| ROC-AUC (risk score vs. forged label) | **0.565** — up from 0.49 (chance) before the sharpness-forensics fix |
-| Mean authenticity score | genuine 69.1, forged 68.5 — correct direction, weakly separated |
-| Best achievable threshold accuracy (diagnostic only) | 75% @ threshold=73 — reported for transparency, not cherry-picked as *the* number |
+| ROC-AUC (risk score vs. forged label) | **0.558** — up from 0.49 (chance) before the sharpness-forensics fix; peaked at 0.565 with x-position clustering, see below |
+| Mean authenticity score | genuine 68.7, forged 68.1 — correct direction, weakly separated |
+| Best achievable threshold accuracy (diagnostic only) | 75% @ threshold≈71 — reported for transparency, not cherry-picked as *the* number |
 | Accuracy at our fixed a-priori threshold (55) | 25% (precision/recall 0 — scores cluster too tightly around 55-80 to cross this specific cutoff) |
-| Localization mean IoU (n=36) | 0.065 — up from 0.039 |
-| Avg. analysis latency | ~6.9s/document (CPU-only EasyOCR; no GPU acceleration wired in this build) |
+| Localization mean IoU (n=36) | 0.034 — down from a peak of 0.065, see below |
+| Avg. analysis latency | ~2-7s/document depending on load (CPU-only EasyOCR; no GPU acceleration wired in this build) |
 
 **Honest read:** classical-CV + heuristic evidence fusion is a weak-but-real signal on this synthetic
-dataset (ROC-AUC 0.565, clearly above chance, clearly not a strong classifier), not a production-grade
-detector. The improvement from 0.49 to 0.565 came from root-causing *why* the visual signal was blind
-(genuine docs are lossless PNG, forged regions get a JPEG-recompression pass — see the commit `973b5aa`)
-and adding an edge-sharpness/ringing detector matched to that actual artifact, rather than from
-threshold tuning. Two experimental detectors, `copy_move.py` and `jpeg_blockiness.py`, were built and
+dataset (ROC-AUC ~0.56, clearly above chance, clearly not a strong classifier), not a production-grade
+detector. The initial improvement from 0.49 to 0.565 came from root-causing *why* the visual signal was
+blind (genuine docs are lossless PNG, forged regions get a JPEG-recompression pass — see commit
+`973b5aa`) and adding an edge-sharpness/ringing detector matched to that actual artifact. A follow-up fix
+(this session) found that detector's x-position clustering left paragraph-style certificates with almost
+no usable clusters — the actual forged word had too few cluster-mates and was silently skipped, verified
+by manually inspecting a certificate demo case that flagged nothing near the tampered field. Switching
+to height-based clustering fixed that specific blind spot (confirmed manually: the certificate case now
+gets a flagged region near the tampered text), but moved aggregate ROC-AUC from 0.565 to 0.558 and
+localization IoU from 0.065 to 0.034 on the 48-document test split — a new false-positive pattern
+appeared elsewhere (e.g. an ID card's photo placeholder). We report this trade-off honestly rather than
+picking whichever number looks better: a real per-document coverage fix, at a roughly noise-level
+aggregate cost. Two experimental detectors, `copy_move.py` and `jpeg_blockiness.py`, were built and
 evaluated but are **not wired into the pipeline** — they had too high a false-positive rate on
 text-heavy documents in the time available, and are left as documented future work rather than shipped
 half-validated.
