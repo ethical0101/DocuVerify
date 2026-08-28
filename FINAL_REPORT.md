@@ -47,11 +47,13 @@ See `README.md` (`Architecture` section) and `docs/architecture.md`.
 
 ## 6. AI/ML Pipeline
 
-Classical CV (ELA, noise-residual, edge-sharpness/ringing, copy-move) + OCR-derived statistical
-heuristics (typography, layout, semantic consistency) + a transparent weighted-average fusion, with an
-optional trained Logistic Regression fusion model as an alternative (see `MODEL_CARD.md`). No deep
-tamper-detection network was trained from scratch — infeasible in 24 hours on an RTX 3050 (4GB VRAM);
-pretrained EasyOCR is used for text/box extraction instead.
+A **trained RandomForest authenticity classifier** over 11 whole-image forensic features (ELA
+distribution at q55/q90, ELA over inked regions, noise-residual std, high-frequency/Laplacian energy)
+drives the authenticity score, blended 0.8/0.2 with a transparent heuristic. Classical CV (ELA,
+noise-residual, edge-sharpness) + OCR-derived statistical heuristics (typography, layout, semantic
+consistency) provide human-readable evidence and region localization. No deep tamper-detection network
+was trained from scratch — infeasible in 24 hours on an RTX 3050 (4GB VRAM); pretrained EasyOCR is used
+for text/box extraction. See `MODEL_CARD.md`.
 
 ## 7. Datasets Actually Used
 
@@ -69,41 +71,39 @@ derivatives.
 
 ## 9. Training
 
-`scripts/train_fusion_model.py` trains a Logistic Regression over the five 0-1 evidence signals on the
-train split, evaluated on val. See `MODEL_CARD.md` for the exact coefficients and honest caveats (only
-224 training documents; two of five feature weights land at zero). No other component is trained —
-everything else is classical CV or pretrained OCR.
+`scripts/train_authenticity_model.py` trains the primary RandomForest authenticity classifier (300
+trees, depth 6, balanced classes) over the 11-feature vector on the train split, evaluated on the
+held-out val and test splits using the exact same preprocessing as inference (no train/serve skew). The
+legacy `scripts/train_fusion_model.py` (Logistic Regression over the five aggregate evidence signals) is
+retained for comparison. Everything else is classical CV or pretrained OCR. See `MODEL_CARD.md`.
 
 ## 10. Evaluation Results
 
-Held-out synthetic test set (n=48, no source-document leakage), from `evaluation/report.md`:
+Held-out synthetic test set (n=48, no source-document leakage), from `evaluation/report.md` and
+`ml/models/authenticity_rf_report.json`:
 
-| Metric                                               | Value                                                                                                                       |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| ROC-AUC (risk score vs. forged label)                | **0.558** — up from 0.49 (chance) before the sharpness-forensics fix; peaked at 0.565 with x-position clustering, see below |
-| Mean authenticity score                              | genuine 68.7, forged 68.1 — correct direction, weakly separated                                                             |
-| Best achievable threshold accuracy (diagnostic only) | 75% @ threshold≈71 — reported for transparency, not cherry-picked as _the_ number                                           |
-| Accuracy at our fixed a-priori threshold (55)        | 25% (precision/recall 0 — scores cluster too tightly around 55-80 to cross this specific cutoff)                            |
-| Localization mean IoU (n=36)                         | 0.034 — down from a peak of 0.065, see below                                                                                |
-| Avg. analysis latency                                | ~2-7s/document depending on load (CPU-only EasyOCR; no GPU acceleration wired in this build)                                |
+| Metric                                           | Value                                                                              |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| ROC-AUC (risk score vs. forged label)            | **0.826** — the trained classifier, up from 0.52 (near chance) for pure heuristics |
+| Mean authenticity score                          | **genuine 63.1 vs. forged 37.8** — a clear ~25-point separation                    |
+| Classifier accuracy / precision (its own report) | ~0.77 / ~0.93 at the 0.5 threshold                                                 |
+| Best achievable threshold accuracy               | 87.5%                                                                              |
+| Accuracy at our fixed a-priori threshold (55)    | 75%                                                                                |
+| Localization mean IoU (n=36)                     | 0.034 — the score comes from the whole-image classifier, not region overlap        |
+| Avg. analysis latency                            | ~3.9s/document (CPU-only EasyOCR + two ELA passes; no GPU acceleration)            |
 
-**Honest read:** classical-CV + heuristic evidence fusion is a weak-but-real signal on this synthetic
-dataset (ROC-AUC ~0.56, clearly above chance, clearly not a strong classifier), not a production-grade
-detector. The initial improvement from 0.49 to 0.565 came from root-causing _why_ the visual signal was
-blind (genuine docs are lossless PNG, forged regions get a JPEG-recompression pass — see commit
-`973b5aa`) and adding an edge-sharpness/ringing detector matched to that actual artifact. A follow-up fix
-(this session) found that detector's x-position clustering left paragraph-style certificates with almost
-no usable clusters — the actual forged word had too few cluster-mates and was silently skipped, verified
-by manually inspecting a certificate demo case that flagged nothing near the tampered field. Switching
-to height-based clustering fixed that specific blind spot (confirmed manually: the certificate case now
-gets a flagged region near the tampered text), but moved aggregate ROC-AUC from 0.565 to 0.558 and
-localization IoU from 0.065 to 0.034 on the 48-document test split — a new false-positive pattern
-appeared elsewhere (e.g. an ID card's photo placeholder). We report this trade-off honestly rather than
-picking whichever number looks better: a real per-document coverage fix, at a roughly noise-level
-aggregate cost. Two experimental detectors, `copy_move.py` and `jpeg_blockiness.py`, were built and
-evaluated but are **not wired into the pipeline** — they had too high a false-positive rate on
-text-heavy documents in the time available, and are left as documented future work rather than shipped
-half-validated.
+**Honest read:** the pipeline started at ROC-AUC ~0.52–0.56 with pure classical-CV heuristics — genuine
+and forged were effectively indistinguishable (mean authenticity 69.0 vs. 68.8), which is exactly the
+"a genuine document reads like a forgery" problem. We measured several single blind discriminators
+(whole-page ELA, localized JPEG-blockiness, OCR-word ELA ratios) and all landed at 60–68%, because the
+edited region is a small patch on a busy page and OCR doesn't reliably localize it (a paired test with
+ground-truth bboxes did separate 83%, confirming the signal is real but not blindly localizable). The
+fix was to stop trying to localize the edit and instead **train a RandomForest over the distribution of
+forensic features across the whole image**, reaching ROC-AUC 0.826 and clear genuine-vs-forged
+separation. This is a solid classifier **on synthetic data** — it partly learns our forgery generator's
+JPEG-quality-55 fingerprint, so it is not a validated real-world accuracy claim. `copy_move.py` and
+`jpeg_blockiness.py` were built and measured but are **not wired in** — they saturate on genuine and
+forged alike on these flat renders (documented in `docs/methodology.md`).
 
 ## 11. Forensic Detection Methods
 

@@ -47,7 +47,8 @@ OCR (EasyOCR → pytesseract → unavailable, graceful fallback chain)
   └──► Semantic consistency(date-relationship checks, repeated-identifier checks)
         │
         ▼
-  Evidence fusion (weighted heuristic, or trained Logistic Regression — see MODEL_CARD.md)
+  Evidence fusion (trained RandomForest authenticity classifier drives the score,
+  blended with a transparent heuristic — see MODEL_CARD.md)
         │
         ▼
   Structured evidence object → Explainability engine (template, or optional LLM narration)
@@ -64,8 +65,9 @@ computed, the pipeline degrades gracefully and says so rather than crashing or f
 
 - **Backend:** FastAPI, SQLAlchemy + SQLite, OpenCV, PyMuPDF, EasyOCR, scikit-learn
 - **Frontend:** React + Vite + TypeScript + Tailwind CSS + Framer Motion + Recharts-ready
-- **ML:** Classical CV forensics (ELA, noise residuals, copy-move block matching) + OCR-derived
-  statistical heuristics + an optional lightweight Logistic Regression evidence-fusion model
+- **ML:** A trained RandomForest authenticity classifier over whole-image forensic features
+  (ELA distribution, noise residual, high-frequency energy) drives the score, alongside classical CV
+  forensics (ELA, noise residuals) + OCR-derived statistical heuristics for evidence and region localization
 - **Explainability:** Deterministic template by default; optional Groq/Gemini free-tier LLM narration
   of the _already-computed_ evidence (the LLM never decides authenticity itself)
 
@@ -122,8 +124,9 @@ python scripts/prepare_datasets.py
 ### Evaluation / optional trained fusion model
 
 ```bash
-python scripts/evaluate.py                # writes evaluation/results.json + report.md
-python scripts/train_fusion_model.py       # optional Logistic Regression fusion model, trained on train split, reported on val
+python scripts/train_authenticity_model.py # trains the RandomForest authenticity classifier (the score driver), reports held-out val/test metrics
+python scripts/evaluate.py                 # runs the full pipeline over the test split, writes evaluation/results.json + report.md
+python scripts/train_fusion_model.py       # (legacy) Logistic Regression evidence-fusion model, retained for comparison
 ```
 
 ## Environment variables
@@ -164,10 +167,11 @@ with zero configuration:
 
 - Evaluated only on this project's own synthetic dataset (see `DATASETS.md`) — not validated against
   real-world scanned/photographed documents.
-- Current heuristic evidence-fusion weights are hand-picked, not rigorously calibrated; measured
-  ROC-AUC on the held-out synthetic test set is 0.565 — a real but weak signal, not a strong classifier
-  (see `MODEL_CARD.md` for the honest numbers, including how it started at chance and what fixed it).
-  Calibrating the fusion weights properly remains the top priority for further work.
+- The trained authenticity classifier reaches **ROC-AUC 0.826** on the held-out synthetic test set
+  (genuine mean authenticity 63.1 vs. forged 37.8 — clearly separated). But it is trained and evaluated
+  **only on synthetic data** and partly learns our forgery generator's specific JPEG-recompression
+  fingerprint, so this is not a real-world accuracy claim. Validating/retraining on real
+  photographed/scanned documents is the top priority for further work (see `MODEL_CARD.md`).
 - No connection to any real government identity database — by design, not as a missing feature.
 - English-only OCR/text heuristics.
 
