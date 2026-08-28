@@ -4,6 +4,7 @@ python-multipart==0.0.20
 pydantic==2.10.4
 pydantic-settings==2.7.0
 sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
 Pillow==11.0.0
 numpy==2.2.1
 opencv-python-headless==4.10.0.84
