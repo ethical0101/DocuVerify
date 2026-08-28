@@ -30,10 +30,15 @@
   gitignored local file (`data/.jwt_secret`); set `JWT_SECRET` in the environment to override.
 - Role checks (`admin`/`hr`/`viewer`) are enforced **server-side** on every enterprise route
   (`app/api/deps.py`'s `require_admin`), not just hidden in the UI.
-- Every enterprise record (`users`, `datasets`, `training_jobs`, `model_versions`, `audit_logs`) carries
-  an `organization_id`, giving simple local-DB multi-tenant isolation — an admin can only see/act on
-  their own organization's data. This is single-instance SQLite isolation, not a distributed/hardened
-  multi-tenant architecture, appropriate for this hackathon's scope.
+- Every enterprise record (`users`, `datasets`, `training_jobs`, `model_versions`, `audit_logs`,
+  `documents`) carries an `organization_id`. Isolation is enforced at **both** levels, not just list
+  views: `GET /api/documents` and `GET /api/dashboard/stats` are filtered by the caller's
+  `organization_id`, and every per-document endpoint (`results`/`report`/`evidence`/`file`/`regions`)
+  goes through `_get_authorized_document()`, which 404s (not 403, to avoid confirming a document exists)
+  for anyone outside the document's organization — a document ID being hard to guess is not treated as
+  sufficient access control. A document uploaded anonymously (no organization) stays readable by anyone,
+  matching the "core forensics works without login" design. This is single-instance SQLite isolation,
+  not a distributed/hardened multi-tenant architecture, appropriate for this hackathon's scope.
 - **Not implemented** (accepted trade-offs for a hackathon build, not oversights hidden from you): no
   forgot-password/reset flow, no server-side token revocation list (a leaked token is valid until it
   expires), no rate limiting on login attempts, no email verification.
