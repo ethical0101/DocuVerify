@@ -12,6 +12,7 @@ build/
 data/uploads/
 data/raw/*
 !data/raw/.gitkeep
+data/provenance_ledger.jsonl
 .DS_Store
 *.log
 .pytest_cache/

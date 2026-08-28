@@ -96,8 +96,24 @@ def analyze(doc_id: str, db: Session = Depends(get_db)):
     db.add(analysis)
     db.commit()
     db.refresh(analysis)
+
+    # Record a tamper-evident provenance fingerprint (hash + non-sensitive summary only).
+    # Wrapped so a ledger failure never breaks the core analysis response.
+    verification = None
+    try:
+        from app.services.provenance.ledger import register
+        verification = register(doc.sha256, {
+            "authenticity_score": analysis.authenticity_score,
+            "risk_level": analysis.risk_level,
+            "confidence": analysis.confidence,
+            "model_version": analysis.model_version,
+        })
+    except Exception:
+        verification = None
+
     return {"document_id": doc.id, "analysis_id": analysis.id, "authenticity_score": analysis.authenticity_score,
-            "risk_level": analysis.risk_level, "confidence": analysis.confidence}
+            "risk_level": analysis.risk_level, "confidence": analysis.confidence,
+            "verification_id": verification["verification_id"] if verification else None}
 
 
 @router.get("/documents/{doc_id}")
@@ -183,3 +199,26 @@ def get_report(doc_id: str, db: Session = Depends(get_db)):
                         "It is not an official government verification and should not be used as sole "
                         "grounds for a legal or financial decision."),
     }
+
+
+@router.get("/documents/{doc_id}/provenance")
+def get_provenance(doc_id: str, db: Session = Depends(get_db)):
+    """Provenance lookup for a document: has this exact content been registered before,
+    and is the tamper-evident ledger chain still intact? Stores/reveals only hashes and
+    non-identifying analysis summaries -- never document content."""
+    doc = db.get(Document, doc_id)
+    if not doc:
+        raise HTTPException(404, "Document not found")
+    from app.services.provenance.ledger import lookup, verify_chain
+    return {
+        "document_sha256": doc.sha256,
+        "provenance": lookup(doc.sha256),
+        "ledger_integrity": verify_chain(),
+    }
+
+
+@router.get("/provenance/verify")
+def provenance_verify():
+    """Recomputes the whole ledger hash chain and reports whether it is intact."""
+    from app.services.provenance.ledger import verify_chain
+    return verify_chain()

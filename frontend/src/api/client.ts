@@ -69,3 +69,20 @@ export async function getResults(id: string): Promise<ResultsResponse> {
 export function documentImageUrl(id: string): string {
   return `/api/documents/${id}/file`;
 }
+
+export interface ProvenanceResponse {
+  document_sha256: string;
+  provenance: {
+    registered: boolean;
+    occurrences: number;
+    first_seen: string | null;
+    last_seen: string | null;
+    verification_id: string | null;
+  };
+  ledger_integrity: { intact: boolean; entries: number; head?: string };
+}
+
+export async function getProvenance(id: string): Promise<ProvenanceResponse> {
+  const { data } = await api.get<ProvenanceResponse>(`/documents/${id}/provenance`);
+  return data;
+}
