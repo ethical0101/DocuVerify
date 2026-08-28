@@ -63,6 +63,14 @@ def analyze_document(path: Path) -> dict:
     if not text_regions and not sharpness_regions:
         # fall back to a blind page-grid scan when OCR text isn't available
         text_regions = grid_anomaly_regions(ela_map) + local_variance_anomaly(page)
+    # NOTE: copy_move.py (duplicated-region) and jpeg_blockiness.py (recompression-splice)
+    # are implemented and valid for real photographed/scanned documents, but they are
+    # intentionally NOT wired into the pipeline. On our flat-rendered synthetic demo
+    # dataset both detectors saturate
+    # (score ~1.0 on ~75-115 blocks) on genuine AND forged pages alike -- repeated glyphs
+    # read as "duplicates" and uniform PNG compression reads as a "block grid" everywhere.
+    # They have no discriminative power on this dataset, so enabling them would only add
+    # false forgery labels and flood the region view. See docs/methodology.md.
     visual_regions = sharpness_regions + text_regions
     if visual_regions:
         top_scores = sorted((r["score"] for r in visual_regions), reverse=True)[:3]

@@ -19,5 +19,6 @@
     "metadata_anomaly": 0.0,
     "semantic_anomaly": 0.0
   },
-  "chosen_for_production": true
+  "chosen_for_production": false,
+  "production_note": "The transparent weighted heuristic remains the runtime default (see backend/app/services/fusion/fusion.py). With only 224 training documents this LR model's coefficients are unstable (metadata and semantic land at zero weight), so despite a marginally higher validation AUC it is kept available for comparison via fuse_evidence_ml() rather than wired in as the default. See MODEL_CARD.md."
 }

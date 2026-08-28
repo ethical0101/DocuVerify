@@ -5,13 +5,13 @@
 `app/services/fusion/fusion.py` combines five 0-1 anomaly signals into a single risk score using a
 fixed weighted average:
 
-| Signal | Weight | Rationale |
-|---|---|---|
-| Visual anomaly | 0.30 | Highest weight — visual/compression tampering signatures are the hardest to fake convincingly. |
-| Semantic anomaly | 0.25 | Cross-field consistency (dates, repeated IDs) is a strong, hard-to-fake signal when present. |
-| Typography anomaly | 0.20 | Reliable for text-replacement forgeries specifically; weighted below visual/semantic because it depends entirely on OCR quality. |
-| Layout anomaly | 0.15 | Useful but noisier — genuine documents can legitimately have some structural irregularity. |
-| Metadata anomaly | 0.10 | Lowest weight — metadata is frequently absent or stripped on genuine documents (re-saves, screenshots), so it's the weakest standalone signal. |
+| Signal             | Weight | Rationale                                                                                                                                      |
+| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Visual anomaly     | 0.30   | Highest weight — visual/compression tampering signatures are the hardest to fake convincingly.                                                 |
+| Semantic anomaly   | 0.25   | Cross-field consistency (dates, repeated IDs) is a strong, hard-to-fake signal when present.                                                   |
+| Typography anomaly | 0.20   | Reliable for text-replacement forgeries specifically; weighted below visual/semantic because it depends entirely on OCR quality.               |
+| Layout anomaly     | 0.15   | Useful but noisier — genuine documents can legitimately have some structural irregularity.                                                     |
+| Metadata anomaly   | 0.10   | Lowest weight — metadata is frequently absent or stripped on genuine documents (re-saves, screenshots), so it's the weakest standalone signal. |
 
 **These weights are hand-picked, not fit to data.** We say this plainly rather than presenting them as
 scientifically derived. `scripts/train_fusion_model.py` trains an alternative (a small Logistic
@@ -24,6 +24,7 @@ fine."
 ## Risk tiers
 
 `risk_score` (the weighted-average anomaly, 0-1) maps to:
+
 - **LOW**: risk_score < 0.30 → authenticity_score > 70
 - **MEDIUM**: 0.30 ≤ risk_score < 0.55 → 45 ≤ authenticity_score ≤ 70
 - **HIGH**: risk_score ≥ 0.55 → authenticity_score < 45
@@ -44,12 +45,24 @@ separate learned classifier — so it is always explainable by pointing back at 
 
 ## Region localization
 
-Regions come from three independent sources, all included in the final region list:
+Regions come from independent sources, all included in the final region list:
+
 1. OCR-word-localized visual-anomaly regions (`text_region_forensics.py`) — the primary, most sensitive
    signal, compares each word's ELA/noise statistics against the document's own robust baseline.
-2. Copy-move block matches (`copy_move.py`) — flags near-duplicate blocks far apart on the page.
+2. Sharpness/recompression regions (`sharpness_forensics.py`).
 3. Typography-inconsistency word regions (`typography/analyzer.py`).
 4. The detected portrait region (identity documents only) — shown for context, not itself a forgery signal.
+
+### Detectors implemented but intentionally not wired in
+
+`copy_move.py` (near-duplicate block matching) and `jpeg_blockiness.py` (8×8 DCT recompression-grid
+detection) are implemented and are legitimate techniques for **real photographed/scanned documents**.
+They are deliberately **not** enabled in the pipeline because on our flat-rendered synthetic demo
+dataset both saturate — scoring ~1.0 on 75–115 blocks — on genuine **and** forged pages alike (repeated
+glyphs read as "duplicates"; uniform PNG compression reads as a block grid everywhere). On this dataset
+they have no discriminative power, so enabling them would only produce false forgery labels and flood
+the region overlay. We keep the code (and this note) rather than delete it, so the honest reason is
+visible and the detectors can be re-enabled for a real-document dataset.
 
 ## Honesty commitments
 
