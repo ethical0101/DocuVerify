@@ -8,6 +8,6 @@ Precision: 0.00%
 Recall: 0.00%
 F1: 0.00%
 Localization mean IoU (n=36): 0.034
-Average analysis latency: 1.962s
+Average analysis latency: 2.03s
 
 Metrics are computed on DocuVerify's own synthetic test split (held out by source document, no leakage). They characterize this prototype's classical-CV + OCR pipeline on synthetic renders, not performance on real-world scanned/photographed documents.

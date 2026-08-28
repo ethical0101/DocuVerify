@@ -52,6 +52,16 @@ Full numbers (never fabricated — regenerate anytime with `python scripts/evalu
   rather than picking whichever number looks better: it is a genuine coverage improvement on one
   document layout traded for a small, roughly-noise-level regression in aggregate discrimination and a
   real regression in localization precision on this specific 48-document test set.
+- We also tried a "corroboration bonus": a flat +0.08 risk-score bump whenever two different engines
+  flagged overlapping regions (reasoning: two independent signals agreeing is stronger evidence than
+  either alone). Measured on the test set, it made things worse, not better — ROC-AUC dropped to
+  **0.412** (below chance) and forged documents' mean authenticity score rose above genuine documents'.
+  With imperfect per-engine precision, corroboration confirms false positives about as often as true
+  ones, and a flat bonus just adds noise to an already-tight, noisy score distribution. We disabled the
+  bonus (fusion score no longer changes from it) rather than keep a theoretically appealing feature that
+  measurably hurt on our only evaluation data. The `corroborated` flag itself is still computed and
+  shown to the human reviewer in the Evidence Explorer/report — useful context even though it doesn't
+  mechanically move the score (yet).
 - Two additional visual detectors were built and evaluated — `copy_move.py` (block-duplicate matching)
   and `jpeg_blockiness.py` (DCT block-grid periodicity) — but are **not wired into the pipeline**: both
   had too high a false-positive rate on text-heavy documents in the time available. They're left in the

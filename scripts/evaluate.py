@@ -83,7 +83,7 @@ def main():
 
         if actual_forged and item["document_id"] in forged_gt:
             gt_regions = forged_gt[item["document_id"]].get("regions", [])
-            pred_regions = result.get("regions", [])
+            pred_regions = [r for r in result.get("regions", []) if r.get("bbox")]
             if gt_regions and pred_regions:
                 best = max((iou(g["bbox"], p["bbox"]) for g in gt_regions for p in pred_regions), default=0.0)
                 iou_scores.append(best)

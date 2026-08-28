@@ -22,7 +22,7 @@
     "f1": 0.0,
     "localization_mean_iou": 0.0342,
     "localization_sample_count": 36,
-    "avg_latency_sec": 1.962,
+    "avg_latency_sec": 2.03,
     "risk_threshold_used": 55,
     "note": "Metrics are computed on DocuVerify's own synthetic test split (held out by source document, no leakage). They characterize this prototype's classical-CV + OCR pipeline on synthetic renders, not performance on real-world scanned/photographed documents."
   },

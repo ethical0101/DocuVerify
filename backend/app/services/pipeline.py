@@ -143,12 +143,16 @@ def fuse_and_assess(category: str, page, ocr_words: list, visual: dict, typo: di
         all_regions.append(portrait_region)
     evidence_list = build_evidence_list(all_regions)
 
-    # Two independent engines agreeing on the same region is stronger than either alone.
-    corroboration_bonus = 0.08 if any(
-        e["corroborated"] and not e["informational"] and e["severity"] in ("high", "critical")
-        for e in evidence_list
-    ) else 0.0
-    fusion_result = fuse_evidence(signals, corroboration_bonus=corroboration_bonus)
+    # NOTE: an earlier version of this pipeline applied a flat +0.08 risk-score bonus
+    # whenever two different engines flagged overlapping regions ("corroboration"). On
+    # this build's held-out test set that measurably HURT discrimination (ROC-AUC 0.558
+    # -> 0.412) rather than helping -- with imperfect per-engine precision, corroboration
+    # just as often confirms two false positives as two true ones, and a flat bonus adds
+    # noise to a small, already-noisy score distribution. We measured it, it didn't help,
+    # so it's off by default. The "corroborated" flag is still computed and shown to the
+    # human reviewer in the Evidence Explorer/report (that context is useful even though
+    # it shouldn't yet mechanically move the score) -- see evidence.py and MODEL_CARD.md.
+    fusion_result = fuse_evidence(signals, corroboration_bonus=0.0)
     forgery_types = diagnose_forgery_types(signals)
 
     explanation = build_explanation(fusion_result, all_regions, forgery_types, evidence_list)
