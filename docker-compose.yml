@@ -1,0 +1,19 @@
+services:
+  docuverify:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Set a fixed secret so logins survive a container restart/redeploy --
+      # otherwise one is auto-generated into data/.jwt_secret on first boot.
+      - JWT_SECRET=${JWT_SECRET:-}
+      - LLM_PROVIDER=${LLM_PROVIDER:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-}
+    volumes:
+      # Persist the SQLite DB, uploads, enterprise datasets and JWT secret
+      # across container restarts/rebuilds.
+      - docuverify_data:/app/data
+
+volumes:
+  docuverify_data:

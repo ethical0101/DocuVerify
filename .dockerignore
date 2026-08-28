@@ -1,0 +1,16 @@
+**/__pycache__/
+**/*.pyc
+backend/venv/
+backend/.venv/
+backend/server.log
+backend/server_err.log
+frontend/node_modules/
+frontend/dist/
+data/
+demo_datasets/organization_demo_dataset/
+.git/
+.github/
+.env
+*.md
+docs/screenshots/
+evaluation/
