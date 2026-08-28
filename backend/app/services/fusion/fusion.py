@@ -22,7 +22,12 @@ WEIGHTS = {
 }
 
 
-def fuse_evidence(signals: dict) -> dict:
+def fuse_evidence(signals: dict, corroboration_bonus: float = 0.0) -> dict:
+    """corroboration_bonus: a small additive bump (0-~0.1) applied when two or more
+    INDEPENDENT engines flagged overlapping regions of the page (see evidence.py's
+    build_evidence_list) -- two agreeing signals in the same spot is stronger evidence
+    than either alone, which a plain weighted average of per-engine scores can't express
+    on its own."""
     weighted_sum = 0.0
     total_weight = 0.0
     for key, weight in WEIGHTS.items():
@@ -33,7 +38,9 @@ def fuse_evidence(signals: dict) -> dict:
         total_weight += weight
 
     risk_score = (weighted_sum / total_weight) if total_weight > 0 else 0.0
+    risk_score = min(1.0, risk_score + corroboration_bonus)
     authenticity_score = round((1 - risk_score) * 100, 1)
+    forensic_risk = round(risk_score * 100, 1)
 
     if risk_score < 0.30:
         risk_level = "LOW"
@@ -42,16 +49,20 @@ def fuse_evidence(signals: dict) -> dict:
     else:
         risk_level = "HIGH"
 
-    # Confidence reflects how many independent signals actually contributed
+    # Assessment confidence reflects how MUCH of the total possible evidence weight
+    # actually contributed a signal -- e.g. a blurry/low-quality scan that starves OCR
+    # (and everything downstream of it) should lower confidence, not manufacture risk.
     confidence = round(min(1.0, total_weight / sum(WEIGHTS.values())) * 100, 1)
 
     return {
         "authenticity_score": authenticity_score,
+        "forensic_risk": forensic_risk,
         "risk_level": risk_level,
         "confidence": confidence,
         "risk_score": round(risk_score, 3),
         "signals": signals,
         "weights": WEIGHTS,
+        "corroboration_bonus": round(corroboration_bonus, 3),
     }
 
 
@@ -83,52 +94,6 @@ def fuse_evidence_ml(signals: dict) -> dict | None:
         "authenticity_score": authenticity_score, "risk_level": risk_level,
         "confidence": round(max(risk_score, 1 - risk_score) * 100, 1),
         "risk_score": round(risk_score, 3), "signals": signals, "model": "fusion_lr_v0.1",
-    }
-
-
-def fuse_with_ml(signals: dict, ml_prob: float | None) -> dict:
-    """Primary fusion path. When the trained authenticity classifier is available
-    (ml_prob is not None), it drives the risk score (it is by far the strongest
-    genuine/forged signal on our data -- test ROC-AUC ~0.87), with the transparent
-    heuristic risk mixed in as a minor adjustment so the human-readable signals still
-    influence borderline cases. When no model is available, this falls back to the
-    pure heuristic fuse_evidence() so the product still works.
-
-    Risk tiers here are calibrated to the trained model's probability distribution
-    (genuine mean forged-prob ~0.40, forged ~0.69 on the held-out test split), so a
-    genuine document lands in LOW and a forged one in HIGH."""
-    heuristic = fuse_evidence(signals)
-    if ml_prob is None:
-        return {**heuristic, "score_source": "heuristic"}
-
-    heuristic_risk = heuristic["risk_score"]
-    # 80% trained model, 20% transparent heuristic.
-    risk_score = 0.8 * ml_prob + 0.2 * heuristic_risk
-    authenticity_score = round((1 - risk_score) * 100, 1)
-
-    # Tiers chosen from the trained model's test-split separation (genuine forged-prob
-    # median ~0.39 / forged ~0.74): a genuine doc lands LOW, a forged doc lands HIGH,
-    # with a MEDIUM band across the overlap region where review is warranted.
-    if risk_score < 0.45:
-        risk_level = "LOW"
-    elif risk_score < 0.58:
-        risk_level = "MEDIUM"
-    else:
-        risk_level = "HIGH"
-
-    # Confidence: how far the model's probability sits from the 0.5 decision boundary,
-    # scaled to 0-100 (a confident 0.9 or 0.1 -> ~80%+, an uncertain 0.5 -> low).
-    confidence = round(min(100.0, abs(ml_prob - 0.5) * 200), 1)
-
-    return {
-        "authenticity_score": authenticity_score,
-        "risk_level": risk_level,
-        "confidence": confidence,
-        "risk_score": round(risk_score, 3),
-        "ml_forged_probability": round(ml_prob, 3),
-        "heuristic_risk_score": round(heuristic_risk, 3),
-        "signals": signals,
-        "score_source": "trained_model+heuristic",
     }
 
 

@@ -1,28 +1,24 @@
 # DocuVerify — Hackathon Final Report
 
 ## 1. Executive Summary
-
 DocuVerify is a 24-hour hackathon prototype for AI-assisted forensic analysis of identity documents and
 educational certificates. Rather than a single black-box fake/genuine classifier, it runs five
 independent forensic engines (visual, typography, structure, metadata, text consistency), fuses their
-outputs into a transparent risk assessment, and localizes/explains _why_ a document was flagged. The
+outputs into a transparent risk assessment, and localizes/explains *why* a document was flagged. The
 full stack — synthetic dataset generation, FastAPI backend forensic pipeline, and a React/Vite/Tailwind
 frontend — runs end to end, offline, with no required external API key.
 
 ## 2. Problem Statement
-
 Banks, universities, government departments, and employers need to assess whether an uploaded
 certificate or identity document has been manipulated, without treating the decision as an unexplainable
 binary output. The system must localize suspicious regions, explain contributing factors, and support a
 human reviewer — not replace one.
 
 ## 3. Solution
-
 `Upload → Analyze → Localize → Diagnose → Explain`. See `README.md` for the full architecture diagram
 and `docs/architecture.md` for the stage-by-stage pipeline description.
 
 ## 4. Key Innovations
-
 - **OCR-word-localized forensics** (`text_region_forensics.py`, `sharpness_forensics.py`): rather than a
   blind grid scan, ELA/noise/edge-sharpness statistics are compared per OCR word against the document's
   own robust (median/MAD) baseline, clustered by column/size so legitimately mixed font sizes (labels vs.
@@ -32,7 +28,7 @@ and `docs/architecture.md` for the stage-by-stage pipeline description.
   edge-sharpness/ringing detector matched to how our forgery generator's JPEG-recompression pass
   actually alters pixels — a concrete example of iterating from a measured failure to a physically
   justified fix rather than arbitrary threshold tweaking.
-- **Leakage-safe evaluation**: dataset splits partition by _source document_, so a genuine document and
+- **Leakage-safe evaluation**: dataset splits partition by *source document*, so a genuine document and
   its forged derivatives never cross a train/val/test boundary.
 - **Fully offline by default**: OCR, all forensic engines, and the explanation template require no
   network access or API key; an LLM is an optional narration layer over already-computed evidence, never
@@ -41,22 +37,34 @@ and `docs/architecture.md` for the stage-by-stage pipeline description.
   `scripts/evaluate.py` against the live codebase — including the weak initial result and the measured
   improvement, not just the flattering final number.
 
-## 5. Architecture
+## 4b. Enterprise Adaptive Model (this session's addition)
+Added a full second layer on top of the existing forensic pipeline, without touching or replacing any of
+it: **authentication** (PBKDF2 password hashing, JWT sessions), **roles** (admin/HR/viewer, enforced
+server-side), a **multi-tenant** data model (every enterprise record carries an `organization_id`), a
+**dataset upload + validation pipeline** for organization-labeled documents (safe ZIP extraction, class-
+balance/corruption checks), a **lightweight classifier training pipeline** (`ml/training/
+train_enterprise_model.py` — RandomForest/LogisticRegression over a 9-feature vector derived from the
+same base-pipeline signals, with real, pollable per-stage progress via a background thread, not a
+simulated progress bar), a **model registry** with explicit admin activation/archival/rollback, an
+**audit log**, and an **enterprise dashboard**. The enterprise model is strictly additive: every
+investigation report shows the base engine's number *and* the organization model's number side by side
+("Assessment Model" section), never one hidden behind the other. Verified end-to-end live: registered an
+organization, uploaded the included 60-document demo dataset, trained a real classifier (F1=71.4%,
+ROC-AUC=66.7%, genuinely computed — not fabricated), activated it, and confirmed an HR-role analysis
+picked it up automatically and produced a visibly different number from the base engine (72 vs. 53
+authenticity on the same forged certificate).
 
+## 5. Architecture
 See `README.md` (`Architecture` section) and `docs/architecture.md`.
 
 ## 6. AI/ML Pipeline
-
-A **trained RandomForest authenticity classifier** over 11 whole-image forensic features (ELA
-distribution at q55/q90, ELA over inked regions, noise-residual std, high-frequency/Laplacian energy)
-drives the authenticity score, blended 0.8/0.2 with a transparent heuristic. Classical CV (ELA,
-noise-residual, edge-sharpness) + OCR-derived statistical heuristics (typography, layout, semantic
-consistency) provide human-readable evidence and region localization. No deep tamper-detection network
-was trained from scratch — infeasible in 24 hours on an RTX 3050 (4GB VRAM); pretrained EasyOCR is used
-for text/box extraction. See `MODEL_CARD.md`.
+Classical CV (ELA, noise-residual, edge-sharpness/ringing, copy-move) + OCR-derived statistical
+heuristics (typography, layout, semantic consistency) + a transparent weighted-average fusion, with an
+optional trained Logistic Regression fusion model as an alternative (see `MODEL_CARD.md`). No deep
+tamper-detection network was trained from scratch — infeasible in 24 hours on an RTX 3050 (4GB VRAM);
+pretrained EasyOCR is used for text/box extraction instead.
 
 ## 7. Datasets Actually Used
-
 **Only** the synthetic dataset generated by this repo's own scripts
 (`scripts/generate_synthetic_documents.py`, `scripts/generate_forgeries.py`) — fictional identity cards
 and certificates plus controlled forgeries with ground-truth regions. SIDTD, IDNet, MIDV-500, and
@@ -64,131 +72,121 @@ DocTamper were evaluated as options and explicitly **not downloaded** in this bu
 for the reasoning — multi-GB/100GB+ downloads and gated access were out of scope for the time budget).
 
 ## 8. Data Preparation
-
 Train/val/test = 70/15/15, split by source document ID (see `scripts/prepare_datasets.py` and
 `data/synthetic/split_stats.json`) to prevent leakage between a genuine document and its own forged
 derivatives.
 
 ## 9. Training
-
-`scripts/train_authenticity_model.py` trains the primary RandomForest authenticity classifier (300
-trees, depth 6, balanced classes) over the 11-feature vector on the train split, evaluated on the
-held-out val and test splits using the exact same preprocessing as inference (no train/serve skew). The
-legacy `scripts/train_fusion_model.py` (Logistic Regression over the five aggregate evidence signals) is
-retained for comparison. Everything else is classical CV or pretrained OCR. See `MODEL_CARD.md`.
+`scripts/train_fusion_model.py` trains a Logistic Regression over the five 0-1 evidence signals on the
+train split, evaluated on val. See `MODEL_CARD.md` for the exact coefficients and honest caveats (only
+224 training documents; two of five feature weights land at zero). No other component is trained —
+everything else is classical CV or pretrained OCR.
 
 ## 10. Evaluation Results
+Held-out synthetic test set (n=48, no source-document leakage), from `evaluation/report.md`:
 
-Held-out synthetic test set (n=48, no source-document leakage), from `evaluation/report.md` and
-`ml/models/authenticity_rf_report.json`:
+| Metric | Value |
+|---|---|
+| ROC-AUC (risk score vs. forged label) | **0.558** — up from 0.49 (chance) before the sharpness-forensics fix; peaked at 0.565 with x-position clustering, see below |
+| Mean authenticity score | genuine 68.7, forged 68.1 — correct direction, weakly separated |
+| Best achievable threshold accuracy (diagnostic only) | 75% @ threshold≈71 — reported for transparency, not cherry-picked as *the* number |
+| Accuracy at our fixed a-priori threshold (55) | 25% (precision/recall 0 — scores cluster too tightly around 55-80 to cross this specific cutoff) |
+| Localization mean IoU (n=36) | 0.034 — down from a peak of 0.065, see below |
+| Avg. analysis latency | ~2-7s/document depending on load (CPU-only EasyOCR; no GPU acceleration wired in this build) |
 
-| Metric                                           | Value                                                                              |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| ROC-AUC (risk score vs. forged label)            | **0.826** — the trained classifier, up from 0.52 (near chance) for pure heuristics |
-| Mean authenticity score                          | **genuine 63.1 vs. forged 37.8** — a clear ~25-point separation                    |
-| Classifier accuracy / precision (its own report) | ~0.77 / ~0.93 at the 0.5 threshold                                                 |
-| Best achievable threshold accuracy               | 87.5%                                                                              |
-| Accuracy at our fixed a-priori threshold (55)    | 75%                                                                                |
-| Localization mean IoU (n=36)                     | 0.034 — the score comes from the whole-image classifier, not region overlap        |
-| Avg. analysis latency                            | ~3.9s/document (CPU-only EasyOCR + two ELA passes; no GPU acceleration)            |
-
-**Honest read:** the pipeline started at ROC-AUC ~0.52–0.56 with pure classical-CV heuristics — genuine
-and forged were effectively indistinguishable (mean authenticity 69.0 vs. 68.8), which is exactly the
-"a genuine document reads like a forgery" problem. We measured several single blind discriminators
-(whole-page ELA, localized JPEG-blockiness, OCR-word ELA ratios) and all landed at 60–68%, because the
-edited region is a small patch on a busy page and OCR doesn't reliably localize it (a paired test with
-ground-truth bboxes did separate 83%, confirming the signal is real but not blindly localizable). The
-fix was to stop trying to localize the edit and instead **train a RandomForest over the distribution of
-forensic features across the whole image**, reaching ROC-AUC 0.826 and clear genuine-vs-forged
-separation. This is a solid classifier **on synthetic data** — it partly learns our forgery generator's
-JPEG-quality-55 fingerprint, so it is not a validated real-world accuracy claim. `copy_move.py` and
-`jpeg_blockiness.py` were built and measured but are **not wired in** — they saturate on genuine and
-forged alike on these flat renders (documented in `docs/methodology.md`).
+**Honest read:** classical-CV + heuristic evidence fusion is a weak-but-real signal on this synthetic
+dataset (ROC-AUC ~0.56, clearly above chance, clearly not a strong classifier), not a production-grade
+detector. The initial improvement from 0.49 to 0.565 came from root-causing *why* the visual signal was
+blind (genuine docs are lossless PNG, forged regions get a JPEG-recompression pass — see commit
+`973b5aa`) and adding an edge-sharpness/ringing detector matched to that actual artifact. A follow-up fix
+(this session) found that detector's x-position clustering left paragraph-style certificates with almost
+no usable clusters — the actual forged word had too few cluster-mates and was silently skipped, verified
+by manually inspecting a certificate demo case that flagged nothing near the tampered field. Switching
+to height-based clustering fixed that specific blind spot (confirmed manually: the certificate case now
+gets a flagged region near the tampered text), but moved aggregate ROC-AUC from 0.565 to 0.558 and
+localization IoU from 0.065 to 0.034 on the 48-document test split — a new false-positive pattern
+appeared elsewhere (e.g. an ID card's photo placeholder). We report this trade-off honestly rather than
+picking whichever number looks better: a real per-document coverage fix, at a roughly noise-level
+aggregate cost. Two experimental detectors, `copy_move.py` and `jpeg_blockiness.py`, were built and
+evaluated but are **not wired into the pipeline** — they had too high a false-positive rate on
+text-heavy documents in the time available, and are left as documented future work rather than shipped
+half-validated.
 
 ## 11. Forensic Detection Methods
-
 Visual (ELA, noise residual, edge-sharpness/ringing, copy-move block matching), typography
 (column/size-clustered glyph-height & ink-density z-scores), layout (line-spacing/margin regularity),
 metadata (EXIF/PDF doc-info, missing ≠ suspicious), semantic consistency (date-relationship and
 repeated-identifier checks). See `docs/methodology.md` for the fusion weights and rationale.
 
 ## 12. Suspicious Region Localization
-
 Every visual/typography engine returns pixel bounding boxes, rendered as an interactive SVG overlay in
 the document viewer (`frontend/src/components/DocumentViewer.tsx`) — click a region to see its specific
 reason and confidence.
 
 ## 13. Explainability
-
 Deterministic template by default (`app/services/explainability/explainer.py`); optional Groq/Gemini
-free-tier LLM narration of the _same_ structured evidence object if `LLM_PROVIDER`/`LLM_API_KEY` are
+free-tier LLM narration of the *same* structured evidence object if `LLM_PROVIDER`/`LLM_API_KEY` are
 set. The LLM is never given the raw image and never allowed to invent findings — if evidence is
 insufficient, the explanation says so explicitly rather than guessing.
 
 ## 14. UI/UX
-
 React/Vite/TypeScript/Tailwind/Framer Motion: landing page, drag-and-drop upload with one-click sample
 documents, animated step-by-step analysis progress, results dashboard (authenticity gauge, evidence
 breakdown, region-overlay document viewer, explanation panel). Verified end-to-end in-browser against
 the live backend, including PDF, corrupt-file, and rotated-image inputs.
 
 ## 15. Security
-
 See `SECURITY.md` — file-type/size validation, randomized storage filenames (no path traversal via
-filename), no code execution of uploads, no secrets committed, SHA-256 fingerprinting of every upload.
+filename), no code execution of uploads, no secrets committed, SHA-256 fingerprinting of every upload,
+hashed passwords, signed short-lived JWTs, server-side role enforcement, safe ZIP dataset extraction
+(path-traversal guard, extension allowlist, size/count caps), models only ever loaded from paths this
+backend itself wrote.
 
 ## 16. Privacy
-
 Fully local processing by default; no document content leaves the machine unless an LLM provider is
 explicitly configured, and even then only the structured evidence object (not the image) is sent. All
 identity/certificate samples shipped in this repo are synthetic and fictional.
 
 ## 17. Demo Flow
-
-See `docs/demo.md` for the full ~3-minute script (genuine ID → forged ID with region click-through →
-forged certificate → evidence/explanation walkthrough → honest-limitations callout).
+See `docs/demo.md` for the full ~5-minute script: admin registers/logs in → uploads the included demo
+dataset → trains a real model with live stage progress → activates it → HR logs in → runs a Forensic
+Investigation on a forged certificate → clicks a suspicious region → sees the evidence drawer → sees the
+base-vs-organization-model comparison → reopens the case from history. `python scripts/setup_demo.py`
+automates the admin-side setup so the demo can start directly from the HR login.
 
 ## 18. Performance Benchmarks
-
 Per-document analysis latency and per-stage timing breakdown are recorded in every analysis response
 (`timing_ms`) and summarized in `evaluation/results.json` (`avg_latency_sec`) — typically a few seconds
 per document on CPU (EasyOCR is the dominant cost; GPU was not used for inference in this build despite
 being available, to keep the pipeline reproducible on CPU-only environments too).
 
 ## 19. Limitations
-
 - Evaluated only on our own synthetic dataset — not validated against real scanned/photographed
   documents.
 - English-only OCR/text heuristics.
 - No face-morph/portrait-substitution-specific detector (portrait box is for display, not verification).
 - No connection to any real government identity database (by design).
-- Not implemented due to 24-hour hackathon constraints: real external dataset integration (SIDTD/IDNet/
-  MIDV-500), a trained deep tamper-detection network, and a forensic copilot chat interface, and
-  multi-page (beyond page 1) analysis.
+- No forgot-password flow, no server-side token revocation list, no login rate limiting — accepted
+  trade-offs for this build's scope, documented in `SECURITY.md`, not hidden oversights.
+- The enterprise classifier's evaluation numbers come from a single small (60-document) demo dataset for
+  one fictional organization/template — a real deployment would need a larger, more representative
+  labeled set per organization.
+- Not implemented due to hackathon time constraints: real external dataset integration (SIDTD/IDNet/
+  MIDV-500), a trained deep tamper-detection network, blockchain/provenance registration, a forensic
+  copilot chat interface, multi-page (beyond page 1) analysis, and a job queue for training (uses a raw
+  background thread instead).
 
-## 20. Provenance / Verification Fingerprint
-
-Implemented as a local, tamper-evident SHA-256 ledger (`backend/app/services/provenance/ledger.py`):
-each analyzed document's hash plus a non-identifying analysis summary (score/risk/model version) is
-appended to a hash-chained JSONL ledger — no document content, names, or IDs are ever stored. Every
-entry chains over the previous entry's hash, so any edit to a past record breaks the chain and is
-detected by `verify_chain()`. Exposed via `GET /api/documents/{id}/provenance` and
-`GET /api/provenance/verify`, and surfaced in the results UI. This is a lightweight local stand-in for
-a blockchain (no external service, no keys), matching the brief's "store only the hash" guidance.
-
-## 21. Future Work
-
+## 20. Future Work
 Calibrate/retrain the fusion model on a larger, more diverse dataset (including a real external dataset
-subset); wire the currently-unwired `copy_move.py`/`jpeg_blockiness.py` detectors once evaluated on a
-real photographed/scanned dataset where they discriminate (on the synthetic renders they saturate on
-genuine and forged alike — see `docs/methodology.md`); add portrait-substitution-specific detection; add
-multi-page document analysis; extend the local provenance ledger to a shared/testnet anchor.
+subset); wire the currently-unwired `copy_move.py`/`jpeg_blockiness.py` detectors after reducing their
+false-positive rate on text-heavy documents; add portrait-substitution-specific detection; add
+multi-page document analysis; add the optional hash-based provenance/fingerprint registry; add
+forgot-password/token-revocation to the enterprise auth layer; replace the raw background thread with a
+proper job queue for training at scale; add cross-organization model comparison.
 
-## 22. Technologies Used
+## 21. Technologies Used
+FastAPI, SQLAlchemy/SQLite, OpenCV, PyMuPDF, EasyOCR, scikit-learn, PyJWT, joblib, React, Vite,
+TypeScript, Tailwind CSS, Framer Motion, React Router.
 
-FastAPI, SQLAlchemy/SQLite, OpenCV, PyMuPDF, EasyOCR, scikit-learn, React, Vite, TypeScript, Tailwind
-CSS, Framer Motion.
-
-## 23. GitHub Repository
-
+## 22. GitHub Repository
 https://github.com/ethical0101/DocuVerify

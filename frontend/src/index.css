@@ -1,98 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+:root {
+  /* Default Theme: Light Mode */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-panel: rgba(255, 255, 255, 0.7);
+  --bg-panel-secondary: #e2e8f0;
+  --border-color: rgba(226, 232, 240, 0.8);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(148, 163, 184, 0.2);
+  --glass-shadow: 0 8px 32px -8px rgba(148, 163, 184, 0.08), 0 0 0 1px rgba(148, 163, 184, 0.03);
+  --accent-color: #3b82f6;
+  --accent-bright: #2563eb;
+  --accent-soft: rgba(59, 130, 246, 0.06);
+
+  /* "Signal" -- the forensic-analysis accent (OCR/annotation ink, evidence
+     emphasis) kept deliberately teal/cyan rather than purple, so it never
+     reads as a generic AI gradient and stays distinct from risk-low green. */
+  --signal-color: #0d9488;
+  --signal-bright: #14b8a6;
+
+  --risk-low: #10b981;
+  --risk-medium: #d97706;
+  --risk-high: #dc2626;
+
+  --radial-bg: #f8fafc;
+  --orb-opacity: 0.5;
+}
+
+.dark {
+  /* Dark Mode Overrides */
+  --bg-primary: #030712;
+  --bg-secondary: #0b1329;
+  --bg-panel: rgba(15, 23, 42, 0.65);
+  --bg-panel-secondary: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --glass-bg: rgba(15, 23, 42, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --accent-color: #3b82f6;
+  --accent-bright: #60a5fa;
+  --accent-soft: rgba(59, 130, 246, 0.2);
+
+  --signal-color: #14b8a6;
+  --signal-bright: #2dd4bf;
+
+  --risk-low: #10b981;
+  --risk-medium: #f59e0b;
+  --risk-high: #ef4444;
+
+  --radial-bg: #030712;
+  --orb-opacity: 0.8;
+}
+
 @theme {
-  /* DigiLocker-style deep government blue palette */
-  --color-brand-950: #062b57;
-  --color-brand-900: #073a72;
-  --color-brand-800: #084a90;
-  --color-brand-700: #0a5aad;
-  --color-brand-600: #0b66c3;
-  --color-brand-500: #1878d4;
-  --color-brand-400: #4a9ae6;
-  --color-brand-300: #86bdf0;
-  --color-brand-200: #bcdcf8;
-  --color-brand-100: #e2f0fc;
-  --color-brand-50: #f1f8ff;
-
-  --color-accent: #0b66c3;
-  --color-accent-soft: #0b66c31a;
-
-  /* Neutral surfaces */
-  --color-surface: #f4f7fb;
-  --color-panel: #ffffff;
-  --color-border: #dbe6f1;
-  --color-ink: #0f2744;
-  --color-muted: #5b6b82;
-
-  /* Saffron accent (Indian gov trim), used sparingly */
-  --color-saffron: #ff8a00;
-
-  --color-risk-low: #16a34a;
-  --color-risk-medium: #d97706;
-  --color-risk-high: #dc2626;
-
-  --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --color-ink-950: var(--bg-primary);
+  --color-ink-900: var(--bg-secondary);
+  --color-ink-800: var(--bg-panel-secondary);
+  --color-ink-700: var(--bg-panel-secondary);
+  --color-ink-600: var(--bg-panel-secondary);
+  --color-panel: var(--bg-panel);
+  --color-border: var(--border-color);
+  --color-accent: var(--accent-color);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-soft: var(--accent-soft);
+  --color-signal: var(--signal-color);
+  --color-signal-bright: var(--signal-bright);
+  --color-risk-low: var(--risk-low);
+  --color-risk-medium: var(--risk-medium);
+  --color-risk-high: var(--risk-high);
+  --color-white: var(--text-primary);
+  --font-sans: "Inter", "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-html,
-body,
-#root {
+/* `text-white/NN` opacity utilities are this app's entire secondary/muted
+   text scale (300+ usages across every screen) -- `text-white` itself is
+   already remapped to --text-primary above, but Tailwind's /NN opacity
+   modifiers mix that base color at NN% *transparency*, which reads as a
+   legible dim grey against the dark theme's near-black background and as a
+   barely-visible pale grey against the light theme's near-white background
+   (dark ink at low alpha over a light backdrop just doesn't carry enough
+   contrast). Overriding the compiled utility classes directly here -- the
+   only way to fix this everywhere at once without touching every one of
+   those 300+ call sites -- to fall back to the light theme's own
+   contrast-checked text tokens instead of raw opacity math. Dark mode is
+   untouched (not selected by `:root:not(.dark)`). */
+:root:not(.dark) {
+  .text-white\/80, .text-white\/85, .text-white\/90, .text-white\/95 {
+    color: var(--text-primary);
+  }
+  .text-white\/60, .text-white\/65, .text-white\/70, .text-white\/75 {
+    color: var(--text-secondary);
+  }
+  .text-white\/15, .text-white\/20, .text-white\/25, .text-white\/30, .text-white\/35,
+  .text-white\/40, .text-white\/45, .text-white\/50, .text-white\/55 {
+    color: var(--text-muted);
+  }
+
+  /* Same problem, same fix, for backgrounds: `bg-black/NN` is used throughout
+     (drawer headers/footers, toolbars, terminal panels, the login page's demo
+     account cards, ...) as a "recessed surface" tint against the dark theme's
+     near-black page background. `black` was never remapped per-theme the way
+     `white` was above, so in light mode these render as flat, opaque-looking
+     mid-grey boxes that clash with the rest of the light surface palette
+     instead of reading as a subtle recessed panel.
+
+     bg-black/60 and bg-black/75 are deliberately NOT included here -- they're
+     not surface panels, they're a full-viewport modal backdrop (EvidenceDrawer,
+     AppShell's mobile drawer: `fixed/absolute inset-0 bg-black/60`) and a small
+     floating badge over the document image (DocumentViewer's "drag to pan"
+     tooltip). Both need to stay a *translucent* black to work as intended --
+     an opaque swap here doesn't just look wrong, it visually blots out
+     whatever is behind/underneath (this was caught live: opening the evidence
+     drawer over the document viewer made the entire document disappear behind
+     an opaque backdrop). Translucent black already works correctly as a
+     dimming scrim in both themes, so it's left as Tailwind's default. */
+  .bg-black\/10, .bg-black\/15, .bg-black\/20 {
+    background-color: var(--bg-secondary);
+  }
+  .bg-black\/25, .bg-black\/30, .bg-black\/40, .bg-black\/45 {
+    background-color: var(--bg-panel-secondary);
+  }
+}
+
+html, body, #root {
   height: 100%;
 }
 
 body {
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--radial-bg);
+  color: var(--text-primary);
   font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  transition: background-color 300ms ease-out, color 300ms ease-out;
+}
+
+/* 3D Moving Atmospheric Background Lights/Orbs */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, -40px) scale(1.1); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-50px, 70px) scale(0.95); }
+}
+
+.ambient-orb-1 {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
+  top: -15%;
+  left: -10%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: orb-float-1 25s infinite ease-in-out;
+  z-index: 0;
+  opacity: var(--orb-opacity);
+}
+
+.ambient-orb-2 {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  bottom: -10%;
+  right: -5%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: orb-float-2 30s infinite ease-in-out;
+  z-index: 0;
+  opacity: var(--orb-opacity);
+}
+
+/* Slowly Drifting Grid for Interactive Visual Depth */
+@keyframes grid-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+/* IMPORTANT: opacity lives on a ::before overlay, never on this class directly --
+   this class is applied to real content containers (e.g. the page wrapper around
+   <Outlet/> in AppShell), so putting opacity here would dim actual page content,
+   not just the decorative grid. (This was exactly that bug: every page but the
+   sidebar rendered at 45% opacity.) */
+.cyber-grid-animated {
+  position: relative;
+}
+.cyber-grid-animated::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  animation: grid-drift 40s linear infinite;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Static (non-drifting) grid variant for full-screen loading/error states --
+   same ::before-overlay approach so it never dims real content. */
+.cyber-grid {
+  position: relative;
+}
+.cyber-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
 }
 
 ::selection {
-  background: var(--color-brand-200);
-  color: var(--color-brand-950);
+  background: var(--color-accent-soft);
+  color: inherit;
 }
 
-/* White card with soft government-portal shadow */
-.card {
-  background: var(--color-panel);
-  border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
-  box-shadow:
-    0 1px 2px rgba(15, 39, 68, 0.04),
-    0 6px 20px rgba(15, 39, 68, 0.06);
+/* Premium Glassmorphic Card Styling */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--glass-shadow);
+  transition: background-color 300ms ease-out, border-color 300ms ease-out, box-shadow 300ms ease-out, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Blue hero / banner gradient */
-.brand-gradient {
-  background: linear-gradient(135deg, #073a72 0%, #0b66c3 55%, #1878d4 100%);
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
-.brand-gradient-soft {
-  background: linear-gradient(135deg, #f1f8ff 0%, #e2f0fc 100%);
+/* Premium Hover Micro-Elevations */
+.glass-elevate:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 12px 36px -12px rgba(59, 130, 246, 0.12), var(--glass-shadow);
 }
 
-/* Thin saffron/green ribbon like the tricolour trim */
-.gov-ribbon {
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    #ff8a00 0%,
-    #ff8a00 33%,
-    #ffffff 33%,
-    #ffffff 66%,
-    #138808 66%,
-    #138808 100%
-  );
+/* Stripe/Linear style subtle Gradient Border overlay */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, transparent 50%, rgba(99, 102, 241, 0.2) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
 }
 
+/* Scrollbars */
 .scrollbar-thin::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #c4d4e6;
+  background: var(--border-color);
   border-radius: 999px;
 }
-.scrollbar-thin::-webkit-scrollbar-track {
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Form Controls Global Overrides */
+input, select, textarea {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 0 0 2px var(--color-accent-soft) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+}
+
+/* Force high-contrast text inside colored badges and solid buttons */
+.bg-accent, .bg-risk-high, .bg-risk-medium, .bg-risk-low {
+  color: #ffffff !important;
+}
+
+/* --- Selection-state primitives --- */
+.chip {
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+.chip-active {
+  background: var(--color-accent);
+  color: #ffffff !important;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent), 0 4px 14px -4px var(--color-accent-soft);
+}
+.chip-inactive {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-secondary);
+  border-color: var(--color-border);
+}
+.chip-inactive:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.select-card {
+  position: relative;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  border: 1px solid transparent;
+}
+.select-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
   background: transparent;
+  transition: background-color 200ms ease;
+}
+.select-card-active {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2), 0 12px 28px -14px rgba(59, 130, 246, 0.3);
+}
+.select-card-active::before {
+  background: var(--color-accent);
+}
+.select-card-inactive {
+  border-color: var(--color-border);
+}
+.select-card-inactive:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Scanning Effect for Document Intake */
+@keyframes scan {
+  0% { transform: translateY(0); opacity: 0.1; }
+  50% { opacity: 0.95; }
+  100% { transform: translateY(280px); opacity: 0.1; }
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  box-shadow: 0 0 14px 4px rgba(59, 130, 246, 0.8);
+  animation: scan 2.2s infinite linear;
+  z-index: 10;
+}
+
+/* Skeleton loading shimmer -- a moving highlight band reads as "loading"
+   more clearly than a flat opacity pulse, and never causes layout shift
+   since it's sized by the caller. */
+@keyframes skeleton-sweep {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.03) 30%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.03) 70%
+  );
+  background-size: 250% 100%;
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+/* One-shot document scan sweep -- fires once when a new page/stage is
+   ingested, distinct from the continuous .scan-line used during active
+   pipeline execution. Driven by a `key`-remount in React, not a loop. */
+@keyframes scan-sweep-once {
+  0% { transform: translateY(-6%); opacity: 0; }
+  12% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateY(106%); opacity: 0; }
+}
+.scan-sweep-once {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-bright), transparent);
+  box-shadow: 0 0 16px 3px rgba(59, 130, 246, 0.7);
+  animation: scan-sweep-once 1.1s cubic-bezier(0.4, 0, 0.2, 1) 1;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Subtle Breathing Glow for Active Regions */
+@keyframes region-breath {
+  0%, 100% { box-shadow: 0 0 0 2px var(--pulse-color, var(--color-accent)); opacity: 0.75; }
+  50% { box-shadow: 0 0 0 5px var(--pulse-color, var(--color-accent)), 0 0 12px var(--pulse-color, var(--color-accent)); opacity: 0.95; }
+}
+
+.evidence-pulse {
+  animation: region-breath 2s infinite ease-in-out;
+}
+
+/* Printing Optimization for Forensic Report */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .glass {
+    border: 1px solid #d1d5db !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
+  .lg\:block, .lg\:hidden {
+    display: none !important;
+  }
+  nav, button, footer {
+    display: none !important;
+  }
+  .print-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

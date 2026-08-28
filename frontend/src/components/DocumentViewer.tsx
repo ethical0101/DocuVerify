@@ -1,178 +1,216 @@
-import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
-import type { Region } from "../api/client";
+import { useState, useRef, useEffect } from "react";
+import { ZoomIn, ZoomOut, ImageOff, Move, Maximize2 } from "lucide-react";
+import type { Evidence } from "../api/client";
+import EvidenceDrawer from "./EvidenceDrawer";
+import { useAuthedImage } from "../hooks/useAuthedImage";
 
-function riskColor(score?: number): string {
-  const s = score ?? 0.5;
-  if (s >= 0.6) return "#f87171";
-  if (s >= 0.35) return "#fbbf24";
-  return "#facc15";
-}
-
-interface Anchor {
-  left: number; top: number; width: number; height: number;
+function severityColor(severity?: string): string {
+  switch (severity) {
+    case "critical":
+    case "high": return "#ef4444"; // red
+    case "medium": return "#f59e0b"; // amber
+    case "low": return "#10b981"; // green
+    default: return "#3b82f6"; // blue
+  }
 }
 
 export default function DocumentViewer({
-  imageUrl, pageSize, regions,
-}: { imageUrl: string; pageSize: [number, number]; regions: Region[] }) {
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  imageUrl, pageSize, evidenceList, selectedIndex, onSelectIndex, scanKey,
+}: {
+  imageUrl: string; pageSize: [number, number]; evidenceList: Evidence[];
+  selectedIndex?: number | null; onSelectIndex?: (idx: number | null) => void;
+  /** Changing this re-triggers the one-shot scan sweep -- pass the active
+   * pipeline stage (or similar) so re-selecting a finding doesn't replay it. */
+  scanKey?: string;
+}) {
+  const [internalIdx, setInternalIdx] = useState<number | null>(null);
+  const controlled = selectedIndex !== undefined;
+  const selectedIdx = controlled ? selectedIndex : internalIdx;
+  const setSelectedIdx = controlled ? (onSelectIndex as (i: number | null) => void) : setInternalIdx;
   const [naturalSize, setNaturalSize] = useState<[number, number] | null>(null);
-  const [anchor, setAnchor] = useState<Anchor | null>(null);
-  const outerRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const blobUrl = useAuthedImage(imageUrl);
 
   const [pw, ph] = naturalSize ?? pageSize;
-  const selected = selectedIdx !== null ? regions[selectedIdx] : null;
+  const boxable = evidenceList.filter((e) => e.bbox);
+  const selected = selectedIdx !== null ? boxable[selectedIdx] : null;
 
-  function recomputeAnchor(idx: number) {
-    const outer = outerRef.current;
-    const wrapper = wrapperRef.current;
-    if (!outer || !wrapper || !pw || !ph) return;
-    const outerRect = outer.getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const scaleX = wrapperRect.width / pw;
-    const scaleY = wrapperRect.height / ph;
-    const [x, y, w, h] = regions[idx].bbox;
-    setAnchor({
-      left: wrapperRect.left - outerRect.left + x * scaleX,
-      top: wrapperRect.top - outerRect.top + y * scaleY,
-      width: w * scaleX,
-      height: h * scaleY,
-    });
-  }
-
-  function toggleRegion(idx: number) {
-    if (selectedIdx === idx) {
-      setSelectedIdx(null);
-      setAnchor(null);
-      return;
-    }
-    setSelectedIdx(idx);
-    recomputeAnchor(idx);
-  }
-
+  // Reset pan when zoom changes to 1 (fit to screen)
   useEffect(() => {
-    if (selectedIdx === null) return;
-    const onResize = () => recomputeAnchor(selectedIdx);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIdx, pw, ph]);
+    if (zoom === 1) {
+      setPan({ x: 0, y: 0 });
+    }
+  }, [zoom]);
 
-  // Popover placement: below the box by default, flipped above if it would run off
-  // the bottom, and clamped horizontally so it never spills outside the viewer.
-  const POPOVER_WIDTH = 260;
-  let popoverLeft = 0, popoverTop = 0, flipAbove = false;
-  if (anchor && outerRef.current) {
-    const outerW = outerRef.current.clientWidth;
-    const outerH = outerRef.current.clientHeight;
-    popoverLeft = Math.min(Math.max(anchor.left, 8), Math.max(8, outerW - POPOVER_WIDTH - 8));
-    flipAbove = anchor.top + anchor.height + 160 > outerH;
-    popoverTop = flipAbove ? Math.max(8, anchor.top - 8) : anchor.top + anchor.height + 8;
-  }
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (zoom <= 1) return;
+    setIsDragging(true);
+    dragStart.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setPan({
+      x: e.clientX - dragStart.current.x,
+      y: e.clientY - dragStart.current.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4">
-      <div ref={outerRef} className="relative card p-2 flex-1 max-h-[600px] flex items-center justify-center">
-        <div ref={wrapperRef} className="relative rounded-lg overflow-hidden" style={{ width: "100%" }}>
-          <img
-            src={imageUrl}
-            alt="document"
-            className="w-full h-auto block"
-            onLoad={(e) => {
-              const img = e.currentTarget;
-              setNaturalSize([img.naturalWidth, img.naturalHeight]);
-            }}
-          />
+    <div className="glass rounded-xl overflow-hidden border border-border/60 bg-white/[0.01]">
+      {/* Dynamic Header toolbar */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-black/30">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-white/40 font-mono">
+          EVIDENCE ANOMALY MAP
+        </span>
+        <div className="flex items-center gap-1.5">
+          <button 
+            onClick={() => setZoom((z) => Math.max(1, z - 0.25))}
+            title="Zoom Out"
+            className="p-1.5 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-colors cursor-pointer"
+          >
+            <ZoomOut className="w-4.5 h-4.5" />
+          </button>
+          <span className="text-[11px] text-white/50 w-12 text-center font-mono select-none">
+            {Math.round(zoom * 100)}%
+          </span>
+          <button 
+            onClick={() => setZoom((z) => Math.min(3, z + 0.25))}
+            title="Zoom In"
+            className="p-1.5 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-colors cursor-pointer"
+          >
+            <ZoomIn className="w-4.5 h-4.5" />
+          </button>
+          <div className="w-px h-4 bg-border/60 mx-1" />
+          <button 
+            onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}
+            title="Fit to Screen"
+            className="p-1.5 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-colors cursor-pointer"
+          >
+            <Maximize2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Main image viewer workspace */}
+      <div 
+        ref={containerRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        className={`relative max-h-[580px] overflow-hidden bg-black/45 select-none ${
+          zoom > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : "cursor-default"
+        }`}
+      >
+        <div
+          className="relative transition-transform duration-100 ease-out origin-center"
+          style={{
+            width: `${zoom * 100}%`,
+            minWidth: "100%",
+            transform: `translate(${pan.x}px, ${pan.y}px)`
+          }}
+        >
+          {/* One-shot scan sweep -- replays whenever scanKey (or the image
+              itself) changes, cueing "this stage is now examining the document" */}
+          <div key={`${scanKey ?? ""}-${blobUrl ?? ""}`} className="scan-sweep-once" />
+          {blobUrl ? (
+            <img
+              src={blobUrl}
+              alt="forensic target"
+              className="w-full h-auto block select-none pointer-events-none"
+              draggable={false}
+              onLoad={(e) => {
+                const img = e.currentTarget;
+                setNaturalSize([img.naturalWidth, img.naturalHeight]);
+              }}
+            />
+          ) : (
+            <div className="w-full aspect-[4/3] flex flex-col items-center justify-center gap-2 text-white/30 py-24">
+              <ImageOff className="w-7 h-7 text-white/20 animate-pulse" />
+              <span className="text-xs font-mono tracking-widest text-white/40">LOADING RESOLUTION LAYER...</span>
+            </div>
+          )}
+          
           <svg
             viewBox={`0 0 ${pw || 1} ${ph || 1}`}
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full pointer-events-auto"
             preserveAspectRatio="none"
           >
-            {regions.map((r, i) => {
-              const [x, y, w, h] = r.bbox;
-              const color = riskColor(r.score);
+            {boxable.map((e, i) => {
+              const [x, y, w, h] = e.bbox!;
+              const color = severityColor(e.severity);
               const isSelected = selectedIdx === i;
+              
               return (
-                <rect
-                  key={i}
-                  x={x} y={y} width={w} height={h}
-                  fill={isSelected ? `${color}40` : `${color}1a`}
-                  stroke={color}
-                  strokeWidth={isSelected ? 3 : 1.5}
-                  className="cursor-pointer transition-all"
-                  onClick={() => toggleRegion(i)}
-                  vectorEffect="non-scaling-stroke"
-                />
+                <g key={e.id}>
+                  {/* Glowing background anchor for active selected bounding box */}
+                  {isSelected && (
+                    <rect
+                      x={x - 3} y={y - 3} width={w + 6} height={h + 6}
+                      fill="none" 
+                      stroke="#ffffff" 
+                      strokeOpacity={0.7} 
+                      strokeWidth={1.5} 
+                      strokeDasharray="3 2"
+                      rx={2} 
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  )}
+                  
+                  {/* Anomaly trigger region rectangle */}
+                  <rect
+                    x={x} y={y} width={w} height={h}
+                    fill={isSelected ? `${color}33` : `${color}0b`}
+                    stroke={color}
+                    strokeWidth={isSelected ? 3 : 1.25}
+                    strokeOpacity={isSelected ? 1 : 0.65}
+                    className={`cursor-pointer transition-all duration-200 hover:fill-[${color}40] ${
+                      isSelected ? "" : "evidence-pulse"
+                    }`}
+                    style={{
+                      filter: isSelected ? `drop-shadow(0 0 4px ${color})` : "none",
+                      "--pulse-color": color
+                    } as any}
+                    onClick={() => setSelectedIdx(i)}
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </g>
               );
             })}
           </svg>
         </div>
 
-        {selected && anchor && (
-          <div
-            className="absolute z-10 bg-panel rounded-lg p-3.5 shadow-xl border border-border"
-            style={{ left: popoverLeft, top: popoverTop, width: POPOVER_WIDTH }}
-          >
-            <div className="flex items-start justify-between gap-2 mb-1.5">
-              <span className="font-semibold capitalize text-sm text-brand-900">{selected.type.replaceAll("_", " ")}</span>
-              <button onClick={() => toggleRegion(selectedIdx!)} className="text-muted hover:text-ink shrink-0">
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-            {selected.score !== undefined && (
-              <div className="text-xs font-mono mb-2 font-medium" style={{ color: riskColor(selected.score) }}>
-                {(selected.score * 100).toFixed(0)}% confidence
-              </div>
-            )}
-            {selected.text && (
-              <div className="text-ink text-xs mb-2 font-mono bg-brand-50 border border-brand-100 rounded px-2 py-1 inline-block">
-                "{selected.text}"
-              </div>
-            )}
-            {selected.reason && (
-              <p className="text-muted text-xs leading-relaxed">{selected.reason}</p>
-            )}
+        {/* Small floating navigation helper message when zoomed in */}
+        {zoom > 1 && (
+          <div className="absolute bottom-3 right-3 bg-black/75 border border-border/80 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 text-[10px] text-white/50 font-mono pointer-events-none select-none">
+            <Move className="w-3.5 h-3.5 text-accent-bright animate-bounce" />
+            <span>DRAG TO PAN</span>
           </div>
         )}
       </div>
 
-      <div className="w-full lg:w-80 card p-4 max-h-[600px] overflow-y-auto scrollbar-thin">
-        <div className="text-xs uppercase tracking-wide text-brand-600 font-semibold mb-3">
-          Suspicious Regions ({regions.length})
-        </div>
-        {regions.length === 0 && (
-          <div className="text-sm text-muted">No regions flagged above threshold.</div>
-        )}
-        <div className="space-y-2">
-          {regions.map((r, i) => {
-            const color = riskColor(r.score);
-            return (
-              <button
-                key={i}
-                onClick={() => toggleRegion(i)}
-                className={`w-full text-left rounded-lg p-3 text-sm transition border ${
-                  selectedIdx === i ? "border-brand-300 bg-brand-50" : "border-border hover:bg-brand-50/60"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-semibold capitalize text-brand-900">{r.type.replaceAll("_", " ")}</span>
-                  {r.score !== undefined && (
-                    <span className="text-xs font-mono font-medium" style={{ color }}>
-                      {(r.score * 100).toFixed(0)}%
-                    </span>
-                  )}
-                </div>
-                {r.text && <div className="text-muted text-xs mb-1 font-mono">"{r.text}"</div>}
-                {selectedIdx === i && r.reason && (
-                  <div className="text-muted text-xs leading-relaxed mt-1">{r.reason}</div>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <EvidenceDrawer
+        evidence={selected}
+        index={selectedIdx ?? undefined}
+        total={boxable.length}
+        onClose={() => setSelectedIdx(null)}
+        onPrev={selectedIdx !== null && selectedIdx > 0 ? () => setSelectedIdx(selectedIdx - 1) : undefined}
+        onNext={selectedIdx !== null && selectedIdx < boxable.length - 1 ? () => setSelectedIdx(selectedIdx + 1) : undefined}
+      />
     </div>
   );
 }
