@@ -104,6 +104,31 @@
   .text-white\/40, .text-white\/45, .text-white\/50, .text-white\/55 {
     color: var(--text-muted);
   }
+
+  /* Same problem, same fix, for backgrounds: `bg-black/NN` is used throughout
+     (drawer headers/footers, toolbars, terminal panels, the login page's demo
+     account cards, ...) as a "recessed surface" tint against the dark theme's
+     near-black page background. `black` was never remapped per-theme the way
+     `white` was above, so in light mode these render as flat, opaque-looking
+     mid-grey boxes that clash with the rest of the light surface palette
+     instead of reading as a subtle recessed panel.
+
+     bg-black/60 and bg-black/75 are deliberately NOT included here -- they're
+     not surface panels, they're a full-viewport modal backdrop (EvidenceDrawer,
+     AppShell's mobile drawer: `fixed/absolute inset-0 bg-black/60`) and a small
+     floating badge over the document image (DocumentViewer's "drag to pan"
+     tooltip). Both need to stay a *translucent* black to work as intended --
+     an opaque swap here doesn't just look wrong, it visually blots out
+     whatever is behind/underneath (this was caught live: opening the evidence
+     drawer over the document viewer made the entire document disappear behind
+     an opaque backdrop). Translucent black already works correctly as a
+     dimming scrim in both themes, so it's left as Tailwind's default. */
+  .bg-black\/10, .bg-black\/15, .bg-black\/20 {
+    background-color: var(--bg-secondary);
+  }
+  .bg-black\/25, .bg-black\/30, .bg-black\/40, .bg-black\/45 {
+    background-color: var(--bg-panel-secondary);
+  }
 }
 
 html, body, #root {
