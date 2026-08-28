@@ -13,6 +13,7 @@ from app.core.database import get_db
 from app.models.db_models import Document, Analysis, User
 from app.services.preprocessing.loader import page_count
 from app.services.pipeline import analyze_document
+from app.services import storage
 from app.api.deps import get_optional_user
 
 router = APIRouter()
@@ -62,9 +63,14 @@ def upload_document(file: UploadFile = File(...), db: Session = Depends(get_db),
     except Exception:
         pages = 1
 
+    # If object storage (R2) is configured, this persists the file beyond this
+    # container's local (ephemeral) disk and returns an "r2://..." reference;
+    # otherwise returns `dest` unchanged, so local dev needs no extra setup.
+    stored_path = storage.save_upload(dest, f"uploads/{safe_name}")
+
     doc = Document(
         filename=file.filename or safe_name,
-        stored_path=str(dest),
+        stored_path=stored_path,
         sha256=sha256,
         file_type=suffix.lstrip("."),
         pages=pages,
@@ -90,7 +96,7 @@ def analyze(doc_id: str, db: Session = Depends(get_db), user: User | None = Depe
     db.commit()
 
     try:
-        result = analyze_document(Path(doc.stored_path))
+        result = analyze_document(storage.resolve_local_path(doc.stored_path))
     except Exception as exc:
         doc.status = "failed"
         db.commit()
@@ -203,7 +209,7 @@ def get_file(doc_id: str, db: Session = Depends(get_db), user: User | None = Dep
 
     # Must match analyze_document()'s preprocessing exactly (including deskew) --
     # region bounding boxes from the analysis are only valid against this exact image.
-    page, _ = load_primary_page(Path(doc.stored_path))
+    page, _ = load_primary_page(storage.resolve_local_path(doc.stored_path))
     ok, buf = cv2.imencode(".png", page)
     if not ok:
         raise HTTPException(500, "Failed to encode document preview")
