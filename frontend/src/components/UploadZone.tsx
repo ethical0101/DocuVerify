@@ -18,7 +18,7 @@ export default function UploadZone({ onFile }: { onFile: (file: File) => void })
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto w-full px-6">
+    <div className="max-w-2xl mx-auto w-full">
       <div
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
@@ -29,8 +29,8 @@ export default function UploadZone({ onFile }: { onFile: (file: File) => void })
           if (f) accept(f);
         }}
         onClick={() => inputRef.current?.click()}
-        className={`glass rounded-2xl border-2 border-dashed p-14 text-center cursor-pointer transition ${
-          dragOver ? "border-accent bg-accent/5" : "border-white/10 hover:border-white/20"
+        className={`rounded-xl border-2 border-dashed p-14 text-center cursor-pointer transition ${
+          dragOver ? "border-brand-500 bg-brand-50" : "border-brand-200 bg-panel hover:border-brand-400 hover:bg-brand-50/50"
         }`}
       >
         <input
@@ -42,22 +42,24 @@ export default function UploadZone({ onFile }: { onFile: (file: File) => void })
         />
         {!selected ? (
           <>
-            <UploadCloud className="w-10 h-10 text-accent mx-auto mb-4" />
-            <div className="font-medium mb-1">Drag & drop a document here</div>
-            <div className="text-sm text-white/40">or click to browse &middot; PDF, PNG, JPG</div>
+            <div className="w-14 h-14 rounded-full bg-brand-100 flex items-center justify-center mx-auto mb-4">
+              <UploadCloud className="w-7 h-7 text-brand-600" />
+            </div>
+            <div className="font-semibold text-brand-900 mb-1">Drag &amp; drop a document here</div>
+            <div className="text-sm text-muted">or click to browse &middot; PDF, PNG, JPG</div>
           </>
         ) : (
-          <div className="flex items-center justify-between glass rounded-lg px-4 py-3 text-left">
+          <div className="flex items-center justify-between bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-left">
             <div className="flex items-center gap-3 min-w-0">
-              <FileText className="w-5 h-5 text-accent shrink-0" />
+              <FileText className="w-5 h-5 text-brand-600 shrink-0" />
               <div className="min-w-0">
-                <div className="truncate font-medium">{selected.name}</div>
-                <div className="text-xs text-white/40">{(selected.size / 1024).toFixed(0)} KB</div>
+                <div className="truncate font-medium text-brand-900">{selected.name}</div>
+                <div className="text-xs text-muted">{(selected.size / 1024).toFixed(0)} KB</div>
               </div>
             </div>
             <button
               onClick={(e) => { e.stopPropagation(); setSelected(null); }}
-              className="text-white/40 hover:text-white shrink-0"
+              className="text-muted hover:text-ink shrink-0"
             >
               <X className="w-4 h-4" />
             </button>
@@ -68,7 +70,7 @@ export default function UploadZone({ onFile }: { onFile: (file: File) => void })
       {selected && (
         <button
           onClick={() => onFile(selected)}
-          className="w-full mt-4 rounded-lg bg-accent px-6 py-3 font-medium text-white shadow-lg shadow-accent/20 transition hover:brightness-110"
+          className="w-full mt-4 rounded-md bg-brand-600 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-700"
         >
           Run Forensic Analysis
         </button>

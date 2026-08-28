@@ -1,47 +1,98 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink-950: #05070d;
-  --color-ink-900: #0a0e1a;
-  --color-ink-800: #101524;
-  --color-ink-700: #171d34;
-  --color-ink-600: #232b48;
-  --color-panel: #0d1220;
-  --color-border: #1f2740;
-  --color-accent: #4f8cff;
-  --color-accent-soft: #4f8cff33;
-  --color-risk-low: #34d399;
-  --color-risk-medium: #fbbf24;
-  --color-risk-high: #f87171;
+  /* DigiLocker-style deep government blue palette */
+  --color-brand-950: #062b57;
+  --color-brand-900: #073a72;
+  --color-brand-800: #084a90;
+  --color-brand-700: #0a5aad;
+  --color-brand-600: #0b66c3;
+  --color-brand-500: #1878d4;
+  --color-brand-400: #4a9ae6;
+  --color-brand-300: #86bdf0;
+  --color-brand-200: #bcdcf8;
+  --color-brand-100: #e2f0fc;
+  --color-brand-50: #f1f8ff;
+
+  --color-accent: #0b66c3;
+  --color-accent-soft: #0b66c31a;
+
+  /* Neutral surfaces */
+  --color-surface: #f4f7fb;
+  --color-panel: #ffffff;
+  --color-border: #dbe6f1;
+  --color-ink: #0f2744;
+  --color-muted: #5b6b82;
+
+  /* Saffron accent (Indian gov trim), used sparingly */
+  --color-saffron: #ff8a00;
+
+  --color-risk-low: #16a34a;
+  --color-risk-medium: #d97706;
+  --color-risk-high: #dc2626;
+
   --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
 body {
-  background: radial-gradient(circle at 20% -10%, #14203f 0%, #05070d 55%), #05070d;
-  color: #e7ebf7;
+  background: var(--color-surface);
+  color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
 ::selection {
-  background: var(--color-accent-soft);
+  background: var(--color-brand-200);
+  color: var(--color-brand-950);
 }
 
-.glass {
-  background: rgba(13, 18, 32, 0.72);
+/* White card with soft government-portal shadow */
+.card {
+  background: var(--color-panel);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(14px);
+  border-radius: 0.75rem;
+  box-shadow:
+    0 1px 2px rgba(15, 39, 68, 0.04),
+    0 6px 20px rgba(15, 39, 68, 0.06);
+}
+
+/* Blue hero / banner gradient */
+.brand-gradient {
+  background: linear-gradient(135deg, #073a72 0%, #0b66c3 55%, #1878d4 100%);
+}
+
+.brand-gradient-soft {
+  background: linear-gradient(135deg, #f1f8ff 0%, #e2f0fc 100%);
+}
+
+/* Thin saffron/green ribbon like the tricolour trim */
+.gov-ribbon {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #ff8a00 0%,
+    #ff8a00 33%,
+    #ffffff 33%,
+    #ffffff 66%,
+    #138808 66%,
+    #138808 100%
+  );
 }
 
 .scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #2b3555;
+  background: #c4d4e6;
   border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
 }

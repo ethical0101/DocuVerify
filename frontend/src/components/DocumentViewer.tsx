@@ -74,8 +74,8 @@ export default function DocumentViewer({
 
   return (
     <div className="flex flex-col lg:flex-row gap-4">
-      <div ref={outerRef} className="relative glass rounded-xl flex-1 max-h-[600px] flex items-center justify-center">
-        <div ref={wrapperRef} className="relative rounded-xl overflow-hidden" style={{ width: "100%" }}>
+      <div ref={outerRef} className="relative card p-2 flex-1 max-h-[600px] flex items-center justify-center">
+        <div ref={wrapperRef} className="relative rounded-lg overflow-hidden" style={{ width: "100%" }}>
           <img
             src={imageUrl}
             alt="document"
@@ -112,38 +112,38 @@ export default function DocumentViewer({
 
         {selected && anchor && (
           <div
-            className="absolute z-10 glass rounded-lg p-3.5 shadow-xl border border-white/15"
+            className="absolute z-10 bg-panel rounded-lg p-3.5 shadow-xl border border-border"
             style={{ left: popoverLeft, top: popoverTop, width: POPOVER_WIDTH }}
           >
             <div className="flex items-start justify-between gap-2 mb-1.5">
-              <span className="font-medium capitalize text-sm">{selected.type.replaceAll("_", " ")}</span>
-              <button onClick={() => toggleRegion(selectedIdx!)} className="text-white/40 hover:text-white shrink-0">
+              <span className="font-semibold capitalize text-sm text-brand-900">{selected.type.replaceAll("_", " ")}</span>
+              <button onClick={() => toggleRegion(selectedIdx!)} className="text-muted hover:text-ink shrink-0">
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
             {selected.score !== undefined && (
-              <div className="text-xs font-mono mb-2" style={{ color: riskColor(selected.score) }}>
+              <div className="text-xs font-mono mb-2 font-medium" style={{ color: riskColor(selected.score) }}>
                 {(selected.score * 100).toFixed(0)}% confidence
               </div>
             )}
             {selected.text && (
-              <div className="text-white/60 text-xs mb-2 font-mono bg-white/5 rounded px-2 py-1 inline-block">
+              <div className="text-ink text-xs mb-2 font-mono bg-brand-50 border border-brand-100 rounded px-2 py-1 inline-block">
                 "{selected.text}"
               </div>
             )}
             {selected.reason && (
-              <p className="text-white/70 text-xs leading-relaxed">{selected.reason}</p>
+              <p className="text-muted text-xs leading-relaxed">{selected.reason}</p>
             )}
           </div>
         )}
       </div>
 
-      <div className="w-full lg:w-80 glass rounded-xl p-4 max-h-[600px] overflow-y-auto scrollbar-thin">
-        <div className="text-xs uppercase tracking-wide text-white/40 mb-3">
+      <div className="w-full lg:w-80 card p-4 max-h-[600px] overflow-y-auto scrollbar-thin">
+        <div className="text-xs uppercase tracking-wide text-brand-600 font-semibold mb-3">
           Suspicious Regions ({regions.length})
         </div>
         {regions.length === 0 && (
-          <div className="text-sm text-white/40">No regions flagged above threshold.</div>
+          <div className="text-sm text-muted">No regions flagged above threshold.</div>
         )}
         <div className="space-y-2">
           {regions.map((r, i) => {
@@ -153,20 +153,20 @@ export default function DocumentViewer({
                 key={i}
                 onClick={() => toggleRegion(i)}
                 className={`w-full text-left rounded-lg p-3 text-sm transition border ${
-                  selectedIdx === i ? "border-white/30 bg-white/5" : "border-transparent hover:bg-white/5"
+                  selectedIdx === i ? "border-brand-300 bg-brand-50" : "border-border hover:bg-brand-50/60"
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-medium capitalize">{r.type.replaceAll("_", " ")}</span>
+                  <span className="font-semibold capitalize text-brand-900">{r.type.replaceAll("_", " ")}</span>
                   {r.score !== undefined && (
-                    <span className="text-xs font-mono" style={{ color }}>
+                    <span className="text-xs font-mono font-medium" style={{ color }}>
                       {(r.score * 100).toFixed(0)}%
                     </span>
                   )}
                 </div>
-                {r.text && <div className="text-white/50 text-xs mb-1 font-mono">"{r.text}"</div>}
+                {r.text && <div className="text-muted text-xs mb-1 font-mono">"{r.text}"</div>}
                 {selectedIdx === i && r.reason && (
-                  <div className="text-white/50 text-xs leading-relaxed mt-1">{r.reason}</div>
+                  <div className="text-muted text-xs leading-relaxed mt-1">{r.reason}</div>
                 )}
               </button>
             );
