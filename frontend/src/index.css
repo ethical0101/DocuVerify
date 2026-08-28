@@ -1,20 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+:root {
+  /* Default Theme: Light Mode */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-panel: rgba(255, 255, 255, 0.7);
+  --bg-panel-secondary: #e2e8f0;
+  --border-color: rgba(226, 232, 240, 0.8);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(148, 163, 184, 0.2);
+  --glass-shadow: 0 8px 32px -8px rgba(148, 163, 184, 0.08), 0 0 0 1px rgba(148, 163, 184, 0.03);
+  --accent-color: #3b82f6;
+  --accent-bright: #2563eb;
+  --accent-soft: rgba(59, 130, 246, 0.06);
+
+  --risk-low: #10b981;
+  --risk-medium: #d97706;
+  --risk-high: #dc2626;
+
+  --radial-bg: #f8fafc;
+  --orb-opacity: 0.5;
+}
+
+.dark {
+  /* Dark Mode Overrides */
+  --bg-primary: #030712;
+  --bg-secondary: #0b1329;
+  --bg-panel: rgba(15, 23, 42, 0.65);
+  --bg-panel-secondary: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --glass-bg: rgba(15, 23, 42, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --accent-color: #3b82f6;
+  --accent-bright: #60a5fa;
+  --accent-soft: rgba(59, 130, 246, 0.2);
+
+  --risk-low: #10b981;
+  --risk-medium: #f59e0b;
+  --risk-high: #ef4444;
+
+  --radial-bg: #030712;
+  --orb-opacity: 0.8;
+}
+
 @theme {
-  --color-ink-950: #05070d;
-  --color-ink-900: #0a0e1a;
-  --color-ink-800: #101524;
-  --color-ink-700: #171d34;
-  --color-ink-600: #232b48;
-  --color-panel: #0d1220;
-  --color-border: #232c48;
-  --color-accent: #5b8fff;
-  --color-accent-bright: #7aa6ff;
-  --color-accent-soft: #5b8fff33;
-  --color-risk-low: #34d399;
-  --color-risk-medium: #fbbf24;
-  --color-risk-high: #f87171;
-  --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --color-ink-950: var(--bg-primary);
+  --color-ink-900: var(--bg-secondary);
+  --color-ink-800: var(--bg-panel-secondary);
+  --color-ink-700: var(--bg-panel-secondary);
+  --color-ink-600: var(--bg-panel-secondary);
+  --color-panel: var(--bg-panel);
+  --color-border: var(--border-color);
+  --color-accent: var(--accent-color);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-soft: var(--accent-soft);
+  --color-risk-low: var(--risk-low);
+  --color-risk-medium: var(--risk-medium);
+  --color-risk-high: var(--risk-high);
+  --color-white: var(--text-primary);
+  --font-sans: "Inter", "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
@@ -23,83 +75,224 @@ html, body, #root {
 }
 
 body {
-  background: radial-gradient(ellipse 900px 600px at 15% -10%, #1a2a52 0%, transparent 60%),
-              radial-gradient(ellipse 700px 500px at 100% 0%, #16203f 0%, transparent 55%),
-              #05070d;
-  color: #eef1fa;
+  background: var(--radial-bg);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   letter-spacing: -0.01em;
+  overflow-x: hidden;
+  transition: background-color 300ms ease-out, color 300ms ease-out;
+}
+
+/* 3D Moving Atmospheric Background Lights/Orbs */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, -40px) scale(1.1); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-50px, 70px) scale(0.95); }
+}
+
+.ambient-orb-1 {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
+  top: -15%;
+  left: -10%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: orb-float-1 25s infinite ease-in-out;
+  z-index: 0;
+  opacity: var(--orb-opacity);
+}
+
+.ambient-orb-2 {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  bottom: -10%;
+  right: -5%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: orb-float-2 30s infinite ease-in-out;
+  z-index: 0;
+  opacity: var(--orb-opacity);
+}
+
+/* Slowly Drifting Grid for Interactive Visual Depth */
+@keyframes grid-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+/* IMPORTANT: opacity lives on a ::before overlay, never on this class directly --
+   this class is applied to real content containers (e.g. the page wrapper around
+   <Outlet/> in AppShell), so putting opacity here would dim actual page content,
+   not just the decorative grid. (This was exactly that bug: every page but the
+   sidebar rendered at 45% opacity.) */
+.cyber-grid-animated {
+  position: relative;
+}
+.cyber-grid-animated::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  animation: grid-drift 40s linear infinite;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Static (non-drifting) grid variant for full-screen loading/error states --
+   same ::before-overlay approach so it never dims real content. */
+.cyber-grid {
+  position: relative;
+}
+.cyber-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
 }
 
 ::selection {
   background: var(--color-accent-soft);
+  color: inherit;
 }
 
+/* Premium Glassmorphic Card Styling */
 .glass {
-  background: rgba(14, 19, 34, 0.78);
-  border: 1px solid var(--color-border);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--glass-shadow);
+  transition: background-color 300ms ease-out, border-color 300ms ease-out, box-shadow 300ms ease-out, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Premium Hover Micro-Elevations */
+.glass-elevate:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 12px 36px -12px rgba(59, 130, 246, 0.12), var(--glass-shadow);
+}
+
+/* Stripe/Linear style subtle Gradient Border overlay */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, transparent 50%, rgba(99, 102, 241, 0.2) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Scrollbars */
 .scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #2b3555;
+  background: var(--border-color);
   border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-soft);
 }
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-/* --- Selection-state primitives: every selectable card/chip/tab in the app uses
-   one of these two classes so "selected" is never just a faint tint. --- */
+/* Form Controls Global Overrides */
+input, select, textarea {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 0 0 2px var(--color-accent-soft) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+}
 
-/* For chips/pills/filters/nav items: solid fill + real contrast when active. */
+/* Force high-contrast text inside colored badges and solid buttons */
+.bg-accent, .bg-risk-high, .bg-risk-medium, .bg-risk-low {
+  color: #ffffff !important;
+}
+
+/* --- Selection-state primitives --- */
 .chip {
-  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 .chip-active {
   background: var(--color-accent);
-  color: #ffffff;
+  color: #ffffff !important;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 1px var(--color-accent), 0 4px 14px -4px var(--color-accent-soft);
 }
 .chip-inactive {
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(238, 241, 250, 0.55);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-secondary);
   border-color: var(--color-border);
 }
 .chip-inactive:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(238, 241, 250, 0.85);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* For larger selectable cards (mode cards, list rows, findings): a bright left
-   accent bar + lifted background + ring, not just a tinted border. */
 .select-card {
   position: relative;
-  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
   border: 1px solid transparent;
 }
 .select-card::before {
   content: "";
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 3px;
-  border-radius: 3px 0 0 3px;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
   background: transparent;
-  transition: background-color 150ms ease;
+  transition: background-color 200ms ease;
 }
 .select-card-active {
-  background: rgba(91, 143, 255, 0.1);
-  border-color: rgba(91, 143, 255, 0.45);
-  box-shadow: 0 0 0 1px rgba(91, 143, 255, 0.25), 0 12px 28px -14px rgba(91, 143, 255, 0.4);
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2), 0 12px 28px -14px rgba(59, 130, 246, 0.3);
 }
 .select-card-active::before {
   background: var(--color-accent);
@@ -108,8 +301,62 @@ body {
   border-color: var(--color-border);
 }
 .select-card-inactive:hover {
-  background: rgba(255, 255, 255, 0.035);
-  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Scanning Effect for Document Intake */
+@keyframes scan {
+  0% { transform: translateY(0); opacity: 0.1; }
+  50% { opacity: 0.95; }
+  100% { transform: translateY(280px); opacity: 0.1; }
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  box-shadow: 0 0 14px 4px rgba(59, 130, 246, 0.8);
+  animation: scan 2.2s infinite linear;
+  z-index: 10;
+}
+
+/* Subtle Breathing Glow for Active Regions */
+@keyframes region-breath {
+  0%, 100% { box-shadow: 0 0 0 2px var(--pulse-color, var(--color-accent)); opacity: 0.75; }
+  50% { box-shadow: 0 0 0 5px var(--pulse-color, var(--color-accent)), 0 0 12px var(--pulse-color, var(--color-accent)); opacity: 0.95; }
+}
+
+.evidence-pulse {
+  animation: region-breath 2s infinite ease-in-out;
+}
+
+/* Printing Optimization for Forensic Report */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .glass {
+    border: 1px solid #d1d5db !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
+  .lg\:block, .lg\:hidden {
+    display: none !important;
+  }
+  nav, button, footer {
+    display: none !important;
+  }
+  .print-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

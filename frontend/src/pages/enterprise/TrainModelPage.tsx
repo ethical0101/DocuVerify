@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Check, Loader2, Cpu, Database, CheckCircle2, TrendingUp, AlertTriangle, ArrowRight } from "lucide-react";
 import {
   listDatasets, startTraining, getTrainingJob, listModels,
   type DatasetSummary, type TrainingJobStatus, type ModelSummary,
@@ -15,6 +16,23 @@ const STAGE_LABELS: Record<string, string> = {
   evaluation: "Evaluating",
   model_packaging: "Saving model",
   completed: "Completed",
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 100, damping: 15 }
+  }
 };
 
 export default function TrainModelPage() {
@@ -55,92 +73,148 @@ export default function TrainModelPage() {
   const selectedDataset = datasets.find((d) => d.id === datasetId);
 
   return (
-    <div className="p-6 lg:p-10 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-1">Train Organization Model</h1>
-      <p className="text-white/50 text-sm mb-6">
-        Trains a lightweight classifier on your organization's own labeled documents, layered on top of
-        the base forensic pipeline -- never a replacement for it.
-      </p>
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="p-6 lg:p-10 max-w-2xl mx-auto space-y-8 relative"
+    >
+      {/* Header */}
+      <motion.div variants={itemVariants} className="border-b border-border/40 pb-5">
+        <div className="text-[10px] font-bold text-accent-bright font-mono uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+          <Cpu className="w-3.5 h-3.5" /> MODEL TRAINING LAB
+        </div>
+        <h1 className="text-3xl font-extrabold tracking-tight text-white font-sans">Train Adaptive Classifier</h1>
+        <p className="text-white/50 text-sm mt-1">
+          Adapt DocuVerify to your organization's document ecosystem by fitting an adaptive estimator.
+        </p>
+      </motion.div>
 
       {!job && (
-        <div className="glass rounded-xl p-6 space-y-4">
+        <motion.div variants={itemVariants} className="glass gradient-border rounded-xl p-6 border border-border/60 bg-white/[0.01] space-y-5">
           {datasets.length === 0 ? (
-            <div className="text-sm text-white/40">
-              No validated datasets available. Upload one on the Datasets page first.
+            <div className="flex flex-col items-center justify-center text-center py-6 text-white/40 text-xs">
+              <Database className="w-8 h-8 text-white/20 mb-2" />
+              <div className="font-semibold text-white/80">No validated datasets ready</div>
+              <p className="text-[10px] text-white/40 mt-0.5">Please upload and validate a dataset package first.</p>
+              <Link to="/enterprise/datasets" className="mt-4 rounded-lg bg-accent px-4 py-2 font-bold text-white text-xs transition-all shadow-md shadow-accent/15">
+                Go to datasets
+              </Link>
             </div>
           ) : (
             <>
-              <label className="block">
-                <span className="text-xs text-white/50 mb-1.5 block">Dataset</span>
-                <select value={datasetId} onChange={(e) => setDatasetId(e.target.value)}
-                        className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm outline-none">
+              {/* Dataset Select */}
+              <label className="block space-y-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-white/40 block">Select Validated Dataset</span>
+                <select 
+                  value={datasetId} 
+                  onChange={(e) => setDatasetId(e.target.value)}
+                  className="w-full bg-black/40 border border-border rounded-lg px-3.5 py-2.5 text-xs text-white/80 outline-none"
+                >
                   {datasets.map((d) => (
-                    <option key={d.id} value={d.id} className="bg-ink-900">{d.filename}</option>
+                    <option key={d.id} value={d.id} className="bg-panel">{d.filename}</option>
                   ))}
                 </select>
               </label>
+
+              {/* Dataset Metrics */}
               {selectedDataset && (
-                <div className="grid grid-cols-3 gap-3 text-sm">
-                  <Stat label="Genuine" value={selectedDataset.genuine_count} />
-                  <Stat label="Forged" value={selectedDataset.forged_count} />
-                  <Stat label="Features" value={9} />
+                <div className="grid grid-cols-3 gap-3 border border-border/60 bg-black/20 rounded-xl p-4">
+                  <Stat label="Genuine Samples" value={selectedDataset.genuine_count} />
+                  <Stat label="Forged Samples" value={selectedDataset.forged_count} />
+                  <Stat label="Features Extracted" value={9} />
                 </div>
               )}
-              <label className="block">
-                <span className="text-xs text-white/50 mb-1.5 block">Model name</span>
-                <input value={modelName} onChange={(e) => setModelName(e.target.value)}
-                       className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm outline-none" />
+
+              {/* Model Name */}
+              <label className="block space-y-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-white/40 block">Classifier Model Name</span>
+                <input 
+                  value={modelName} 
+                  onChange={(e) => setModelName(e.target.value)}
+                  placeholder="Certificate Forensics Model"
+                  className="w-full bg-black/40 border border-border rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-white/20 outline-none focus:border-accent/60"
+                />
               </label>
-              <div className="text-xs text-white/40">
-                Split: 70% train / 15% validation / 15% test. Algorithm chosen automatically (Random Forest,
-                falling back to Logistic Regression for very small datasets).
+
+              {/* Training constraints */}
+              <div className="text-[10px] text-white/35 font-mono uppercase leading-normal">
+                SPLIT RATIO: 70% TRAIN / 15% VAL / 15% TEST &middot; RANDOM FOREST CLASSIFIER WITH HYPERPARAMETER OPTIMIZATION.
               </div>
-              {error && <div className="text-risk-high text-sm">{error}</div>}
-              <button onClick={onStart} className="w-full rounded-lg bg-accent py-2.5 font-medium">
-                Start Training
+
+              {error && (
+                <div className="flex items-center gap-2 text-sm text-risk-high bg-risk-high/15 border border-risk-high/30 rounded-lg px-3 py-2">
+                  <AlertTriangle className="w-4 h-4 shrink-0" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <button 
+                onClick={onStart} 
+                className="w-full rounded-lg bg-accent hover:bg-accent-bright text-white py-3 font-semibold shadow-lg shadow-accent/20 transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <Cpu className="w-4.5 h-4.5" /> Initiate Training Job
               </button>
             </>
           )}
-        </div>
+        </motion.div>
       )}
 
+      {/* Active training stepper */}
       {job && (
-        <div className="glass rounded-xl p-6">
-          <div className="space-y-2 mb-4">
-            {job.stages.map((s) => (
-              <div key={s.name} className="flex items-center gap-3 text-sm">
-                <span className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
-                  s.status === "completed" ? "bg-risk-low/20 text-risk-low"
-                  : s.status === "running" ? "bg-accent/20 text-accent" : "bg-white/5 text-white/20"
-                }`}>
-                  {s.status === "completed" ? <Check className="w-3 h-3" />
-                    : s.status === "running" ? <Loader2 className="w-3 h-3 animate-spin" /> : "○"}
-                </span>
-                <span className={s.status === "pending" ? "text-white/30" : "text-white/80"}>
-                  {STAGE_LABELS[s.name] ?? s.name}
-                </span>
-              </div>
-            ))}
+        <motion.div variants={itemVariants} className="glass gradient-border rounded-xl p-6 border border-border/60 bg-white/[0.01]">
+          <div className="space-y-4">
+            <div className="text-[10px] font-bold text-white/35 font-mono uppercase tracking-widest mb-2 border-b border-border/20 pb-3">
+              TRAINING STAGE SCHEDULER
+            </div>
+            
+            <div className="space-y-3.5">
+              {job.stages.map((s) => (
+                <div key={s.name} className="flex items-center gap-3.5 text-xs">
+                  <span className={`w-5.5 h-5.5 rounded-full flex items-center justify-center shrink-0 border ${
+                    s.status === "completed" 
+                      ? "bg-risk-low/10 text-risk-low border-risk-low/30"
+                      : s.status === "running" 
+                        ? "bg-accent/15 text-accent-bright border-accent/40" 
+                        : "bg-white/5 border-border/40 text-white/20"
+                  }`}>
+                    {s.status === "completed" ? (
+                      <Check className="w-3.5 h-3.5" strokeWidth={3} />
+                    ) : s.status === "running" ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : "○"}
+                  </span>
+                  <span className={`font-mono tracking-tight ${
+                    s.status === "pending" ? "text-white/30" : "text-white/80 font-medium"
+                  }`}>
+                    {STAGE_LABELS[s.name] ?? s.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {job.status === "failed" && (
-            <div className="text-risk-high text-sm">Training failed: {job.error}</div>
+            <div className="mt-4 flex items-center gap-2 text-sm text-risk-high bg-risk-high/15 border border-risk-high/30 rounded-lg px-4 py-3">
+              <AlertTriangle className="w-4 h-4 shrink-0" />
+              <span>Training failed: {job.error}</span>
+            </div>
           )}
 
           {job.status === "completed" && (
             <TrainingResult jobId={job.id} />
           )}
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="bg-white/5 rounded-lg p-3 text-center">
-      <div className="text-lg font-semibold">{value}</div>
-      <div className="text-[10px] text-white/40 uppercase">{label}</div>
+    <div className="text-center space-y-1">
+      <div className="text-base font-bold text-white font-mono">{value}</div>
+      <div className="text-[9px] text-white/35 uppercase font-mono tracking-wide">{label}</div>
     </div>
   );
 }
@@ -156,30 +230,55 @@ function TrainingResult({ jobId }: { jobId: string }) {
 
   if (!job?.model_version_id) return null;
   const model = models.find((m) => m.id === job.model_version_id);
-  if (!model) return <div className="text-sm text-white/40 mt-4">Loading results...</div>;
+  if (!model) {
+    return (
+      <div className="mt-6 pt-5 border-t border-border/40 flex items-center gap-2 text-xs text-white/40 font-mono">
+        <Loader2 className="w-4 h-4 animate-spin" />
+        <span>COMPILING EVALUATION METRICS...</span>
+      </div>
+    );
+  }
 
   return (
-    <div className="mt-4 pt-4 border-t border-white/10">
-      <div className="text-sm font-medium mb-3">Model Training Complete: {model.name} {model.version}</div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+    <div className="mt-6 pt-5 border-t border-border/40 space-y-5">
+      <div className="flex items-center gap-2">
+        <CheckCircle2 className="w-5 h-5 text-risk-low" />
+        <span className="text-sm font-bold text-white">
+          Model Ready: {model.name} (v{model.version})
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <MetricTile label="Accuracy" value={model.metrics.accuracy} />
         <MetricTile label="Precision" value={model.metrics.precision} />
         <MetricTile label="Recall" value={model.metrics.recall} />
-        <MetricTile label="F1" value={model.metrics.f1} />
+        <MetricTile label="F1 Score" value={model.metrics.f1} />
       </div>
+
       {model.metrics.roc_auc != null && (
-        <div className="text-xs text-white/40 mb-4">ROC-AUC: {(model.metrics.roc_auc * 100).toFixed(1)}%</div>
+        <div className="flex items-center gap-1.5 bg-white/[0.02] border border-border/60 rounded px-2.5 py-1.5 text-xs text-white/50 font-mono w-fit">
+          <TrendingUp className="w-4 h-4 text-accent-bright" />
+          <span>ROC-AUC SCORE: {(model.metrics.roc_auc * 100).toFixed(1)}%</span>
+        </div>
       )}
-      <Link to="/enterprise/models" className="text-sm text-accent hover:underline">Review and activate in Model Registry &rarr;</Link>
+
+      <Link 
+        to="/enterprise/models" 
+        className="rounded-lg bg-accent hover:bg-accent-bright text-white py-2.5 text-xs font-bold transition-all shadow-md shadow-accent/15 flex items-center justify-center gap-1.5 cursor-pointer max-w-xs"
+      >
+        <span>Review & Activate Model</span> <ArrowRight className="w-3.5 h-3.5" />
+      </Link>
     </div>
   );
 }
 
 function MetricTile({ label, value }: { label: string; value?: number }) {
   return (
-    <div className="bg-white/5 rounded-lg p-3 text-center">
-      <div className="text-lg font-semibold">{value !== undefined ? `${(value * 100).toFixed(1)}%` : "--"}</div>
-      <div className="text-[10px] text-white/40 uppercase">{label}</div>
+    <div className="glass glass-elevate border border-border/60 rounded-xl p-3.5 text-center space-y-1">
+      <div className="text-base font-extrabold text-white font-mono">
+        {value !== undefined ? `${(value * 100).toFixed(1)}%` : "--"}
+      </div>
+      <div className="text-[9px] text-white/35 uppercase font-mono tracking-wider">{label}</div>
     </div>
   );
 }

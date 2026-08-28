@@ -5,31 +5,48 @@ export default function ForensicTimeline({
   currentIndex, onSelect,
 }: { currentIndex: number; onSelect: (idx: number) => void }) {
   return (
-    <div className="glass rounded-xl p-4 lg:p-5">
-      <div className="text-xs uppercase tracking-wide text-white/40 mb-4 hidden lg:block">Investigation Timeline</div>
-      <div className="flex lg:flex-col gap-1 overflow-x-auto scrollbar-thin">
+    <div className="glass rounded-xl p-4 border border-border/60 flex flex-col h-full bg-white/[0.01]">
+      <div className="text-[10px] font-bold uppercase tracking-widest text-white/35 font-mono mb-4 hidden lg:block">
+        ANALYSIS WORKSPACE
+      </div>
+      
+      <div className="flex lg:flex-col gap-1.5 overflow-x-auto scrollbar-thin pb-2 lg:pb-0">
         {STAGE_ORDER.map((stage: StageKey, i) => {
           const done = i < currentIndex;
           const current = i === currentIndex;
           const reachable = i <= currentIndex;
+          
           return (
             <button
               key={stage}
               disabled={!reachable}
               onClick={() => onSelect(i)}
-              className={`flex items-center gap-2.5 pl-3 pr-3.5 py-2.5 rounded-lg text-sm text-left whitespace-nowrap shrink-0 border-l-2 transition-all ${
+              className={`flex items-center gap-2.5 pl-3.5 pr-3 py-2.5 rounded-lg text-xs text-left whitespace-nowrap shrink-0 border transition-all cursor-pointer duration-150 ${
                 current
-                  ? "bg-accent/15 text-white font-semibold border-accent shadow-[0_0_0_1px_rgba(91,143,255,0.3)]"
-                  : reachable ? "text-white/70 font-medium border-transparent hover:bg-white/5" : "text-white/25 border-transparent"
+                  ? "bg-accent/15 text-white font-semibold border-accent/40 shadow-sm shadow-accent/5"
+                  : reachable 
+                    ? "text-white/60 font-medium border-transparent hover:border-white/10 hover:bg-white/[0.02]" 
+                    : "text-white/20 border-transparent cursor-not-allowed"
               }`}
             >
-              <span className={`w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 text-[10px] ${
-                done ? "bg-risk-low text-ink-950" : current ? "bg-accent text-white" : "bg-white/10"
-              }`}>
-                {done ? <Check className="w-2.5 h-2.5" strokeWidth={3} /> : current ? "" : ""}
-                {current && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-              </span>
-              {STAGE_LABELS[stage]}
+              <div className="relative flex items-center justify-center shrink-0">
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono transition-all ${
+                  done 
+                    ? "bg-risk-low/20 text-risk-low border border-risk-low/40" 
+                    : current 
+                      ? "bg-accent border border-accent text-white" 
+                      : "bg-white/5 border border-border/40 text-white/40"
+                }`}>
+                  {done ? (
+                    <Check className="w-3 h-3" strokeWidth={3.5} />
+                  ) : current ? (
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  ) : (
+                    <span>{i + 1}</span>
+                  )}
+                </span>
+              </div>
+              <span className="tracking-tight">{STAGE_LABELS[stage]}</span>
             </button>
           );
         })}

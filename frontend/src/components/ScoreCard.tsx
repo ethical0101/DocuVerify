@@ -1,46 +1,136 @@
-const RISK_COLOR: Record<string, string> = { LOW: "#34d399", MEDIUM: "#fbbf24", HIGH: "#f87171" };
+import { useEffect, useState } from "react";
+import type { RiskLevel } from "../api/client";
+
+const RISK_COLOR: Record<RiskLevel, string> = { 
+  LOW: "#10b981", 
+  MEDIUM: "#f59e0b", 
+  HIGH: "#ef4444" 
+};
 
 export default function ScoreCard({
   authenticity, risk, riskLevel, confidence,
-}: { authenticity: number; risk: number; riskLevel: string; confidence: number }) {
-  const color = RISK_COLOR[riskLevel] ?? "#94a3b8";
+}: { authenticity: number; risk: number; riskLevel: RiskLevel; confidence: number }) {
+  const riskColor = RISK_COLOR[riskLevel] ?? "#8b93ab";
 
   return (
-    <div className="glass rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <Metric label="Authenticity" value={`${authenticity.toFixed(0)}`} suffix="/ 100"
-              barValue={authenticity} barColor="#4f8cff" />
-      <div className="sm:border-x sm:border-white/10 sm:px-6">
-        <div className="text-xs uppercase tracking-wide text-white/40 mb-1">Forensic Risk</div>
-        <div className="flex items-baseline gap-2 mb-2">
-          <span className="text-3xl font-semibold" style={{ color }}>{risk.toFixed(0)}</span>
-          <span className="text-white/40 text-sm">/ 100</span>
-        </div>
-        <div className="inline-block text-xs font-medium px-2.5 py-1 rounded-full"
-             style={{ color, background: `${color}1a`, border: `1px solid ${color}40` }}>
-          {riskLevel} RISK
-        </div>
+    <div className="glass gradient-border rounded-2xl p-6 border border-border/60 bg-gradient-to-b from-white/[0.01] to-transparent grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+      {/* Metric 1: Authenticity Score */}
+      <div className="flex flex-col items-center">
+        <RadialGauge 
+          value={authenticity} 
+          color="#3b82f6" 
+          label="Authenticity"
+          subLabel="Integrity Rating"
+        />
       </div>
-      <Metric label="Assessment Confidence" value={`${confidence.toFixed(0)}`} suffix="%"
-              barValue={confidence} barColor="#a78bfa"
-              note={confidence < 60 ? "Limited evidence available -- interpret with caution" : undefined} />
+
+      {/* Metric 2: Forensic Risk */}
+      <div className="flex flex-col items-center sm:border-x sm:border-border/40 sm:px-6">
+        <RadialGauge 
+          value={risk} 
+          color={riskColor} 
+          label="Forensic Risk"
+          subLabel={`${riskLevel} RISK LEVEL`}
+          valueSuffix=""
+        />
+      </div>
+
+      {/* Metric 3: Assessment Confidence */}
+      <div className="flex flex-col items-center">
+        <RadialGauge 
+          value={confidence} 
+          color="#a78bfa" 
+          label="Confidence"
+          subLabel={confidence < 60 ? "UNSTABLE QUALITY" : "HIGH FIDELITY"}
+        />
+      </div>
     </div>
   );
 }
 
-function Metric({ label, value, suffix, barValue, barColor, note }: {
-  label: string; value: string; suffix: string; barValue: number; barColor: string; note?: string;
+function RadialGauge({ 
+  value, color, label, subLabel, valueSuffix = "%" 
+}: { 
+  value: number; color: string; label: string; subLabel: string; valueSuffix?: string 
 }) {
+  const size = 96;
+  const strokeWidth = 7;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+
+  const [displayValue, setDisplayValue] = useState(0);
+  const [animatedOffset, setAnimatedOffset] = useState(circumference);
+
+  useEffect(() => {
+    const duration = 1200; // 1.2 seconds animation
+    const startTime = performance.now();
+    let animFrame: number;
+
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Ease-out cubic curve
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const currentVal = ease * value;
+      
+      setDisplayValue(currentVal);
+      setAnimatedOffset(circumference - (Math.min(100, Math.max(0, currentVal)) / 100) * circumference);
+
+      if (progress < 1) {
+        animFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animFrame);
+  }, [value, circumference]);
+
   return (
-    <div>
-      <div className="text-xs uppercase tracking-wide text-white/40 mb-1">{label}</div>
-      <div className="flex items-baseline gap-2 mb-2">
-        <span className="text-3xl font-semibold">{value}</span>
-        <span className="text-white/40 text-sm">{suffix}</span>
+    <div className="flex flex-col items-center text-center space-y-3">
+      <div className="relative" style={{ width: size, height: size }}>
+        {/* SVG Circle Track and Active Progress */}
+        <svg className="w-full h-full transform -rotate-90">
+          <circle 
+            cx={size / 2} 
+            cy={size / 2} 
+            r={radius} 
+            fill="transparent" 
+            stroke="rgba(255,255,255,0.03)" 
+            strokeWidth={strokeWidth} 
+          />
+          <circle 
+            cx={size / 2} 
+            cy={size / 2} 
+            r={radius} 
+            fill="transparent" 
+            stroke={color} 
+            strokeWidth={strokeWidth} 
+            strokeDasharray={circumference} 
+            strokeDashoffset={animatedOffset} 
+            strokeLinecap="round" 
+            style={{ filter: `drop-shadow(0 0 3px ${color}80)` }}
+          />
+        </svg>
+        {/* Centered Score */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <div className="flex items-baseline justify-center">
+            <span className="text-2xl font-black text-white font-mono tracking-tighter">
+              {Math.round(displayValue)}
+            </span>
+            {valueSuffix && (
+              <span className="text-[11px] text-white/40 font-semibold font-mono ml-0.5">
+                {valueSuffix}
+              </span>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-        <div className="h-full rounded-full transition-all" style={{ width: `${barValue}%`, background: barColor }} />
+
+      <div className="space-y-0.5">
+        <div className="text-[10px] font-bold uppercase tracking-widest text-white/35 font-mono">{label}</div>
+        <div className="text-[9px] font-bold font-mono tracking-wide" style={{ color }}>{subLabel}</div>
       </div>
-      {note && <div className="text-[11px] text-white/40 mt-1.5">{note}</div>}
     </div>
   );
 }
