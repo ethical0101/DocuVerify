@@ -18,6 +18,12 @@
   --accent-bright: #2563eb;
   --accent-soft: rgba(59, 130, 246, 0.06);
 
+  /* "Signal" -- the forensic-analysis accent (OCR/annotation ink, evidence
+     emphasis) kept deliberately teal/cyan rather than purple, so it never
+     reads as a generic AI gradient and stays distinct from risk-low green. */
+  --signal-color: #0d9488;
+  --signal-bright: #14b8a6;
+
   --risk-low: #10b981;
   --risk-medium: #d97706;
   --risk-high: #dc2626;
@@ -43,6 +49,9 @@
   --accent-bright: #60a5fa;
   --accent-soft: rgba(59, 130, 246, 0.2);
 
+  --signal-color: #14b8a6;
+  --signal-bright: #2dd4bf;
+
   --risk-low: #10b981;
   --risk-medium: #f59e0b;
   --risk-high: #ef4444;
@@ -62,6 +71,8 @@
   --color-accent: var(--accent-color);
   --color-accent-bright: var(--accent-bright);
   --color-accent-soft: var(--accent-soft);
+  --color-signal: var(--signal-color);
+  --color-signal-bright: var(--signal-bright);
   --color-risk-low: var(--risk-low);
   --color-risk-medium: var(--risk-medium);
   --color-risk-high: var(--risk-high);
@@ -322,6 +333,46 @@ input::placeholder, textarea::placeholder {
   box-shadow: 0 0 14px 4px rgba(59, 130, 246, 0.8);
   animation: scan 2.2s infinite linear;
   z-index: 10;
+}
+
+/* Skeleton loading shimmer -- a moving highlight band reads as "loading"
+   more clearly than a flat opacity pulse, and never causes layout shift
+   since it's sized by the caller. */
+@keyframes skeleton-sweep {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.03) 30%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.03) 70%
+  );
+  background-size: 250% 100%;
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+/* One-shot document scan sweep -- fires once when a new page/stage is
+   ingested, distinct from the continuous .scan-line used during active
+   pipeline execution. Driven by a `key`-remount in React, not a loop. */
+@keyframes scan-sweep-once {
+  0% { transform: translateY(-6%); opacity: 0; }
+  12% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateY(106%); opacity: 0; }
+}
+.scan-sweep-once {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-bright), transparent);
+  box-shadow: 0 0 16px 3px rgba(59, 130, 246, 0.7);
+  animation: scan-sweep-once 1.1s cubic-bezier(0.4, 0, 0.2, 1) 1;
+  pointer-events: none;
+  z-index: 5;
 }
 
 /* Subtle Breathing Glow for Active Regions */

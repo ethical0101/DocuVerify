@@ -15,10 +15,13 @@ function severityColor(severity?: string): string {
 }
 
 export default function DocumentViewer({
-  imageUrl, pageSize, evidenceList, selectedIndex, onSelectIndex,
+  imageUrl, pageSize, evidenceList, selectedIndex, onSelectIndex, scanKey,
 }: {
   imageUrl: string; pageSize: [number, number]; evidenceList: Evidence[];
   selectedIndex?: number | null; onSelectIndex?: (idx: number | null) => void;
+  /** Changing this re-triggers the one-shot scan sweep -- pass the active
+   * pipeline stage (or similar) so re-selecting a finding doesn't replay it. */
+  scanKey?: string;
 }) {
   const [internalIdx, setInternalIdx] = useState<number | null>(null);
   const controlled = selectedIndex !== undefined;
@@ -113,14 +116,17 @@ export default function DocumentViewer({
           zoom > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : "cursor-default"
         }`}
       >
-        <div 
-          className="relative transition-transform duration-100 ease-out origin-center" 
-          style={{ 
-            width: `${zoom * 100}%`, 
+        <div
+          className="relative transition-transform duration-100 ease-out origin-center"
+          style={{
+            width: `${zoom * 100}%`,
             minWidth: "100%",
             transform: `translate(${pan.x}px, ${pan.y}px)`
           }}
         >
+          {/* One-shot scan sweep -- replays whenever scanKey (or the image
+              itself) changes, cueing "this stage is now examining the document" */}
+          <div key={`${scanKey ?? ""}-${blobUrl ?? ""}`} className="scan-sweep-once" />
           {blobUrl ? (
             <img
               src={blobUrl}

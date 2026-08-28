@@ -10,31 +10,43 @@ export default function ForensicTimeline({
         ANALYSIS WORKSPACE
       </div>
       
-      <div className="flex lg:flex-col gap-1.5 overflow-x-auto scrollbar-thin pb-2 lg:pb-0">
+      <div className="relative flex lg:flex-col gap-1.5 overflow-x-auto scrollbar-thin pb-2 lg:pb-0">
+        {/* Progress rail -- fills toward the current stage, reinforcing a
+            single continuous investigation rather than a list of buttons */}
+        <div
+          className="hidden lg:block absolute left-[19px] top-3 bottom-3 w-px bg-border/50 -z-0"
+          aria-hidden="true"
+        >
+          <div
+            className="w-full bg-gradient-to-b from-risk-low to-accent transition-[height] duration-500 ease-out"
+            style={{ height: `${(currentIndex / Math.max(1, STAGE_ORDER.length - 1)) * 100}%` }}
+          />
+        </div>
+
         {STAGE_ORDER.map((stage: StageKey, i) => {
           const done = i < currentIndex;
           const current = i === currentIndex;
           const reachable = i <= currentIndex;
-          
+
           return (
             <button
               key={stage}
               disabled={!reachable}
               onClick={() => onSelect(i)}
-              className={`flex items-center gap-2.5 pl-3.5 pr-3 py-2.5 rounded-lg text-xs text-left whitespace-nowrap shrink-0 border transition-all cursor-pointer duration-150 ${
+              className={`relative flex items-center gap-2.5 pl-3.5 pr-3 py-2.5 rounded-lg text-xs text-left whitespace-nowrap shrink-0 border transition-all cursor-pointer duration-150 ${
                 current
                   ? "bg-accent/15 text-white font-semibold border-accent/40 shadow-sm shadow-accent/5"
-                  : reachable 
-                    ? "text-white/60 font-medium border-transparent hover:border-white/10 hover:bg-white/[0.02]" 
+                  : reachable
+                    ? "text-white/60 font-medium border-transparent hover:border-white/10 hover:bg-white/[0.02]"
                     : "text-white/20 border-transparent cursor-not-allowed"
               }`}
             >
               <div className="relative flex items-center justify-center shrink-0">
-                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono transition-all ${
-                  done 
-                    ? "bg-risk-low/20 text-risk-low border border-risk-low/40" 
-                    : current 
-                      ? "bg-accent border border-accent text-white" 
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono transition-all duration-300 ${
+                  done
+                    ? "bg-risk-low/20 text-risk-low border border-risk-low/40"
+                    : current
+                      ? "bg-accent border border-accent text-white shadow-[0_0_0_3px_rgba(59,130,246,0.18)]"
                       : "bg-white/5 border border-border/40 text-white/40"
                 }`}>
                   {done ? (

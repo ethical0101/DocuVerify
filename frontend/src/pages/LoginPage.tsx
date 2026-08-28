@@ -84,7 +84,7 @@ export default function LoginPage() {
               <Sparkles className="w-3.5 h-3.5" /> ENTERPRISE FORENSIC HUB
             </div>
             <h1 className="text-4xl xl:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              Investigate authenticity through <span className="bg-gradient-to-r from-accent-bright to-purple-400 bg-clip-text text-transparent">evidence</span>, not just a binary verdict.
+              Investigate authenticity through <span className="bg-gradient-to-r from-accent-bright to-signal-bright bg-clip-text text-transparent">evidence</span>, not just a binary verdict.
             </h1>
             <p className="text-white/60 leading-relaxed text-base font-sans">
               DocuVerify evaluates document uploads across visual forensics, optical typography anomalies, layout alignment, and natural language consistency to generate explainable alerts.

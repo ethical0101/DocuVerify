@@ -37,9 +37,9 @@ export default function ScoreCard({
 
       {/* Metric 3: Assessment Confidence */}
       <div className="flex flex-col items-center">
-        <RadialGauge 
-          value={confidence} 
-          color="#a78bfa" 
+        <RadialGauge
+          value={confidence}
+          color="#14b8a6"
           label="Confidence"
           subLabel={confidence < 60 ? "UNSTABLE QUALITY" : "HIGH FIDELITY"}
         />

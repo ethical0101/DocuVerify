@@ -133,6 +133,7 @@ export default function ForensicWorkspacePage() {
             evidenceList={stageEvidenceForMap}
             selectedIndex={selectedIndex}
             onSelectIndex={setSelectedIndex}
+            scanKey={stage}
           />
         </div>
 

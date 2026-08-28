@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Cpu, ShieldAlert, ShieldQuestion, ShieldCheck, ScanSearch, Database, Terminal, ArrowUpRight, Clock, PlusCircle } from "lucide-react";
 import { getEnterpriseDashboard, type EnterpriseDashboard } from "../../api/enterpriseClient";
+import StatTile from "../../components/StatTile";
 
 export default function EnterpriseDashboardPage() {
   const [dash, setDash] = useState<EnterpriseDashboard | null>(null);
@@ -12,9 +13,15 @@ export default function EnterpriseDashboardPage() {
 
   if (!dash) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-3 text-center px-6 bg-ink-950 cyber-grid">
-        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-        <p className="text-white/50 text-sm font-mono">LOADING CONTROL TERMINAL...</p>
+      <div className="p-6 lg:p-10 max-w-6xl mx-auto space-y-8">
+        <div className="glass rounded-xl h-24 skeleton" />
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6">
+          <div className="glass rounded-xl h-40 skeleton" />
+          <div className="glass rounded-xl h-40 skeleton" />
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((i) => <div key={i} className="glass rounded-xl h-28 skeleton" />)}
+        </div>
       </div>
     );
   }
@@ -160,34 +167,5 @@ function ShortcutButton({ to, icon: Icon, label, desc }: { to: string; icon: any
       </div>
       <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-accent-bright group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
     </Link>
-  );
-}
-
-function StatTile({ label, value, color, icon: Icon }: { label: string; value: number; color: string; icon: any }) {
-  return (
-    <div className="glass glass-elevate rounded-xl p-5 border border-white/[0.08] relative overflow-hidden bg-white/[0.02] hover:bg-white/[0.04] transition-all group">
-      {/* Background radial soft light orb */}
-      <div 
-        className="absolute -top-10 -right-10 w-24 h-24 rounded-full blur-2xl opacity-15 pointer-events-none transition-opacity group-hover:opacity-25" 
-        style={{ backgroundColor: color }}
-      />
-      {/* Vertical indicator status bar on the left */}
-      <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: color }} />
-      
-      <div className="flex items-center justify-between pl-1">
-        <span className="text-[10px] font-bold text-white/65 uppercase tracking-widest font-mono">{label}</span>
-        <Icon className="w-4 h-4 text-white/50 group-hover:scale-105 transition-transform" style={{ color }} />
-      </div>
-      
-      <div 
-        className="text-3.5xl font-black mt-3 font-mono tracking-tight pl-1"
-        style={{ 
-          color: color,
-          textShadow: `0 0 15px ${color}50`
-        }}
-      >
-        {value}
-      </div>
-    </div>
   );
 }
