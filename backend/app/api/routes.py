@@ -134,6 +134,7 @@ def get_results(doc_id: str, db: Session = Depends(get_db)):
         "evidence": latest.evidence,
         "evidence_list": latest.evidence_list,
         "regions": latest.regions,
+        "ocr_words": latest.ocr_result,
         "forgery_types": latest.forgery_types,
         "explanation": latest.explanation,
         "timing_ms": latest.timing_ms,

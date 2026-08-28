@@ -137,7 +137,8 @@ def fuse_and_assess(category: str, page, ocr_words: list, visual: dict, typo: di
         "metadata_anomaly": 0.5 if meta.get("anomaly") else 0.0,
         "semantic_anomaly": consistency.get("score"),
     }
-    all_regions = list(visual.get("regions", [])) + list(typo.get("regions", []))
+    all_regions = (list(visual.get("regions", [])) + list(typo.get("regions", []))
+                   + list(structure.get("findings", [])) + list(consistency.get("findings", [])))
     if portrait_region:
         all_regions.append(portrait_region)
     evidence_list = build_evidence_list(all_regions)

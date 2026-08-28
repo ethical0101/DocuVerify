@@ -1,85 +1,62 @@
-import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
-import type { Region } from "../api/client";
+import { useState } from "react";
+import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import type { Evidence } from "../api/client";
+import EvidenceDrawer from "./EvidenceDrawer";
 
-function riskColor(score?: number): string {
-  const s = score ?? 0.5;
-  if (s >= 0.6) return "#f87171";
-  if (s >= 0.35) return "#fbbf24";
-  return "#facc15";
-}
-
-interface Anchor {
-  left: number; top: number; width: number; height: number;
+function severityColor(severity?: string): string {
+  switch (severity) {
+    case "critical":
+    case "high": return "#f87171";
+    case "medium": return "#fbbf24";
+    case "low": return "#facc15";
+    default: return "#8b93ab";
+  }
 }
 
 export default function DocumentViewer({
-  imageUrl, pageSize, regions,
-}: { imageUrl: string; pageSize: [number, number]; regions: Region[] }) {
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  imageUrl, pageSize, evidenceList, selectedIndex, onSelectIndex,
+}: {
+  imageUrl: string; pageSize: [number, number]; evidenceList: Evidence[];
+  selectedIndex?: number | null; onSelectIndex?: (idx: number | null) => void;
+}) {
+  const [internalIdx, setInternalIdx] = useState<number | null>(null);
+  const controlled = selectedIndex !== undefined;
+  const selectedIdx = controlled ? selectedIndex : internalIdx;
+  const setSelectedIdx = controlled ? (onSelectIndex as (i: number | null) => void) : setInternalIdx;
   const [naturalSize, setNaturalSize] = useState<[number, number] | null>(null);
-  const [anchor, setAnchor] = useState<Anchor | null>(null);
-  const outerRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
 
   const [pw, ph] = naturalSize ?? pageSize;
-  const selected = selectedIdx !== null ? regions[selectedIdx] : null;
-
-  function recomputeAnchor(idx: number) {
-    const outer = outerRef.current;
-    const wrapper = wrapperRef.current;
-    if (!outer || !wrapper || !pw || !ph) return;
-    const outerRect = outer.getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const scaleX = wrapperRect.width / pw;
-    const scaleY = wrapperRect.height / ph;
-    const [x, y, w, h] = regions[idx].bbox;
-    setAnchor({
-      left: wrapperRect.left - outerRect.left + x * scaleX,
-      top: wrapperRect.top - outerRect.top + y * scaleY,
-      width: w * scaleX,
-      height: h * scaleY,
-    });
-  }
-
-  function toggleRegion(idx: number) {
-    if (selectedIdx === idx) {
-      setSelectedIdx(null);
-      setAnchor(null);
-      return;
-    }
-    setSelectedIdx(idx);
-    recomputeAnchor(idx);
-  }
-
-  useEffect(() => {
-    if (selectedIdx === null) return;
-    const onResize = () => recomputeAnchor(selectedIdx);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIdx, pw, ph]);
-
-  // Popover placement: below the box by default, flipped above if it would run off
-  // the bottom, and clamped horizontally so it never spills outside the viewer.
-  const POPOVER_WIDTH = 260;
-  let popoverLeft = 0, popoverTop = 0, flipAbove = false;
-  if (anchor && outerRef.current) {
-    const outerW = outerRef.current.clientWidth;
-    const outerH = outerRef.current.clientHeight;
-    popoverLeft = Math.min(Math.max(anchor.left, 8), Math.max(8, outerW - POPOVER_WIDTH - 8));
-    flipAbove = anchor.top + anchor.height + 160 > outerH;
-    popoverTop = flipAbove ? Math.max(8, anchor.top - 8) : anchor.top + anchor.height + 8;
-  }
+  const boxable = evidenceList.filter((e) => e.bbox);
+  const selected = selectedIdx !== null ? boxable[selectedIdx] : null;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4">
-      <div ref={outerRef} className="relative glass rounded-xl flex-1 max-h-[600px] flex items-center justify-center">
-        <div ref={wrapperRef} className="relative rounded-xl overflow-hidden" style={{ width: "100%" }}>
+    <div className="glass rounded-xl overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10">
+        <span className="text-xs uppercase tracking-wide text-white/40">Document Evidence Map</span>
+        <div className="flex items-center gap-1">
+          <button onClick={() => setZoom((z) => Math.max(1, z - 0.25))}
+                  className="p-1.5 rounded hover:bg-white/10 text-white/50 hover:text-white">
+            <ZoomOut className="w-3.5 h-3.5" />
+          </button>
+          <span className="text-xs text-white/40 w-10 text-center font-mono">{Math.round(zoom * 100)}%</span>
+          <button onClick={() => setZoom((z) => Math.min(3, z + 0.25))}
+                  className="p-1.5 rounded hover:bg-white/10 text-white/50 hover:text-white">
+            <ZoomIn className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={() => setZoom(1)} className="p-1.5 rounded hover:bg-white/10 text-white/50 hover:text-white">
+            <RotateCcw className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+
+      <div className="relative max-h-[640px] overflow-auto scrollbar-thin bg-black/20">
+        <div className="relative" style={{ width: `${zoom * 100}%`, minWidth: "100%" }}>
           <img
             src={imageUrl}
             alt="document"
-            className="w-full h-auto block"
+            className="w-full h-auto block select-none"
+            draggable={false}
             onLoad={(e) => {
               const img = e.currentTarget;
               setNaturalSize([img.naturalWidth, img.naturalHeight]);
@@ -90,89 +67,36 @@ export default function DocumentViewer({
             className="absolute inset-0 w-full h-full"
             preserveAspectRatio="none"
           >
-            {regions.map((r, i) => {
-              const [x, y, w, h] = r.bbox;
-              const color = riskColor(r.score);
+            {boxable.map((e, i) => {
+              const [x, y, w, h] = e.bbox!;
+              const color = severityColor(e.severity);
               const isSelected = selectedIdx === i;
               return (
-                <rect
-                  key={i}
-                  x={x} y={y} width={w} height={h}
-                  fill={isSelected ? `${color}40` : `${color}1a`}
-                  stroke={color}
-                  strokeWidth={isSelected ? 3 : 1.5}
-                  className="cursor-pointer transition-all"
-                  onClick={() => toggleRegion(i)}
-                  vectorEffect="non-scaling-stroke"
-                />
+                <g key={e.id}>
+                  <rect
+                    x={x} y={y} width={w} height={h}
+                    fill={isSelected ? `${color}40` : `${color}1a`}
+                    stroke={color}
+                    strokeWidth={isSelected ? 3 : 1.5}
+                    className="cursor-pointer transition-all"
+                    onClick={() => setSelectedIdx(i)}
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </g>
               );
             })}
           </svg>
         </div>
-
-        {selected && anchor && (
-          <div
-            className="absolute z-10 glass rounded-lg p-3.5 shadow-xl border border-white/15"
-            style={{ left: popoverLeft, top: popoverTop, width: POPOVER_WIDTH }}
-          >
-            <div className="flex items-start justify-between gap-2 mb-1.5">
-              <span className="font-medium capitalize text-sm">{selected.type.replaceAll("_", " ")}</span>
-              <button onClick={() => toggleRegion(selectedIdx!)} className="text-white/40 hover:text-white shrink-0">
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-            {selected.score !== undefined && (
-              <div className="text-xs font-mono mb-2" style={{ color: riskColor(selected.score) }}>
-                {(selected.score * 100).toFixed(0)}% confidence
-              </div>
-            )}
-            {selected.text && (
-              <div className="text-white/60 text-xs mb-2 font-mono bg-white/5 rounded px-2 py-1 inline-block">
-                "{selected.text}"
-              </div>
-            )}
-            {selected.reason && (
-              <p className="text-white/70 text-xs leading-relaxed">{selected.reason}</p>
-            )}
-          </div>
-        )}
       </div>
 
-      <div className="w-full lg:w-80 glass rounded-xl p-4 max-h-[600px] overflow-y-auto scrollbar-thin">
-        <div className="text-xs uppercase tracking-wide text-white/40 mb-3">
-          Suspicious Regions ({regions.length})
-        </div>
-        {regions.length === 0 && (
-          <div className="text-sm text-white/40">No regions flagged above threshold.</div>
-        )}
-        <div className="space-y-2">
-          {regions.map((r, i) => {
-            const color = riskColor(r.score);
-            return (
-              <button
-                key={i}
-                onClick={() => toggleRegion(i)}
-                className={`w-full text-left rounded-lg p-3 text-sm transition border ${
-                  selectedIdx === i ? "border-white/30 bg-white/5" : "border-transparent hover:bg-white/5"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-medium capitalize">{r.type.replaceAll("_", " ")}</span>
-                  {r.score !== undefined && (
-                    <span className="text-xs font-mono" style={{ color }}>
-                      {(r.score * 100).toFixed(0)}%
-                    </span>
-                  )}
-                </div>
-                {r.text && <div className="text-white/50 text-xs mb-1 font-mono">"{r.text}"</div>}
-                {selectedIdx === i && r.reason && (
-                  <div className="text-white/50 text-xs leading-relaxed mt-1">{r.reason}</div>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <EvidenceDrawer
+        evidence={selected}
+        index={selectedIdx ?? undefined}
+        total={boxable.length}
+        onClose={() => setSelectedIdx(null)}
+        onPrev={selectedIdx && selectedIdx > 0 ? () => setSelectedIdx(selectedIdx - 1) : undefined}
+        onNext={selectedIdx !== null && selectedIdx < boxable.length - 1 ? () => setSelectedIdx(selectedIdx + 1) : undefined}
+      />
     </div>
   );
 }

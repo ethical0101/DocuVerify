@@ -136,22 +136,31 @@ with zero configuration:
 | Endpoint | Purpose |
 |---|---|
 | `POST /api/documents/upload` | Upload a PDF/PNG/JPG |
-| `POST /api/documents/{id}/analyze` | Run the full forensic pipeline |
+| `POST /api/documents/{id}/analyze` | Run the full forensic pipeline (same pipeline for Quick Scan and Forensic Investigation) |
 | `GET /api/documents/{id}` | Document metadata |
-| `GET /api/documents/{id}/results` | Full analysis result (score, evidence, regions, explanation) |
-| `GET /api/documents/{id}/regions` | Just the flagged regions |
+| `GET /api/documents/{id}/results` | Full analysis result (score, evidence, evidence_list, regions, stage summaries, explanation) |
+| `GET /api/documents/{id}/evidence` | Just the structured evidence list |
+| `GET /api/documents/{id}/regions` | Just the flagged regions (legacy/raw shape) |
 | `GET /api/documents/{id}/report` | Human-readable report + disclaimer |
 | `GET /api/documents/{id}/file` | The document's primary page as PNG (for the viewer) |
+| `GET /api/documents` | Investigation history (every analyzed document) |
+| `GET /api/dashboard/stats` | Real counts for the dashboard (never fabricated) |
 | `GET /api/health` | Liveness + OCR-availability check |
 
-## Demo flow
+## Product experience
 
-1. Landing page → **Try a Sample Document** (or drag-and-drop your own PDF/PNG/JPG).
-2. Watch the live analysis progress (OCR → visual forensics → typography → structure → metadata →
-   consistency → fusion → explanation).
-3. Results dashboard: authenticity score gauge, risk level, evidence breakdown by signal.
-4. Document viewer: click a highlighted region to see exactly why it was flagged.
-5. Explanation panel: plain-language summary, likely manipulation type, recommended human checks.
+- **Landing** → **New Investigation**: choose **Quick Scan** (automatic, straight to the report) or
+  **Forensic Investigation** (walks through Intake → OCR → Visual Forensics → Typography → Structure →
+  Metadata → Consistency → Evidence Fusion one stage at a time, with a persistent timeline navigator).
+  Both modes call the exact same backend pipeline — only the orchestration/reveal differs.
+- **Report**: Document Evidence Map (interactive region overlay) → Key Findings (synced with the
+  viewer — click a finding, the viewer highlights it and an evidence drawer opens with what/why/how
+  strong/recommended check) → Overall Assessment (authenticity, forensic risk, and confidence shown as
+  three separate numbers) → Evidence Matrix (per-layer contribution) → Explanation → Recommended human
+  checks → collapsible technical details.
+- **Dashboard**, **Investigations** (searchable/filterable history), **Evidence Explorer** (cross-stage
+  finding browser for one document), **Compare Documents**, **Models & Methodology**, **About &
+  Limitations** — all reachable from a persistent sidebar.
 
 ## Honest limitations
 
