@@ -2,7 +2,10 @@ import hashlib
 import uuid
 from pathlib import Path
 
+import io
+
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -88,6 +91,7 @@ def analyze(doc_id: str, db: Session = Depends(get_db)):
         forgery_types=result["forgery_types"],
         explanation=result["explanation"],
         timing_ms=result["timing_ms"],
+        page_size=result["page_size"],
     )
     db.add(analysis)
     db.commit()
@@ -125,7 +129,27 @@ def get_results(doc_id: str, db: Session = Depends(get_db)):
         "explanation": latest.explanation,
         "timing_ms": latest.timing_ms,
         "model_version": latest.model_version,
+        "page_size": latest.page_size,
     }
+
+
+@router.get("/documents/{doc_id}/file")
+def get_file(doc_id: str, db: Session = Depends(get_db)):
+    """Returns the document's primary page as a PNG (renders PDFs to their first page)
+    so the frontend always has a single displayable image, regardless of source format."""
+    doc = db.get(Document, doc_id)
+    if not doc:
+        raise HTTPException(404, "Document not found")
+
+    from pathlib import Path
+    import cv2
+    from app.services.preprocessing.loader import load_pages
+
+    pages = load_pages(Path(doc.stored_path))
+    ok, buf = cv2.imencode(".png", pages[0])
+    if not ok:
+        raise HTTPException(500, "Failed to encode document preview")
+    return StreamingResponse(io.BytesIO(buf.tobytes()), media_type="image/png")
 
 
 @router.get("/documents/{doc_id}/regions")

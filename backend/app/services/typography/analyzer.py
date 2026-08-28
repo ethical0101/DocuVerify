@@ -9,7 +9,7 @@ import numpy as np
 
 def analyze_typography(image: np.ndarray, ocr_words: list) -> dict:
     if len(ocr_words) < 4:
-        return {"score": 0.0, "regions": [], "note": "Insufficient OCR text for typography analysis"}
+        return {"score": None, "regions": [], "note": "Insufficient OCR text for typography analysis"}
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     stats = []
@@ -27,11 +27,13 @@ def analyze_typography(image: np.ndarray, ocr_words: list) -> dict:
     if len(stats) < 4:
         return {"score": 0.0, "regions": [], "note": "Insufficient OCR text for typography analysis"}
 
-    # Cluster words by height (e.g. labels vs values vs headers legitimately differ in size)
-    # and compare each word only against its own size cluster, so a genuine multi-font-size
-    # layout doesn't itself register as an anomaly.
-    heights_only = np.array([s["height"] for s in stats], dtype=np.float32).reshape(-1, 1)
-    cluster_ids = _cluster_1d(heights_only.flatten(), bin_width=max(3.0, heights_only.std() * 0.5))
+    # Cluster words by their X-position (column) rather than by height/size directly.
+    # Forms/certificates typically align a field's labels in one column and values in
+    # another; each column legitimately keeps one font size, so comparing a word only
+    # against its own column's peers isolates true rendering anomalies without being
+    # confused by a document that intentionally mixes label/value/header sizes.
+    xs_only = np.array([s["word"]["bbox"][0] for s in stats], dtype=np.float32)
+    cluster_ids = _cluster_1d(xs_only, bin_width=max(40.0, float(xs_only.std()) * 0.3))
 
     regions = []
     for cluster in set(cluster_ids):
@@ -46,8 +48,8 @@ def analyze_typography(image: np.ndarray, ocr_words: list) -> dict:
         for s in members:
             h_z = abs((s["height"] - h_mu) / h_sigma)
             d_z = abs((s["ink_density"] - d_mu) / d_sigma)
-            combined = (h_z + d_z) / 2
-            if combined > 2.2:
+            combined = max(h_z, d_z)
+            if combined > 2.6:
                 x, y, w, h = s["word"]["bbox"]
                 score = float(min(1.0, combined / 5.0))
                 regions.append({

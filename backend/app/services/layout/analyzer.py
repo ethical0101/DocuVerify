@@ -6,7 +6,7 @@ import numpy as np
 
 def analyze_layout(image_shape: tuple, ocr_words: list) -> dict:
     if len(ocr_words) < 5:
-        return {"score": 0.0, "findings": [], "note": "Insufficient OCR text for layout analysis"}
+        return {"score": None, "findings": [], "note": "Insufficient OCR text for layout analysis"}
 
     h, w = image_shape[:2]
     lefts = np.array([wd["bbox"][0] for wd in ocr_words], dtype=np.float32)

@@ -11,7 +11,6 @@ from app.services.ocr.engine import run_ocr
 from app.services.visual_forensics.ela import error_level_analysis, grid_anomaly_regions
 from app.services.visual_forensics.noise import local_variance_anomaly, noise_residual_map
 from app.services.visual_forensics.text_region_forensics import text_region_anomalies
-from app.services.visual_forensics.copy_move import detect_copy_move
 from app.services.typography.analyzer import analyze_typography
 from app.services.layout.analyzer import analyze_layout
 from app.services.metadata.extractor import extract_metadata
@@ -52,11 +51,10 @@ def analyze_document(path: Path) -> dict:
     ela_map = error_level_analysis(page)
     noise_map = noise_residual_map(page)
     text_regions = text_region_anomalies(page, ela_map, noise_map, ocr_words)
-    copy_move_regions, _ = _safe(detect_copy_move, [], page)
     if not text_regions:
         # fall back to a blind page-grid scan when OCR text isn't available
         text_regions = grid_anomaly_regions(ela_map) + local_variance_anomaly(page)
-    visual_regions = text_regions + copy_move_regions
+    visual_regions = text_regions
     if visual_regions:
         top_scores = sorted((r["score"] for r in visual_regions), reverse=True)[:3]
         visual_score = min(1.0, sum(top_scores) / len(top_scores))

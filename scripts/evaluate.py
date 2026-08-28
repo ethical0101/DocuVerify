@@ -17,7 +17,9 @@ from app.services.pipeline import analyze_document  # noqa: E402
 
 SYN_DIR = ROOT / "data" / "synthetic"
 EVAL_DIR = ROOT / "evaluation"
-RISK_THRESHOLD = 55  # authenticity_score below this => predicted "forged"
+RISK_THRESHOLD = 55  # authenticity_score below this => predicted "forged"; fixed a priori,
+                      # not fit to this test set (see roc_auc / best_threshold_accuracy below
+                      # for the threshold-independent and diagnostic-only views).
 
 
 def find_image(doc_id: str, category: str, label: str) -> Path | None:
@@ -52,6 +54,7 @@ def main():
     latencies = []
     iou_scores = []
     per_item = []
+    scores_by_label = []  # (authenticity_score, is_forged)
 
     for item in test_items:
         img_path = find_image(item["document_id"], item["category"], item["label"])
@@ -67,6 +70,7 @@ def main():
 
         predicted_forged = result["authenticity_score"] < RISK_THRESHOLD
         actual_forged = item["label"] == "forged"
+        scores_by_label.append((result["authenticity_score"], actual_forged))
 
         if predicted_forged and actual_forged:
             tp += 1
@@ -96,9 +100,37 @@ def main():
     recall = tp / (tp + fn) if (tp + fn) else 0.0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) else 0.0
 
+    genuine_scores = [s for s, forged in scores_by_label if not forged]
+    forged_scores = [s for s, forged in scores_by_label if forged]
+    mean_genuine = sum(genuine_scores) / len(genuine_scores) if genuine_scores else None
+    mean_forged = sum(forged_scores) / len(forged_scores) if forged_scores else None
+
+    roc_auc = None
+    best_threshold_accuracy = None
+    if genuine_scores and forged_scores:
+        try:
+            from sklearn.metrics import roc_auc_score
+            y_true = [1 if forged else 0 for _, forged in scores_by_label]
+            y_risk = [100 - s for s, _ in scores_by_label]  # higher risk score = more likely forged
+            roc_auc = round(float(roc_auc_score(y_true, y_risk)), 4)
+        except Exception:
+            roc_auc = None
+
+        best_acc, best_thresh = 0.0, RISK_THRESHOLD
+        for thresh in range(0, 101, 1):
+            correct = sum(1 for s, forged in scores_by_label if (s < thresh) == forged)
+            acc = correct / len(scores_by_label)
+            if acc > best_acc:
+                best_acc, best_thresh = acc, thresh
+        best_threshold_accuracy = {"threshold": best_thresh, "accuracy": round(best_acc, 4)}
+
     report = {
         "test_set_size": total,
-        "confusion_matrix": {"tp": tp, "fp": fp, "tn": tn, "fn": fn},
+        "mean_authenticity_score": {"genuine": round(mean_genuine, 1) if mean_genuine else None,
+                                     "forged": round(mean_forged, 1) if mean_forged else None},
+        "roc_auc": roc_auc,
+        "best_threshold_accuracy": best_threshold_accuracy,
+        "confusion_matrix_at_fixed_threshold": {"tp": tp, "fp": fp, "tn": tn, "fn": fn},
         "accuracy": round(accuracy, 4),
         "precision": round(precision, 4),
         "recall": round(recall, 4),
@@ -116,7 +148,12 @@ def main():
     (EVAL_DIR / "results.json").write_text(json.dumps({"summary": report, "per_item": per_item}, indent=2))
 
     lines = ["# Evaluation Report\n", f"Test set size: {total}\n",
-              f"Accuracy: {report['accuracy']:.2%}\n", f"Precision: {report['precision']:.2%}\n",
+              f"Mean authenticity score -- genuine: {report['mean_authenticity_score']['genuine']}, "
+              f"forged: {report['mean_authenticity_score']['forged']}\n",
+              f"ROC-AUC (risk score vs. forged label): {report['roc_auc']}\n",
+              f"Best achievable threshold accuracy: {report['best_threshold_accuracy']}\n",
+              f"Accuracy at fixed threshold={RISK_THRESHOLD}: {report['accuracy']:.2%}\n",
+              f"Precision: {report['precision']:.2%}\n",
               f"Recall: {report['recall']:.2%}\n", f"F1: {report['f1']:.2%}\n"]
     if report["localization_mean_iou"] is not None:
         lines.append(f"Localization mean IoU (n={report['localization_sample_count']}): "

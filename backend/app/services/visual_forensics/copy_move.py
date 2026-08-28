@@ -8,7 +8,7 @@ import numpy as np
 
 
 def detect_copy_move(image: np.ndarray, block_size: int = 48, stride: int = 24,
-                      min_distance_factor: float = 2.5, similarity_thresh: float = 0.985) -> list:
+                      min_distance_factor: float = 2.5, similarity_thresh: float = 0.996) -> list:
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     h, w = gray.shape
     if h < block_size * 2 or w < block_size * 2:
@@ -18,7 +18,11 @@ def detect_copy_move(image: np.ndarray, block_size: int = 48, stride: int = 24,
     for y in range(0, h - block_size, stride):
         for x in range(0, w - block_size, stride):
             patch = gray[y:y + block_size, x:x + block_size]
-            if patch.std() < 8:  # skip near-blank background blocks
+            edges = cv2.Canny(patch, 50, 150)
+            edge_density = edges.mean() / 255.0
+            # Skip flat/background blocks AND uniform stripes/solid-color bands
+            # (e.g. a solid header) which are trivially "self-similar" without being copy-moved.
+            if patch.std() < 8 or edge_density < 0.04:
                 continue
             small = cv2.resize(patch, (8, 8), interpolation=cv2.INTER_AREA).astype(np.float32)
             small = (small - small.mean()) / (small.std() + 1e-6)

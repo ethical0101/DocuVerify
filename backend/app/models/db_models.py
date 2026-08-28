@@ -43,6 +43,7 @@ class Analysis(Base):
     explanation = Column(JSON, default=dict)
     model_version = Column(String, default="docuverify-fusion-v0.1")
     timing_ms = Column(JSON, default=dict)
+    page_size = Column(JSON, default=list)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
 
     document = relationship("Document", back_populates="analyses")
