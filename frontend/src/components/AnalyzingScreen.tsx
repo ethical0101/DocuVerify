@@ -91,14 +91,15 @@ export default function AnalyzingScreen() {
 
   // Speed up step changes slightly to feel snappy but clinical (1000ms per step)
   useEffect(() => {
+    // Side effects (clearInterval) must not live inside the setState updater --
+    // React 18 StrictMode deliberately double-invokes updaters in dev to catch
+    // exactly this, which cleared the SAME interval twice and could leave a
+    // second stale interval racing the log-sync effect below (that race is what
+    // pushed an out-of-bounds/undefined entry into terminalLogs and crashed the
+    // whole page via .startsWith() on it). Stopping condition now lives outside
+    // the updater, checked from the interval callback itself.
     const stepInterval = setInterval(() => {
-      setActiveStep((s) => {
-        if (s < STEPS.length - 1) {
-          return s + 1;
-        }
-        clearInterval(stepInterval);
-        return s;
-      });
+      setActiveStep((s) => (s < STEPS.length - 1 ? s + 1 : s));
     }, 1200);
 
     return () => clearInterval(stepInterval);
@@ -205,7 +206,7 @@ export default function AnalyzingScreen() {
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-1.5 scrollbar-thin text-white/70">
             <AnimatePresence>
-              {terminalLogs.map((log, idx) => {
+              {terminalLogs.filter(Boolean).map((log, idx) => {
                 const isOk = log.startsWith("[OK]");
                 const isInfo = log.startsWith("[INFO]");
                 
