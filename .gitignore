@@ -21,3 +21,6 @@ data/raw/*
 .vscode/
 EasyOCR/
 ~/.EasyOCR/
+data/.jwt_secret
+data/enterprise/
+demo_datasets/organization_demo_dataset/

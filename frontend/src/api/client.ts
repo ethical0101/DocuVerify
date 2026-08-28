@@ -73,6 +73,10 @@ export interface ResultsResponse {
   stage_summaries: Record<string, string>;
   model_version: string;
   page_size: [number, number];
+  enterprise_assessment?: {
+    risk_score: number; authenticity_score: number; risk_level: RiskLevel;
+    algorithm: string; model_name: string; model_version: string;
+  } | null;
 }
 
 export interface InvestigationSummary {

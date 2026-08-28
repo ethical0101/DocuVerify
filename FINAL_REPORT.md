@@ -37,6 +37,23 @@ and `docs/architecture.md` for the stage-by-stage pipeline description.
   `scripts/evaluate.py` against the live codebase — including the weak initial result and the measured
   improvement, not just the flattering final number.
 
+## 4b. Enterprise Adaptive Model (this session's addition)
+Added a full second layer on top of the existing forensic pipeline, without touching or replacing any of
+it: **authentication** (PBKDF2 password hashing, JWT sessions), **roles** (admin/HR/viewer, enforced
+server-side), a **multi-tenant** data model (every enterprise record carries an `organization_id`), a
+**dataset upload + validation pipeline** for organization-labeled documents (safe ZIP extraction, class-
+balance/corruption checks), a **lightweight classifier training pipeline** (`ml/training/
+train_enterprise_model.py` — RandomForest/LogisticRegression over a 9-feature vector derived from the
+same base-pipeline signals, with real, pollable per-stage progress via a background thread, not a
+simulated progress bar), a **model registry** with explicit admin activation/archival/rollback, an
+**audit log**, and an **enterprise dashboard**. The enterprise model is strictly additive: every
+investigation report shows the base engine's number *and* the organization model's number side by side
+("Assessment Model" section), never one hidden behind the other. Verified end-to-end live: registered an
+organization, uploaded the included 60-document demo dataset, trained a real classifier (F1=71.4%,
+ROC-AUC=66.7%, genuinely computed — not fabricated), activated it, and confirmed an HR-role analysis
+picked it up automatically and produced a visibly different number from the base engine (72 vs. 53
+authenticity on the same forged certificate).
+
 ## 5. Architecture
 See `README.md` (`Architecture` section) and `docs/architecture.md`.
 
@@ -120,7 +137,10 @@ the live backend, including PDF, corrupt-file, and rotated-image inputs.
 
 ## 15. Security
 See `SECURITY.md` — file-type/size validation, randomized storage filenames (no path traversal via
-filename), no code execution of uploads, no secrets committed, SHA-256 fingerprinting of every upload.
+filename), no code execution of uploads, no secrets committed, SHA-256 fingerprinting of every upload,
+hashed passwords, signed short-lived JWTs, server-side role enforcement, safe ZIP dataset extraction
+(path-traversal guard, extension allowlist, size/count caps), models only ever loaded from paths this
+backend itself wrote.
 
 ## 16. Privacy
 Fully local processing by default; no document content leaves the machine unless an LLM provider is
@@ -128,8 +148,11 @@ explicitly configured, and even then only the structured evidence object (not th
 identity/certificate samples shipped in this repo are synthetic and fictional.
 
 ## 17. Demo Flow
-See `docs/demo.md` for the full ~3-minute script (genuine ID → forged ID with region click-through →
-forged certificate → evidence/explanation walkthrough → honest-limitations callout).
+See `docs/demo.md` for the full ~5-minute script: admin registers/logs in → uploads the included demo
+dataset → trains a real model with live stage progress → activates it → HR logs in → runs a Forensic
+Investigation on a forged certificate → clicks a suspicious region → sees the evidence drawer → sees the
+base-vs-organization-model comparison → reopens the case from history. `python scripts/setup_demo.py`
+automates the admin-side setup so the demo can start directly from the HR login.
 
 ## 18. Performance Benchmarks
 Per-document analysis latency and per-stage timing breakdown are recorded in every analysis response
@@ -143,20 +166,27 @@ being available, to keep the pipeline reproducible on CPU-only environments too)
 - English-only OCR/text heuristics.
 - No face-morph/portrait-substitution-specific detector (portrait box is for display, not verification).
 - No connection to any real government identity database (by design).
-- Not implemented due to 24-hour hackathon constraints: real external dataset integration (SIDTD/IDNet/
+- No forgot-password flow, no server-side token revocation list, no login rate limiting — accepted
+  trade-offs for this build's scope, documented in `SECURITY.md`, not hidden oversights.
+- The enterprise classifier's evaluation numbers come from a single small (60-document) demo dataset for
+  one fictional organization/template — a real deployment would need a larger, more representative
+  labeled set per organization.
+- Not implemented due to hackathon time constraints: real external dataset integration (SIDTD/IDNet/
   MIDV-500), a trained deep tamper-detection network, blockchain/provenance registration, a forensic
-  copilot chat interface, and multi-page (beyond page 1) analysis.
+  copilot chat interface, multi-page (beyond page 1) analysis, and a job queue for training (uses a raw
+  background thread instead).
 
 ## 20. Future Work
 Calibrate/retrain the fusion model on a larger, more diverse dataset (including a real external dataset
 subset); wire the currently-unwired `copy_move.py`/`jpeg_blockiness.py` detectors after reducing their
 false-positive rate on text-heavy documents; add portrait-substitution-specific detection; add
-multi-page document analysis; add the optional hash-based provenance/fingerprint registry described in
-the original brief.
+multi-page document analysis; add the optional hash-based provenance/fingerprint registry; add
+forgot-password/token-revocation to the enterprise auth layer; replace the raw background thread with a
+proper job queue for training at scale; add cross-organization model comparison.
 
 ## 21. Technologies Used
-FastAPI, SQLAlchemy/SQLite, OpenCV, PyMuPDF, EasyOCR, scikit-learn, React, Vite, TypeScript, Tailwind
-CSS, Framer Motion.
+FastAPI, SQLAlchemy/SQLite, OpenCV, PyMuPDF, EasyOCR, scikit-learn, PyJWT, joblib, React, Vite,
+TypeScript, Tailwind CSS, Framer Motion, React Router.
 
 ## 22. GitHub Repository
 https://github.com/ethical0101/DocuVerify

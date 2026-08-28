@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from app.core.config import settings
 from app.core.database import init_db
 from app.api.routes import router
+from app.api.auth_routes import router as auth_router
+from app.api.enterprise_routes import router as enterprise_router
 
 app = FastAPI(title="DocuVerify API", version="0.1.0",
               description="AI-powered forensic analysis for identity and educational documents.")
@@ -24,6 +26,8 @@ def on_startup():
 
 
 app.include_router(router, prefix="/api")
+app.include_router(auth_router, prefix="/api")
+app.include_router(enterprise_router, prefix="/api")
 app.mount("/uploads", StaticFiles(directory=str(settings.upload_dir)), name="uploads")
 
 

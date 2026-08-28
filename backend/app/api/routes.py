@@ -10,9 +10,10 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.db_models import Document, Analysis
+from app.models.db_models import Document, Analysis, User
 from app.services.preprocessing.loader import page_count
 from app.services.pipeline import analyze_document
+from app.api.deps import get_optional_user
 
 router = APIRouter()
 
@@ -24,7 +25,8 @@ def health():
 
 
 @router.post("/documents/upload")
-def upload_document(file: UploadFile = File(...), db: Session = Depends(get_db)):
+def upload_document(file: UploadFile = File(...), db: Session = Depends(get_db),
+                     user: User | None = Depends(get_optional_user)):
     suffix = Path(file.filename or "").suffix.lower()
     if suffix not in settings.allowed_extensions:
         raise HTTPException(400, f"Unsupported file type '{suffix}'. Allowed: {settings.allowed_extensions}")
@@ -54,6 +56,8 @@ def upload_document(file: UploadFile = File(...), db: Session = Depends(get_db))
         pages=pages,
         size_bytes=len(contents),
         status="uploaded",
+        organization_id=user.organization_id if user else None,
+        uploaded_by=user.id if user else None,
     )
     db.add(doc)
     db.commit()
@@ -63,7 +67,7 @@ def upload_document(file: UploadFile = File(...), db: Session = Depends(get_db))
 
 
 @router.post("/documents/{doc_id}/analyze")
-def analyze(doc_id: str, db: Session = Depends(get_db)):
+def analyze(doc_id: str, db: Session = Depends(get_db), user: User | None = Depends(get_optional_user)):
     doc = db.get(Document, doc_id)
     if not doc:
         raise HTTPException(404, "Document not found")
@@ -82,6 +86,26 @@ def analyze(doc_id: str, db: Session = Depends(get_db)):
     doc.category = result["category"]
     if not doc.case_number:
         doc.case_number = f"DV-{doc.created_at.strftime('%Y')}-{doc.id[:6].upper()}"
+
+    # If the caller is logged in and their organization has an ACTIVE trained model,
+    # layer its assessment on top of the base forensic result. The base pipeline
+    # result is unchanged either way -- this is additive, never a replacement.
+    enterprise_model_id, enterprise_assessment = None, {}
+    if user:
+        from app.models.db_models import ModelVersion
+        active = db.query(ModelVersion).filter(
+            ModelVersion.organization_id == user.organization_id, ModelVersion.status == "active").first()
+        if active:
+            try:
+                from pathlib import Path as _Path
+                from ml.inference.enterprise_predictor import predict_with_enterprise_model
+                enterprise_assessment = predict_with_enterprise_model(result, _Path(active.model_path))
+                enterprise_assessment["model_name"] = active.name
+                enterprise_assessment["model_version"] = active.version
+                enterprise_model_id = active.id
+            except Exception:
+                enterprise_assessment = {}  # organization model is additive -- never fail the base analysis
+
     analysis = Analysis(
         document_id=doc.id,
         authenticity_score=result["authenticity_score"],
@@ -97,13 +121,16 @@ def analyze(doc_id: str, db: Session = Depends(get_db)):
         timing_ms=result["timing_ms"],
         stage_summaries=result["stage_summaries"],
         page_size=result["page_size"],
+        enterprise_model_id=enterprise_model_id,
+        enterprise_assessment=enterprise_assessment,
     )
     db.add(analysis)
     db.commit()
     db.refresh(analysis)
     return {"document_id": doc.id, "analysis_id": analysis.id, "authenticity_score": analysis.authenticity_score,
             "forensic_risk": analysis.forensic_risk, "risk_level": analysis.risk_level,
-            "confidence": analysis.confidence, "case_number": doc.case_number}
+            "confidence": analysis.confidence, "case_number": doc.case_number,
+            "enterprise_assessment": enterprise_assessment}
 
 
 @router.get("/documents/{doc_id}")
@@ -141,6 +168,7 @@ def get_results(doc_id: str, db: Session = Depends(get_db)):
         "stage_summaries": latest.stage_summaries,
         "model_version": latest.model_version,
         "page_size": latest.page_size,
+        "enterprise_assessment": latest.enterprise_assessment,
     }
 
 

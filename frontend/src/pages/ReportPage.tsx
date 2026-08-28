@@ -80,6 +80,31 @@ export default function ReportPage() {
         />
       </section>
 
+      {results.enterprise_assessment && (
+        <section className="glass rounded-2xl p-6">
+          <div className="text-xs uppercase tracking-wide text-white/40 mb-4">Assessment Model</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="bg-white/5 rounded-lg p-4">
+              <div className="text-xs text-white/40 mb-1">Base Forensic Engine</div>
+              <div className="text-2xl font-semibold">{results.authenticity_score.toFixed(0)}</div>
+              <div className="text-xs text-white/40">authenticity &middot; DocuVerify Forensic Engine</div>
+            </div>
+            <div className="bg-accent/10 border border-accent/20 rounded-lg p-4">
+              <div className="text-xs text-white/40 mb-1">
+                Organization Model &middot; {results.enterprise_assessment.model_name} {results.enterprise_assessment.model_version}
+              </div>
+              <div className="text-2xl font-semibold text-accent">{results.enterprise_assessment.authenticity_score.toFixed(0)}</div>
+              <div className="text-xs text-white/40">authenticity &middot; {results.enterprise_assessment.algorithm}</div>
+            </div>
+          </div>
+          <p className="text-xs text-white/40">
+            The organization-specific model was trained on this organization's own labeled document
+            examples, layered on top of the same base forensic features shown above -- it never replaces
+            the base engine's evidence, only adds an organization-tuned second opinion.
+          </p>
+        </section>
+      )}
+
       {/* 4. Evidence matrix */}
       <section>
         <EvidenceMatrix evidenceList={results.evidence_list} stageSummaries={results.stage_summaries} />
