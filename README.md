@@ -72,7 +72,6 @@ Unauthenticated use also works — the core forensic pipeline (Quick Scan / Fore
 - **Region-level localization.** Every visual/typography/structure/consistency finding with a bounding box is rendered as a clickable overlay on the document itself ([`DocumentViewer.tsx`](frontend/src/components/DocumentViewer.tsx)).
 - **Two modes, one pipeline.** Quick Scan and the step-by-step Forensic Investigation workspace call the *identical* backend stage functions (`analyze_document_intake`, `analyze_ocr`, `analyze_visual_forensics`, `analyze_typography_stage`, `analyze_structure`, `analyze_metadata_stage`, `analyze_consistency_stage`, `fuse_and_assess`) — only the frontend reveal differs.
 - **Adaptive, not static.** An organization can train [`ml/training/train_enterprise_model.py`](ml/training/train_enterprise_model.py) on its own labeled documents; the result is shown *additively* next to the base engine's number, never as a silent replacement.
-- **Honest by construction.** A scoring idea (a "corroboration bonus") was implemented, measured on the held-out test set, found to make ROC-AUC *worse* (0.558 → 0.412), and disabled — see [`pipeline.py:146-155`](backend/app/services/pipeline.py) and [`MODEL_CARD.md`](MODEL_CARD.md) for that story told straight, not hidden.
 - **Human-in-the-loop by design.** Every result carries a "recommended human check" and a disclaimer; nothing in this system auto-accepts or auto-rejects a document.
 
 ---
