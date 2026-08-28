@@ -130,7 +130,7 @@ def analyze(doc_id: str, db: Session = Depends(get_db), user: User | None = Depe
     return {"document_id": doc.id, "analysis_id": analysis.id, "authenticity_score": analysis.authenticity_score,
             "forensic_risk": analysis.forensic_risk, "risk_level": analysis.risk_level,
             "confidence": analysis.confidence, "case_number": doc.case_number,
-            "enterprise_assessment": enterprise_assessment}
+            "enterprise_assessment": enterprise_assessment or None}
 
 
 @router.get("/documents/{doc_id}")
@@ -168,7 +168,7 @@ def get_results(doc_id: str, db: Session = Depends(get_db)):
         "stage_summaries": latest.stage_summaries,
         "model_version": latest.model_version,
         "page_size": latest.page_size,
-        "enterprise_assessment": latest.enterprise_assessment,
+        "enterprise_assessment": latest.enterprise_assessment or None,
     }
 
 

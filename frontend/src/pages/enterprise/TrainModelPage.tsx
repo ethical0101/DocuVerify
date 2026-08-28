@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Check, Loader2 } from "lucide-react";
 import {
   listDatasets, startTraining, getTrainingJob, listModels,
@@ -169,7 +170,7 @@ function TrainingResult({ jobId }: { jobId: string }) {
       {model.metrics.roc_auc != null && (
         <div className="text-xs text-white/40 mb-4">ROC-AUC: {(model.metrics.roc_auc * 100).toFixed(1)}%</div>
       )}
-      <a href="/enterprise/models" className="text-sm text-accent hover:underline">Review and activate in Model Registry &rarr;</a>
+      <Link to="/enterprise/models" className="text-sm text-accent hover:underline">Review and activate in Model Registry &rarr;</Link>
     </div>
   );
 }

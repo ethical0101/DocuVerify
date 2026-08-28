@@ -80,7 +80,7 @@ export default function ReportPage() {
         />
       </section>
 
-      {results.enterprise_assessment && (
+      {results.enterprise_assessment && results.enterprise_assessment.authenticity_score !== undefined && (
         <section className="glass rounded-2xl p-6">
           <div className="text-xs uppercase tracking-wide text-white/40 mb-4">Assessment Model</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
